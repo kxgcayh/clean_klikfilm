@@ -1,0 +1,23 @@
+name: fl_klikfilm
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+environment:
+  sdk: '>=3.3.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_hooks: ^0.20.5
+  hooks_riverpod: ^2.5.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  custom_lint: ^0.6.4
+  riverpod_lint: ^2.3.10
+  change_app_package_name: ^1.1.0
+
+flutter:
+  uses-material-design: true
