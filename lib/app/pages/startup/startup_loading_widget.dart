@@ -1,3 +1,4 @@
+import 'package:fl_klikfilm/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 
 class StartupLoadingWidget extends StatelessWidget {
@@ -7,7 +8,10 @@ class StartupLoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(child: Text('StartupLoadingWidget')),
+        backgroundColor: Colors.black,
+        body: Center(
+          child: Assets.pictures.logo.image(filterQuality: FilterQuality.high),
+        ),
       ),
     );
   }

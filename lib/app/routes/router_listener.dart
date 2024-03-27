@@ -12,7 +12,9 @@ class RouterListener extends AutoDisposeAsyncNotifier<void> implements Listenabl
   @override
   Future<void> build() async {
     // trigger something when there is not connection
-    // ref.listen(nameProvider, (previous, next) {});
+    // ref.listen(nameProvider, (previous, next) {
+    //    _routerListener?.call()
+    // });
 
     ref.listenSelf((_, __) {
       if (state.isLoading) return;

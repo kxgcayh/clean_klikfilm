@@ -13,6 +13,11 @@ dependencies:
   go_router: ^13.2.1
   flutter_hooks: ^0.20.5
   hooks_riverpod: ^2.5.1
+  flutter_gen: ^5.4.0
+  connectivity_plus: ^6.0.1
+  shared_preferences: ^2.2.2
+  klikfilm_dart_resources:
+    path: ../klikfilm_dart_resources
 
 dev_dependencies:
   flutter_test:
@@ -22,6 +27,42 @@ dev_dependencies:
   custom_lint: ^0.6.4
   riverpod_lint: ^2.3.10
   go_router_builder: ^2.4.1
+  flutter_gen_runner: ^5.4.0
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/pictures/
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Thin.ttf
+          weight: 200
+        - asset: assets/fonts/Roboto-ThinItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/fonts/Roboto-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Roboto-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Roboto-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Roboto-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Roboto-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Roboto-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Roboto-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Roboto-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Roboto-BoldItalic.ttf
+          weight: 700
+          style: italic
