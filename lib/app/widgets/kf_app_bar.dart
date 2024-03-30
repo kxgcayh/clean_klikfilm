@@ -12,7 +12,7 @@ class KfAppBar extends HookWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final String? path = useMemoized(() => GoRouterState.of(context).name);
-    final ScaffoldState? scaffoldState = useMemoized(() => primaryScaffoldKey.currentState);
+
     return AppBar(
       backgroundColor: Colors.black,
       elevation: elevation,
@@ -23,26 +23,28 @@ class KfAppBar extends HookWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       flexibleSpace: Assets.pictures.batikApb.image(fit: BoxFit.fitWidth),
-      leading: IconButton(
-        onPressed: () {
-          if (scaffoldState?.isDrawerOpen ?? false) {
-            scaffoldState?.closeDrawer();
-          } else {
-            scaffoldState?.openDrawer();
-          }
-        },
-        icon: Icon(
-          (path != HomeRoute.name || (scaffoldState?.isDrawerOpen == true))
-              ? Icons.arrow_back_ios_new_rounded
-              : Icons.menu_rounded,
-          color: Colors.white,
-          size: 24,
-        ),
-      ),
+      leading: Builder(builder: (context) {
+        return IconButton(
+          onPressed: () {
+            if (path != HomeRoute.name) {
+              GoRouter.of(context).pop();
+            } else {
+              MenuRoute().push(context);
+            }
+          },
+          icon: Builder(builder: (context) {
+            return Icon(
+              path != HomeRoute.name ? Icons.arrow_back_ios_new_rounded : Icons.menu_rounded,
+              color: Colors.white,
+              size: 24,
+            );
+          }),
+        );
+      }),
       actions: [
-        if (scaffoldState?.isDrawerOpen == false)
+        if (path == HomeRoute.name)
           IconButton(
-            onPressed: () {},
+            onPressed: () => SearchRoute().push(context),
             icon: Icon(
               Icons.search_rounded,
               color: Colors.white,
