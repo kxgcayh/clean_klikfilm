@@ -4,11 +4,12 @@ import 'package:go_router/go_router.dart';
 
 part 'app_router.g.dart';
 
+final primaryScaffoldKey = GlobalKey<ScaffoldState>();
 final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'mainBottomNavigatorKeyaergewgergwerfwefwfwd');
 
-@TypedGoRoute<SplashRoute>(path: SplashRoute.path, name: SplashRoute.name)
-class SplashRoute extends GoRouteData {
-  const SplashRoute();
+@TypedGoRoute<HomeRoute>(path: HomeRoute.path, name: HomeRoute.name)
+class HomeRoute extends GoRouteData {
+  const HomeRoute();
   static const name = 'Home';
   static const path = '/';
 

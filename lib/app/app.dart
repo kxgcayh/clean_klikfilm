@@ -18,7 +18,7 @@ class KlikFilmApp extends HookConsumerWidget {
       () => GoRouter(
         navigatorKey: navigatorKey.value,
         refreshListenable: routerListenerNotifier,
-        initialLocation: SplashRoute.path,
+        initialLocation: HomeRoute.path,
         debugLogDiagnostics: true,
         routes: $appRoutes,
         redirect: routerListenerNotifier.redirect,
@@ -33,8 +33,10 @@ class KlikFilmApp extends HookConsumerWidget {
       theme: ThemeData(
         useMaterial3: true,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        colorScheme: ColorScheme.fromSeed(seedColor: KFilmColors.primary),
+        primaryColor: KFilmColors.primary,
+        // colorScheme: ColorScheme.fromSeed(seedColor: KFilmColors.primary),
         fontFamily: FontFamily.roboto,
+        brightness: Brightness.dark,
       ),
     );
   }

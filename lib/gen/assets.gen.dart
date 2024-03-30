@@ -12,11 +12,19 @@ import 'package:flutter/widgets.dart';
 class $AssetsPicturesGen {
   const $AssetsPicturesGen();
 
+  /// File path: assets/pictures/batik_apb.png
+  AssetGenImage get batikApb =>
+      const AssetGenImage('assets/pictures/batik_apb.png');
+
+  /// File path: assets/pictures/batik_drawer.png
+  AssetGenImage get batikDrawer =>
+      const AssetGenImage('assets/pictures/batik_drawer.png');
+
   /// File path: assets/pictures/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/pictures/logo.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [logo];
+  List<AssetGenImage> get values => [batikApb, batikDrawer, logo];
 }
 
 class Assets {

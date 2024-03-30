@@ -26,7 +26,9 @@ linter:
   # producing the lint.
   rules:
     prefer_single_quotes: true
+    sized_box_for_whitespace: false
     prefer_const_constructors: false
+    avoid_unnecessary_containers: false
     prefer_const_literals_to_create_immutables: false
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
 

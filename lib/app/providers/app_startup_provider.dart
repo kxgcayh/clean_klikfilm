@@ -32,5 +32,5 @@ final FutureProvider<void> appStartupProvider = FutureProvider<void>((ref) async
     uid: ref.watch(localUserNotifierProvider.select((value) => value.userId)),
   );
   await localNotifier.updateAccessToken(accessTokenResponse.data?.token);
-  await Future.delayed(Duration(seconds: 2));
+  await Future.delayed(Duration(seconds: 1));
 });

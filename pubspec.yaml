@@ -16,6 +16,7 @@ dependencies:
   flutter_gen: ^5.4.0
   connectivity_plus: ^6.0.1
   shared_preferences: ^2.2.2
+  sliding_sheet2: ^2.0.1
   klikfilm_dart_resources:
     path: ../klikfilm_dart_resources
 
