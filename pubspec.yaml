@@ -17,6 +17,7 @@ dependencies:
   connectivity_plus: ^6.0.1
   shared_preferences: ^2.2.2
   sliding_sheet2: ^2.0.1
+  flutter_svg: ^2.0.10+1
   klikfilm_dart_resources:
     path: ../klikfilm_dart_resources
 
@@ -33,6 +34,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/icons/
     - assets/pictures/
   fonts:
     - family: Roboto
@@ -67,3 +69,7 @@ flutter:
         - asset: assets/fonts/Roboto-BoldItalic.ttf
           weight: 700
           style: italic
+
+flutter_gen:
+  integrations:
+    flutter_svg: true
