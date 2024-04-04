@@ -16,7 +16,7 @@ class KfAppBar extends HookWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.black,
       elevation: elevation,
-      surfaceTintColor: KFilmColors.grey,
+      surfaceTintColor: KColors.grey,
       title: Assets.pictures.logo.image(
         width: 134,
         height: 26,

@@ -17,8 +17,8 @@ import 'package:flutter/material.dart';
 /// For example, to get a fully opaque orange, you would use `const
 /// Color(0xFFFF9000)` (`FF` FOR THE ALPHA, `FF` FOR THE RED, `90` FOR THE
 /// green, and `00` for the blue).
-class KFilmColors {
-  KFilmColors._();
+class KColors {
+  KColors._();
 
   // Only use this getter in development!
   static Color get random {

@@ -33,7 +33,10 @@ class HomePage extends ConsumerWidget {
         body: bannerProvider.when(
           data: (state) {
             return GestureDetector(
-              onTap: () => klog.i(state),
+              onTap: () async {
+                final result = await ref.read(listHomeCategoryProvider);
+                klog.i(result);
+              },
               child: Image.network('${state.banner.thumbnail?.the380x543}'),
             );
           },

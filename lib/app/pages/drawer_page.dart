@@ -1,9 +1,10 @@
+import 'package:fl_klikfilm/app/routes/app_router.dart';
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
 import 'package:fl_klikfilm/app/widgets/kf_app_bar.dart';
 import 'package:fl_klikfilm/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 
@@ -40,7 +41,7 @@ class DrawerPage extends HookConsumerWidget {
                         'HOME',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
-                      onTap: () {},
+                      onTap: () => context.goNamed(HomeRoute.name),
                     ),
                     Visibility(
                       visible: !localUserProvider.authenticationType.isGuest,
@@ -56,7 +57,7 @@ class DrawerPage extends HookConsumerWidget {
                           'MY ACCOUNT',
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
-                        onTap: () {},
+                        onTap: () => context.pushReplacementNamed(AccountRoute.name),
                       ),
                     ),
                     Visibility(
@@ -69,7 +70,7 @@ class DrawerPage extends HookConsumerWidget {
                           'POINTS',
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
-                        onTap: () {},
+                        onTap: () => context.pushReplacementNamed(PointRoute.name),
                       ),
                     ),
                     Visibility(
@@ -112,7 +113,7 @@ class DrawerPage extends HookConsumerWidget {
                           'LINK TO TV',
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
-                        onTap: () {},
+                        onTap: () => context.pushReplacementNamed(LinkToTvRoute.name),
                       ),
                     ),
                     Visibility(
@@ -125,7 +126,7 @@ class DrawerPage extends HookConsumerWidget {
                           'KIDS MODE',
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
-                        onTap: () {},
+                        onTap: () => context.pushReplacementNamed(KidsModeRoute.name),
                         trailing: Stack(
                           alignment: localUserProvider.kidsMode != null
                               ? Alignment.centerRight
@@ -135,8 +136,9 @@ class DrawerPage extends HookConsumerWidget {
                               width: 45,
                               height: 25,
                               decoration: BoxDecoration(
-                                color:
-                                    Colors.white.withOpacity(localUserProvider.kidsMode != null ? 0.8 : 0.2),
+                                color: Colors.white.withOpacity(
+                                  localUserProvider.kidsMode != null ? 0.8 : 0.2,
+                                ),
                                 borderRadius: BorderRadius.circular(80),
                               ),
                             ),
@@ -144,8 +146,7 @@ class DrawerPage extends HookConsumerWidget {
                               width: 28,
                               height: 28,
                               decoration: BoxDecoration(
-                                color:
-                                    localUserProvider.kidsMode != null ? KFilmColors.primary : Colors.white,
+                                color: localUserProvider.kidsMode != null ? KColors.primary : Colors.white,
                                 borderRadius: BorderRadius.circular(28 / 2),
                               ),
                             ),
@@ -184,7 +185,9 @@ class DrawerPage extends HookConsumerWidget {
                                   'CONTACT US',
                                   style: TextStyle(color: Colors.white, fontSize: 18),
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  SupportRoute(type: SupportType.contactUs).pushReplacement(context);
+                                },
                               ),
                               ListTile(
                                 contentPadding: EdgeInsets.symmetric(horizontal: 67),
@@ -192,7 +195,9 @@ class DrawerPage extends HookConsumerWidget {
                                   'TERMS OF USE',
                                   style: TextStyle(color: Colors.white, fontSize: 18),
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  SupportRoute(type: SupportType.termsOfUse).pushReplacement(context);
+                                },
                               ),
                               ListTile(
                                 contentPadding: EdgeInsets.symmetric(horizontal: 67),
@@ -200,7 +205,9 @@ class DrawerPage extends HookConsumerWidget {
                                   'FAQ',
                                   style: TextStyle(color: Colors.white, fontSize: 18),
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  SupportRoute(type: SupportType.faq).pushReplacement(context);
+                                },
                               ),
                               ListTile(
                                 contentPadding: EdgeInsets.symmetric(horizontal: 67),
@@ -208,7 +215,9 @@ class DrawerPage extends HookConsumerWidget {
                                   'PRIVACY POLICY',
                                   style: TextStyle(color: Colors.white, fontSize: 18),
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  SupportRoute(type: SupportType.privacyPolicy).pushReplacement(context);
+                                },
                               ),
                             ],
                           ),
@@ -219,18 +228,15 @@ class DrawerPage extends HookConsumerWidget {
                 ),
               ),
             ),
-            Visibility(
-              visible: !localUserProvider.authenticationType.isGuest,
-              child: ListTile(
-                horizontalTitleGap: 20,
-                contentPadding: EdgeInsets.symmetric(horizontal: 23),
-                leading: Assets.icons.logout.svg(),
-                title: Text(
-                  'LOGOUT',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-                onTap: () {},
+            ListTile(
+              horizontalTitleGap: 20,
+              contentPadding: EdgeInsets.symmetric(horizontal: 23),
+              leading: Assets.icons.logout.svg(),
+              title: Text(
+                'LOGOUT',
+                style: TextStyle(color: Colors.white, fontSize: 18),
               ),
+              onTap: () {},
             ),
           ],
         ),

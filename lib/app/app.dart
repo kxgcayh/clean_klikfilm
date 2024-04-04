@@ -33,8 +33,7 @@ class KlikFilmApp extends HookConsumerWidget {
       theme: ThemeData(
         useMaterial3: true,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        primaryColor: KFilmColors.primary,
-        // colorScheme: ColorScheme.fromSeed(seedColor: KFilmColors.primary),
+        primaryColor: KColors.primary,
         fontFamily: FontFamily.roboto,
         brightness: Brightness.dark,
       ),

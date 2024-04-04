@@ -33,7 +33,7 @@ class AppStartupErrorPage extends StatelessWidget {
                       child: TextButton(
                         onPressed: onRetry,
                         style: TextButton.styleFrom(
-                          backgroundColor: KFilmColors.crimson,
+                          backgroundColor: KColors.crimson,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.5),
                           ),

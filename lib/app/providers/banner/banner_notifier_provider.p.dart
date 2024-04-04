@@ -8,7 +8,7 @@ class BannerNotifier extends AsyncNotifier<BannerState> {
     final VideoCatalogRepository repository = ref.read(videoCatalogRepositoryProvider);
     final BannerResponseModel bannerResponse = await repository.bannerHighlights(
       tel: localUser.telcoCode,
-      cc: localUser.countryCode ?? 'ID',
+      cc: localUser.countryCode,
     );
     final BannerModel banner = bannerResponse.data.first;
     if (banner.subcategory?.id != null) {
@@ -19,7 +19,7 @@ class BannerNotifier extends AsyncNotifier<BannerState> {
         subCat: banner.subcategory?.id,
         vid: banner.id,
         tok: '${localUser.accessToken}',
-        cc: localUser.countryCode ?? 'ID',
+        cc: localUser.countryCode,
       );
     }
 
