@@ -5,145 +5,217 @@ import 'package:fl_klikfilm/app/widgets/kf_image.dart';
 import 'package:fl_klikfilm/app/widgets/kf_shimmer.dart';
 import 'package:fl_klikfilm/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
-import 'package:sliding_sheet2/sliding_sheet2.dart';
+import 'package:smooth_sheets/smooth_sheets.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sheetController = useMemoized(() => SheetController());
     final bannerProvider = ref.watch(bannerStateProvider);
     // final categoriesProvider = ref.watch(categoriesFutureProvider);
-    final dummies = List.generate(100, (index) => 'Item-$index');
+    final dummies = List.generate(20, (index) => 'Item-$index');
     return Scaffold(
       appBar: KfAppBar(),
-      body: SlidingSheet(
-        elevation: 1.0,
-        extendBody: true,
-        cornerRadius: 0,
-        controller: sheetController,
-        listener: (SheetState state) {
-          klog.d('$state');
-        },
-        addTopViewPaddingOnFullscreen: true,
-        minHeight: MediaQuery.of(context).size.height,
-        duration: Duration(milliseconds: 1250),
-        closeOnBackdropTap: true,
-        isBackdropInteractable: true,
-        scrollSpec: ScrollSpec(overscroll: true, overscrollColor: Colors.yellow),
-        parallaxSpec: const ParallaxSpec(
-          enabled: true,
-          amount: 0.35,
-          endExtent: 0.6,
-        ),
-        liftOnScrollHeaderElevation: 12.0,
-        liftOnScrollFooterElevation: 12.0,
-
-        snapSpec: const SnapSpec(
-          snap: true,
-          snappings: [0.255, 0.65, 1.0],
-          positioning: SnapPositioning.relativeToSheetHeight,
-        ),
-        body: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height / 1.525,
-          child: bannerProvider.when(
-            data: (state) {
-              return KFImage(
-                width: double.infinity,
-                '${state.banner.thumbnail?.the380x543}',
-                onTap: () {},
-              );
-            },
-            error: (error, stack) => GestureDetector(
-              onTap: () => ref.invalidate(bannerStateProvider),
-              child: KfShimmer(highlightColor: Colors.red),
+      body: Stack(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 1.35,
+            child: bannerProvider.when(
+              data: (state) {
+                return KFImage(
+                  width: double.infinity,
+                  '${state.banner.thumbnail?.the380x543}',
+                  onTap: () {},
+                );
+              },
+              error: (error, stack) => GestureDetector(
+                onTap: () => ref.invalidate(bannerStateProvider),
+                child: KfShimmer(highlightColor: Colors.red),
+              ),
+              loading: () => KfShimmer(),
             ),
-            loading: () => KfShimmer(),
           ),
-        ),
-        // customBuilder:(context, controller, state) {},
-        builder: (context, SheetState state) {
-          // customBuilder: (context, controller, state) {
-          return Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(Assets.pictures.batikDrawer.path),
-                alignment: Alignment.centerLeft,
-                fit: BoxFit.fitHeight,
-                repeat: ImageRepeat.repeatY,
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.285),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.black.withOpacity(0.8),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+              child: Assets.pictures.logo.image(width: 134, height: 26),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.285),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.black.withOpacity(0.8),
+                    Colors.transparent,
+                  ],
+                ),
               ),
             ),
-            height: MediaQuery.of(context).size.height,
-            // child: Assets.pictures.batikDrawer.image(
-            //   alignment: Alignment.centerLeft,
-            //   fit: BoxFit.fitHeight,
-            //   repeat: ImageRepeat.repeatY,
-            // ),
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(2),
-                      topRight: Radius.circular(2),
-                    ),
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0xFF8FB001),
-                        Color(0xFF6C8501),
-                        Color(0xFF495A01),
-                        Color(0xFF232B00),
-                        Colors.black.withOpacity(0.5),
-                        Colors.transparent,
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                  ),
-                  child: Assets.pictures.batikPanel.image(repeat: ImageRepeat.repeatX),
-                ),
-                SingleChildScrollView(
-                  child: Column(
-                    children: dummies
-                        .map(
-                          (e) => Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-                            child: Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    KfShimmer(
-                                      width: 166,
-                                      height: 27,
-                                      baseColor: KColors.primaryGrey.withOpacity(0.5),
-                                      borderRadius: BorderRadius.circular(4.5),
-                                    ),
-                                    SizedBox(height: 4),
-                                    KfShimmer(
-                                      width: 24,
-                                      height: 3,
-                                      baseColor: KColors.primaryGrey.withOpacity(0.5),
-                                      borderRadius: BorderRadius.circular(4.5),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                        .toList(),
-                  ),
-                )
-              ],
+          ),
+          ScrollableSheet(
+            initialExtent: Extent.pixels(
+              MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.3),
             ),
-          );
-        },
+            minExtent: Extent.pixels(
+              MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.3),
+            ),
+            physics: StretchingSheetPhysics(
+              stretchingRange: const Extent.proportional(0.050),
+              parent: SnappingSheetPhysics(
+                snappingBehavior: SnapToNearest(
+                  snapTo: [
+                    Extent.pixels(
+                      MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.3),
+                    ),
+                    Extent.pixels(
+                      MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.5),
+                    ),
+                    const Extent.proportional(0.8),
+                    const Extent.proportional(1),
+                  ],
+                ),
+              ),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black,
+                image: DecorationImage(
+                  image: AssetImage(Assets.pictures.batikDrawer.path),
+                  alignment: Alignment.centerLeft,
+                  fit: BoxFit.fitHeight,
+                  repeat: ImageRepeat.repeatY,
+                ),
+              ),
+              clipBehavior: Clip.antiAlias,
+              child: ListView.builder(
+                itemCount: dummies.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: index == 0
+                        ? BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(Assets.pictures.batikPanel.path),
+                              alignment: Alignment.topCenter,
+                              // fit: BoxFit.fitHeight,
+                              repeat: ImageRepeat.repeatX,
+                            ),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(2),
+                              topRight: Radius.circular(2),
+                            ),
+                            gradient: LinearGradient(
+                              colors: [
+                                Color(0xFF8FB001),
+                                Color(0xFF6C8501),
+                                Color(0xFF495A01),
+                                Color(0xFF232B00),
+                                Colors.black.withOpacity(0.5),
+                                Colors.transparent,
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                          )
+                        : null,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 12,
+                            right: 12,
+                            top: index == 0 ? 12 : 24,
+                            bottom: 8,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  KfShimmer(
+                                    width: 166,
+                                    height: 27,
+                                    baseColor: KColors.primaryGrey.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(4.5),
+                                  ),
+                                  SizedBox(height: 4),
+                                  KfShimmer(
+                                    width: 24,
+                                    height: 3,
+                                    baseColor: KColors.primaryGrey.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(4.5),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  KfShimmer(
+                                    width: 32,
+                                    height: 16,
+                                    baseColor: KColors.primaryGrey.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(4.5),
+                                  ),
+                                  SizedBox(height: 4),
+                                  KfShimmer(
+                                    width: 12,
+                                    height: 3,
+                                    baseColor: KColors.primaryGrey.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(4.5),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: index == 0 ? 230 : 200,
+                          child: ListView.builder(
+                            itemCount: 6,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemExtent: index == 0 ? 170 : 140,
+                            padding: EdgeInsets.only(left: 12, right: 4),
+                            itemBuilder: (context, index) {
+                              return LayoutBuilder(builder: (context, constraints) {
+                                return Padding(
+                                  padding: EdgeInsets.only(right: 8),
+                                  child: KfShimmer(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                );
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
