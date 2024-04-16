@@ -19,23 +19,29 @@ class HomePage extends HookConsumerWidget {
     return Scaffold(
       appBar: KfAppBar(),
       body: Stack(
+        alignment: Alignment.topCenter,
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 1.35,
-            child: bannerProvider.when(
-              data: (state) {
-                return KFImage(
-                  width: double.infinity,
-                  '${state.banner.thumbnail?.the380x543}',
-                  onTap: () {},
-                );
-              },
-              error: (error, stack) => GestureDetector(
-                onTap: () => ref.invalidate(bannerStateProvider),
-                child: KfShimmer(highlightColor: Colors.red),
+            height: MediaQuery.of(context).size.height / 1.52,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: bannerProvider.when(
+                data: (state) {
+                  return KFImage(
+                    width: double.infinity,
+                    '${state.banner.thumbnail?.the380x543}',
+                    boxFit: BoxFit.fitHeight,
+                    alignment: Alignment.topCenter,
+                    onTap: () {},
+                  );
+                },
+                error: (error, stack) => GestureDetector(
+                  onTap: () => ref.invalidate(bannerStateProvider),
+                  child: KfShimmer(highlightColor: Colors.red),
+                ),
+                loading: () => KfShimmer(),
               ),
-              loading: () => KfShimmer(),
             ),
           ),
           Align(
