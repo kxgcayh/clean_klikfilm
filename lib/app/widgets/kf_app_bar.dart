@@ -56,5 +56,5 @@ class KfAppBar extends HookWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight * 1.2);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight * 1.05);
 }

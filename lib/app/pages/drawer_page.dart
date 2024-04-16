@@ -233,7 +233,7 @@ class DrawerPage extends HookConsumerWidget {
               contentPadding: EdgeInsets.symmetric(horizontal: 23),
               leading: Assets.icons.logout.svg(),
               title: Text(
-                'LOGOUT',
+                localUserProvider.authenticationType.isGuest ? 'LOGIN' : 'LOGOUT',
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
               onTap: () {},

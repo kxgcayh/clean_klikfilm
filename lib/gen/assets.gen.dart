@@ -70,11 +70,15 @@ class $AssetsPicturesGen {
   AssetGenImage get batikDrawer =>
       const AssetGenImage('assets/pictures/batik_drawer.png');
 
+  /// File path: assets/pictures/batik_panel.png
+  AssetGenImage get batikPanel =>
+      const AssetGenImage('assets/pictures/batik_panel.png');
+
   /// File path: assets/pictures/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/pictures/logo.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [batikApb, batikDrawer, logo];
+  List<AssetGenImage> get values => [batikApb, batikDrawer, batikPanel, logo];
 }
 
 class Assets {

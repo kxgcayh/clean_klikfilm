@@ -3,6 +3,7 @@ import 'package:fl_klikfilm/app/pages/startup/startup_loading_widget.dart';
 import 'package:fl_klikfilm/app/providers/app_startup_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 
 class AppStartupWidget extends ConsumerWidget {
   final WidgetBuilder onLoaded;
@@ -14,8 +15,11 @@ class AppStartupWidget extends ConsumerWidget {
     return appStartupState.when(
       loading: () => StartupLoadingWidget(),
       error: (error, stackTrace) => AppStartupErrorPage(
-        message: error.toString(),
-        onRetry: () => ref.invalidate(appStartupProvider),
+        error: error,
+        onRetry: () {
+          klog.e(error);
+          ref.invalidate(appStartupProvider);
+        },
       ),
       data: (_) => onLoaded(context),
     );
