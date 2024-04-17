@@ -2,6 +2,7 @@ import 'package:fl_klikfilm/app/routes/app_router.dart';
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
 import 'package:fl_klikfilm/app/widgets/kf_app_bar.dart';
 import 'package:fl_klikfilm/gen/assets.gen.dart';
+import 'package:fl_klikfilm/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -39,7 +40,11 @@ class DrawerPage extends HookConsumerWidget {
                       leading: Assets.icons.home.svg(),
                       title: Text(
                         'HOME',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: FontFamily.poppins,
+                        ),
                       ),
                       onTap: () => context.goNamed(HomeRoute.name),
                     ),
@@ -55,7 +60,11 @@ class DrawerPage extends HookConsumerWidget {
                         ),
                         title: Text(
                           'MY ACCOUNT',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: FontFamily.poppins,
+                          ),
                         ),
                         onTap: () => context.pushReplacementNamed(AccountRoute.name),
                       ),
@@ -68,7 +77,11 @@ class DrawerPage extends HookConsumerWidget {
                         leading: Assets.icons.points.svg(),
                         title: Text(
                           'POINTS',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: FontFamily.poppins,
+                          ),
                         ),
                         onTap: () => context.pushReplacementNamed(PointRoute.name),
                       ),
@@ -88,7 +101,11 @@ class DrawerPage extends HookConsumerWidget {
                         ),
                         title: Text(
                           'KLIKFILM ARCADE',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: FontFamily.poppins,
+                          ),
                         ),
                         onTap: () {},
                       ),
@@ -99,7 +116,11 @@ class DrawerPage extends HookConsumerWidget {
                       leading: Assets.icons.rewards.svg(),
                       title: Text(
                         'REWARDS',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: FontFamily.poppins,
+                        ),
                       ),
                       onTap: () {},
                     ),
@@ -111,7 +132,11 @@ class DrawerPage extends HookConsumerWidget {
                         leading: Assets.icons.tv.svg(),
                         title: Text(
                           'LINK TO TV',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: FontFamily.poppins,
+                          ),
                         ),
                         onTap: () => context.pushReplacementNamed(LinkToTvRoute.name),
                       ),
@@ -124,7 +149,11 @@ class DrawerPage extends HookConsumerWidget {
                         leading: Assets.icons.kids.svg(),
                         title: Text(
                           'KIDS MODE',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: FontFamily.poppins,
+                          ),
                         ),
                         onTap: () => context.pushReplacementNamed(KidsModeRoute.name),
                         trailing: Stack(
@@ -162,7 +191,11 @@ class DrawerPage extends HookConsumerWidget {
                           leading: Assets.icons.support.svg(),
                           title: Text(
                             'SUPPORTS',
-                            style: TextStyle(color: Colors.white, fontSize: 18),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: FontFamily.poppins,
+                            ),
                           ),
                           trailing: Icon(
                             supportExpanded.value
@@ -183,7 +216,11 @@ class DrawerPage extends HookConsumerWidget {
                                 contentPadding: EdgeInsets.symmetric(horizontal: 67),
                                 title: Text(
                                   'CONTACT US',
-                                  style: TextStyle(color: Colors.white, fontSize: 18),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: FontFamily.poppins,
+                                  ),
                                 ),
                                 onTap: () {
                                   SupportRoute(type: SupportType.contactUs).pushReplacement(context);
@@ -193,7 +230,11 @@ class DrawerPage extends HookConsumerWidget {
                                 contentPadding: EdgeInsets.symmetric(horizontal: 67),
                                 title: Text(
                                   'TERMS OF USE',
-                                  style: TextStyle(color: Colors.white, fontSize: 18),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: FontFamily.poppins,
+                                  ),
                                 ),
                                 onTap: () {
                                   SupportRoute(type: SupportType.termsOfUse).pushReplacement(context);
@@ -213,7 +254,11 @@ class DrawerPage extends HookConsumerWidget {
                                 contentPadding: EdgeInsets.symmetric(horizontal: 67),
                                 title: Text(
                                   'PRIVACY POLICY',
-                                  style: TextStyle(color: Colors.white, fontSize: 18),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: FontFamily.poppins,
+                                  ),
                                 ),
                                 onTap: () {
                                   SupportRoute(type: SupportType.privacyPolicy).pushReplacement(context);
@@ -234,9 +279,17 @@ class DrawerPage extends HookConsumerWidget {
               leading: Assets.icons.logout.svg(),
               title: Text(
                 localUserProvider.authenticationType.isGuest ? 'LOGIN' : 'LOGOUT',
-                style: TextStyle(color: Colors.white, fontSize: 18),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontFamily: FontFamily.poppins,
+                ),
               ),
-              onTap: () {},
+              onTap: () {
+                if (localUserProvider.authenticationType.isGuest) {
+                  AuthenticationRoute().pushReplacement(context);
+                }
+              },
             ),
           ],
         ),

@@ -17,8 +17,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/account.svg
   SvgGenImage get account => const SvgGenImage('assets/icons/account.svg');
 
+  /// File path: assets/icons/apple.png
+  AssetGenImage get apple => const AssetGenImage('assets/icons/apple.png');
+
   /// File path: assets/icons/arcade.svg
   SvgGenImage get arcade => const SvgGenImage('assets/icons/arcade.svg');
+
+  /// File path: assets/icons/email.svg
+  SvgGenImage get email => const SvgGenImage('assets/icons/email.svg');
+
+  /// File path: assets/icons/google.svg
+  SvgGenImage get google => const SvgGenImage('assets/icons/google.svg');
 
   /// File path: assets/icons/home.svg
   SvgGenImage get home => const SvgGenImage('assets/icons/home.svg');
@@ -28,6 +37,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/logout.svg
   SvgGenImage get logout => const SvgGenImage('assets/icons/logout.svg');
+
+  /// File path: assets/icons/phone.svg
+  SvgGenImage get phone => const SvgGenImage('assets/icons/phone.svg');
 
   /// File path: assets/icons/points.svg
   SvgGenImage get points => const SvgGenImage('assets/icons/points.svg');
@@ -45,12 +57,16 @@ class $AssetsIconsGen {
   SvgGenImage get tv => const SvgGenImage('assets/icons/tv.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [
+  List<dynamic> get values => [
         account,
+        apple,
         arcade,
+        email,
+        google,
         home,
         kids,
         logout,
+        phone,
         points,
         rewards,
         search,

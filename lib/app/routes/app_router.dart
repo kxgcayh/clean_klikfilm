@@ -1,4 +1,5 @@
 import 'package:fl_klikfilm/app/pages/account_page.dart';
+import 'package:fl_klikfilm/app/pages/authentication_page.dart';
 import 'package:fl_klikfilm/app/pages/drawer_page.dart';
 import 'package:fl_klikfilm/app/pages/home_page.dart';
 import 'package:fl_klikfilm/app/pages/kids_mode_page.dart';
@@ -25,6 +26,7 @@ final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'mainBottomNaviga
     TypedGoRoute<LinkToTvRoute>(path: LinkToTvRoute.path, name: LinkToTvRoute.name),
     TypedGoRoute<KidsModeRoute>(path: KidsModeRoute.path, name: KidsModeRoute.name),
     TypedGoRoute<SupportRoute>(path: SupportRoute.path, name: SupportRoute.name),
+    TypedGoRoute<AuthenticationRoute>(path: AuthenticationRoute.path, name: AuthenticationRoute.name),
   ],
 )
 class HomeRoute extends GoRouteData {
@@ -163,6 +165,27 @@ class KidsModeRoute extends GoRouteData {
     return CustomTransitionPage<void>(
       key: state.pageKey,
       child: const KidsModePage(),
+      transitionDuration: Duration(milliseconds: 350),
+      transitionsBuilder: (context, animation, animation2, child) {
+        return FadeTransition(
+          opacity: CurveTween(curve: Curves.easeIn).animate(animation),
+          child: child,
+        );
+      },
+    );
+  }
+}
+
+class AuthenticationRoute extends GoRouteData {
+  const AuthenticationRoute();
+  static const name = 'Authentication';
+  static const path = 'authentication';
+
+  @override
+  CustomTransitionPage<void> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage<void>(
+      key: state.pageKey,
+      child: const AuthenticationPage(),
       transitionDuration: Duration(milliseconds: 350),
       transitionsBuilder: (context, animation, animation2, child) {
         return FadeTransition(

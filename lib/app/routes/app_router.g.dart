@@ -50,6 +50,11 @@ RouteBase get $homeRoute => GoRouteData.$route(
           name: 'Support',
           factory: $SupportRouteExtension._fromState,
         ),
+        GoRouteData.$route(
+          path: 'authentication',
+          name: 'Authentication',
+          factory: $AuthenticationRouteExtension._fromState,
+        ),
       ],
     );
 
@@ -201,6 +206,24 @@ const _$SupportTypeEnumMap = {
   SupportType.faq: 'faq',
   SupportType.privacyPolicy: 'privacy-policy',
 };
+
+extension $AuthenticationRouteExtension on AuthenticationRoute {
+  static AuthenticationRoute _fromState(GoRouterState state) =>
+      const AuthenticationRoute();
+
+  String get location => GoRouteData.$location(
+        '/authentication',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
 
 extension<T extends Enum> on Map<T, String> {
   T _$fromName(String value) =>

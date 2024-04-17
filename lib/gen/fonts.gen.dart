@@ -10,6 +10,12 @@
 class FontFamily {
   FontFamily._();
 
+  /// Font family: Nunito
+  static const String nunito = 'Nunito';
+
+  /// Font family: Poppins
+  static const String poppins = 'Poppins';
+
   /// Font family: Roboto
   static const String roboto = 'Roboto';
 }

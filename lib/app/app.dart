@@ -34,8 +34,16 @@ class KlikFilmApp extends HookConsumerWidget {
         useMaterial3: true,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         primaryColor: KColors.primary,
+        colorScheme: ColorScheme.dark(background: KColors.darkGrey),
         fontFamily: FontFamily.roboto,
         brightness: Brightness.dark,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
+            foregroundColor: Colors.white,
+            backgroundColor: KColors.primary,
+          ),
+        ),
       ),
     );
   }
