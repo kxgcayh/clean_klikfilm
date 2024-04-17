@@ -8,6 +8,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DrawerPage extends HookConsumerWidget {
   const DrawerPage({super.key});
@@ -122,7 +123,11 @@ class DrawerPage extends HookConsumerWidget {
                           fontFamily: FontFamily.poppins,
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () async {
+                        await launchUrl(
+                          Uri.parse('https://klikfilm.com/v3/desktop/static_page/iphone'),
+                        );
+                      },
                     ),
                     Visibility(
                       visible: !localUserProvider.authenticationType.isGuest,
@@ -223,7 +228,7 @@ class DrawerPage extends HookConsumerWidget {
                                   ),
                                 ),
                                 onTap: () {
-                                  SupportRoute(type: SupportType.contactUs).pushReplacement(context);
+                                  SupportRoute(type: GeneralInformationType.contact).pushReplacement(context);
                                 },
                               ),
                               ListTile(
@@ -237,7 +242,7 @@ class DrawerPage extends HookConsumerWidget {
                                   ),
                                 ),
                                 onTap: () {
-                                  SupportRoute(type: SupportType.termsOfUse).pushReplacement(context);
+                                  SupportRoute(type: GeneralInformationType.tou).pushReplacement(context);
                                 },
                               ),
                               ListTile(
@@ -247,7 +252,7 @@ class DrawerPage extends HookConsumerWidget {
                                   style: TextStyle(color: Colors.white, fontSize: 18),
                                 ),
                                 onTap: () {
-                                  SupportRoute(type: SupportType.faq).pushReplacement(context);
+                                  SupportRoute(type: GeneralInformationType.faq).pushReplacement(context);
                                 },
                               ),
                               ListTile(
@@ -261,7 +266,8 @@ class DrawerPage extends HookConsumerWidget {
                                   ),
                                 ),
                                 onTap: () {
-                                  SupportRoute(type: SupportType.privacyPolicy).pushReplacement(context);
+                                  SupportRoute(type: GeneralInformationType.privacyPolicy)
+                                      .pushReplacement(context);
                                 },
                               ),
                             ],

@@ -1,7 +1,6 @@
 import 'package:fl_klikfilm/app/widgets/kf_app_bar.dart';
 import 'package:fl_klikfilm/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class AuthenticationPage extends StatelessWidget {
   const AuthenticationPage({super.key});

@@ -179,14 +179,14 @@ extension $KidsModeRouteExtension on KidsModeRoute {
 
 extension $SupportRouteExtension on SupportRoute {
   static SupportRoute _fromState(GoRouterState state) => SupportRoute(
-        type:
-            _$SupportTypeEnumMap._$fromName(state.uri.queryParameters['type']!),
+        type: _$GeneralInformationTypeEnumMap
+            ._$fromName(state.uri.queryParameters['type']!),
       );
 
   String get location => GoRouteData.$location(
         '/support',
         queryParams: {
-          'type': _$SupportTypeEnumMap[type],
+          'type': _$GeneralInformationTypeEnumMap[type],
         },
       );
 
@@ -200,11 +200,11 @@ extension $SupportRouteExtension on SupportRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-const _$SupportTypeEnumMap = {
-  SupportType.contactUs: 'contact-us',
-  SupportType.termsOfUse: 'terms-of-use',
-  SupportType.faq: 'faq',
-  SupportType.privacyPolicy: 'privacy-policy',
+const _$GeneralInformationTypeEnumMap = {
+  GeneralInformationType.contact: 'contact',
+  GeneralInformationType.tou: 'tou',
+  GeneralInformationType.faq: 'faq',
+  GeneralInformationType.privacyPolicy: 'privacy-policy',
 };
 
 extension $AuthenticationRouteExtension on AuthenticationRoute {

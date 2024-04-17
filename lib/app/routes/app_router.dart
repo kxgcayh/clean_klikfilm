@@ -198,7 +198,7 @@ class AuthenticationRoute extends GoRouteData {
 }
 
 class SupportRoute extends GoRouteData {
-  final SupportType type;
+  final GeneralInformationType type;
   const SupportRoute({required this.type});
 
   static const name = 'Support';
