@@ -6,6 +6,9 @@ import 'package:fl_klikfilm/app/pages/kids_mode_page.dart';
 import 'package:fl_klikfilm/app/pages/link_to_tv_page.dart';
 import 'package:fl_klikfilm/app/pages/point_page.dart';
 import 'package:fl_klikfilm/app/pages/search_page.dart';
+import 'package:fl_klikfilm/app/pages/startup/authentication/forgot_password_page.dart';
+import 'package:fl_klikfilm/app/pages/startup/authentication/login_mail_page.dart';
+import 'package:fl_klikfilm/app/pages/startup/authentication/register_mail_page.dart';
 import 'package:fl_klikfilm/app/pages/support_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +29,15 @@ final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'mainBottomNaviga
     TypedGoRoute<LinkToTvRoute>(path: LinkToTvRoute.path, name: LinkToTvRoute.name),
     TypedGoRoute<KidsModeRoute>(path: KidsModeRoute.path, name: KidsModeRoute.name),
     TypedGoRoute<SupportRoute>(path: SupportRoute.path, name: SupportRoute.name),
-    TypedGoRoute<AuthenticationRoute>(path: AuthenticationRoute.path, name: AuthenticationRoute.name),
+    TypedGoRoute<AuthenticationRoute>(
+      path: AuthenticationRoute.path,
+      name: AuthenticationRoute.name,
+      routes: <TypedRoute<RouteData>>[
+        TypedGoRoute<LoginMailRoute>(path: LoginMailRoute.path, name: LoginMailRoute.name),
+        TypedGoRoute<RegisterMailRoute>(path: RegisterMailRoute.path, name: RegisterMailRoute.name),
+        TypedGoRoute<ForgotPasswordRoute>(path: ForgotPasswordRoute.path, name: ForgotPasswordRoute.name),
+      ],
+    ),
   ],
 )
 class HomeRoute extends GoRouteData {
@@ -186,6 +197,69 @@ class AuthenticationRoute extends GoRouteData {
     return CustomTransitionPage<void>(
       key: state.pageKey,
       child: const AuthenticationPage(),
+      transitionDuration: Duration(milliseconds: 350),
+      transitionsBuilder: (context, animation, animation2, child) {
+        return FadeTransition(
+          opacity: CurveTween(curve: Curves.easeIn).animate(animation),
+          child: child,
+        );
+      },
+    );
+  }
+}
+
+class LoginMailRoute extends GoRouteData {
+  const LoginMailRoute();
+  static const name = 'Login Email';
+  static const path = 'email';
+
+  @override
+  CustomTransitionPage<void> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage<void>(
+      key: state.pageKey,
+      child: const LoginMailPage(),
+      transitionDuration: Duration(milliseconds: 350),
+      transitionsBuilder: (context, animation, animation2, child) {
+        return FadeTransition(
+          opacity: CurveTween(curve: Curves.easeIn).animate(animation),
+          child: child,
+        );
+      },
+    );
+  }
+}
+
+class RegisterMailRoute extends GoRouteData {
+  const RegisterMailRoute();
+  static const name = 'Register Email';
+  static const path = 'register';
+
+  @override
+  CustomTransitionPage<void> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage<void>(
+      key: state.pageKey,
+      child: const RegisterMailPage(),
+      transitionDuration: Duration(milliseconds: 350),
+      transitionsBuilder: (context, animation, animation2, child) {
+        return FadeTransition(
+          opacity: CurveTween(curve: Curves.easeIn).animate(animation),
+          child: child,
+        );
+      },
+    );
+  }
+}
+
+class ForgotPasswordRoute extends GoRouteData {
+  const ForgotPasswordRoute();
+  static const name = 'Forgot Password';
+  static const path = 'forgot-password';
+
+  @override
+  CustomTransitionPage<void> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage<void>(
+      key: state.pageKey,
+      child: const ForgotPasswordPage(),
       transitionDuration: Duration(milliseconds: 350),
       transitionsBuilder: (context, animation, animation2, child) {
         return FadeTransition(

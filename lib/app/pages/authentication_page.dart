@@ -1,3 +1,4 @@
+import 'package:fl_klikfilm/app/routes/app_router.dart';
 import 'package:fl_klikfilm/app/widgets/kf_app_bar.dart';
 import 'package:fl_klikfilm/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ class AuthenticationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
         image: DecorationImage(
           alignment: Alignment.centerLeft,
@@ -17,7 +19,7 @@ class AuthenticationPage extends StatelessWidget {
         ),
       ),
       child: Scaffold(
-        appBar: KfAppBar(),
+        appBar: KfAppBar(showLogo: false),
         body: Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -110,7 +112,7 @@ class AuthenticationPage extends StatelessWidget {
                       SizedBox(
                         width: 352,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () => LoginMailRoute().push(context),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(horizontal: 13, vertical: 14),
                           ),

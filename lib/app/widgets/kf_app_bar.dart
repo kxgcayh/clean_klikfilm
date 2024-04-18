@@ -7,7 +7,8 @@ import 'package:go_router/go_router.dart';
 
 class KfAppBar extends HookWidget implements PreferredSizeWidget {
   final double? elevation;
-  const KfAppBar({super.key, this.elevation});
+  final bool showLogo;
+  const KfAppBar({super.key, this.elevation, this.showLogo = true});
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +18,7 @@ class KfAppBar extends HookWidget implements PreferredSizeWidget {
       backgroundColor: Colors.black,
       elevation: elevation,
       surfaceTintColor: KColors.grey,
-      title: Assets.pictures.logo.image(
-        width: 134,
-        height: 26,
-      ),
+      title: showLogo ? Assets.pictures.logo.image(width: 134, height: 26) : null,
       centerTitle: true,
       flexibleSpace: Assets.pictures.batikApb.image(fit: BoxFit.fitWidth),
       leading: Builder(builder: (context) {

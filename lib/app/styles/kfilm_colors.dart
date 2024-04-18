@@ -43,4 +43,7 @@ class KColors {
 
   /// Return `Color` with Hex value => #CF0000
   static const Color red = Color(0xFFCF0000);
+
+  /// Return `Color` with Hex value => #C4C4C4
+  static const Color silverSand = Color(0xFFC4C4C4);
 }

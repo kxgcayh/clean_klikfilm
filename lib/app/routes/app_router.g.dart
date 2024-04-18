@@ -54,6 +54,23 @@ RouteBase get $homeRoute => GoRouteData.$route(
           path: 'authentication',
           name: 'Authentication',
           factory: $AuthenticationRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'email',
+              name: 'Login Email',
+              factory: $LoginMailRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'register',
+              name: 'Register Email',
+              factory: $RegisterMailRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'forgot-password',
+              name: 'Forgot Password',
+              factory: $ForgotPasswordRouteExtension._fromState,
+            ),
+          ],
         ),
       ],
     );
@@ -213,6 +230,60 @@ extension $AuthenticationRouteExtension on AuthenticationRoute {
 
   String get location => GoRouteData.$location(
         '/authentication',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $LoginMailRouteExtension on LoginMailRoute {
+  static LoginMailRoute _fromState(GoRouterState state) =>
+      const LoginMailRoute();
+
+  String get location => GoRouteData.$location(
+        '/authentication/email',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $RegisterMailRouteExtension on RegisterMailRoute {
+  static RegisterMailRoute _fromState(GoRouterState state) =>
+      const RegisterMailRoute();
+
+  String get location => GoRouteData.$location(
+        '/authentication/register',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ForgotPasswordRouteExtension on ForgotPasswordRoute {
+  static ForgotPasswordRoute _fromState(GoRouterState state) =>
+      const ForgotPasswordRoute();
+
+  String get location => GoRouteData.$location(
+        '/authentication/forgot-password',
       );
 
   void go(BuildContext context) => context.go(location);
