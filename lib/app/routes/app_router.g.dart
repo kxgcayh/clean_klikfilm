@@ -70,6 +70,11 @@ RouteBase get $homeRoute => GoRouteData.$route(
               name: 'Forgot Password',
               factory: $ForgotPasswordRouteExtension._fromState,
             ),
+            GoRouteData.$route(
+              path: 'phone',
+              name: 'Phone Number',
+              factory: $LoginPhoneNumberRouteExtension._fromState,
+            ),
           ],
         ),
       ],
@@ -284,6 +289,24 @@ extension $ForgotPasswordRouteExtension on ForgotPasswordRoute {
 
   String get location => GoRouteData.$location(
         '/authentication/forgot-password',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $LoginPhoneNumberRouteExtension on LoginPhoneNumberRoute {
+  static LoginPhoneNumberRoute _fromState(GoRouterState state) =>
+      const LoginPhoneNumberRoute();
+
+  String get location => GoRouteData.$location(
+        '/authentication/phone',
       );
 
   void go(BuildContext context) => context.go(location);

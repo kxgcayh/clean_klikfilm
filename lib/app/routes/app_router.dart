@@ -8,6 +8,7 @@ import 'package:fl_klikfilm/app/pages/point_page.dart';
 import 'package:fl_klikfilm/app/pages/search_page.dart';
 import 'package:fl_klikfilm/app/pages/startup/authentication/forgot_password_page.dart';
 import 'package:fl_klikfilm/app/pages/startup/authentication/login_mail_page.dart';
+import 'package:fl_klikfilm/app/pages/startup/authentication/login_phone_number_page.dart';
 import 'package:fl_klikfilm/app/pages/startup/authentication/register_mail_page.dart';
 import 'package:fl_klikfilm/app/pages/support_page.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,10 @@ final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'mainBottomNaviga
         TypedGoRoute<LoginMailRoute>(path: LoginMailRoute.path, name: LoginMailRoute.name),
         TypedGoRoute<RegisterMailRoute>(path: RegisterMailRoute.path, name: RegisterMailRoute.name),
         TypedGoRoute<ForgotPasswordRoute>(path: ForgotPasswordRoute.path, name: ForgotPasswordRoute.name),
+        TypedGoRoute<LoginPhoneNumberRoute>(
+          path: LoginPhoneNumberRoute.path,
+          name: LoginPhoneNumberRoute.name,
+        ),
       ],
     ),
   ],
@@ -260,6 +265,27 @@ class ForgotPasswordRoute extends GoRouteData {
     return CustomTransitionPage<void>(
       key: state.pageKey,
       child: const ForgotPasswordPage(),
+      transitionDuration: Duration(milliseconds: 350),
+      transitionsBuilder: (context, animation, animation2, child) {
+        return FadeTransition(
+          opacity: CurveTween(curve: Curves.easeIn).animate(animation),
+          child: child,
+        );
+      },
+    );
+  }
+}
+
+class LoginPhoneNumberRoute extends GoRouteData {
+  const LoginPhoneNumberRoute();
+  static const name = 'Phone Number';
+  static const path = 'phone';
+
+  @override
+  CustomTransitionPage<void> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage<void>(
+      key: state.pageKey,
+      child: const LoginPhoneNumberPage(),
       transitionDuration: Duration(milliseconds: 350),
       transitionsBuilder: (context, animation, animation2, child) {
         return FadeTransition(

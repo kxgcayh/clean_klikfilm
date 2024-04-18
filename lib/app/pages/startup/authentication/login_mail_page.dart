@@ -54,8 +54,12 @@ class LoginMailPage extends HookWidget {
                         label: 'KlikFilm Account',
                         hintText: 'example : email@klikfilm.com',
                         validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.email(),
-                          FormBuilderValidators.required(),
+                          FormBuilderValidators.email(
+                            errorText: 'Alamat Email Tidak Valid',
+                          ),
+                          FormBuilderValidators.required(
+                            errorText: 'Email Tidak Boleh Kosong',
+                          ),
                         ]),
                       ),
                       SizedBox(height: 20),
@@ -64,8 +68,13 @@ class LoginMailPage extends HookWidget {
                         hintText: '************',
                         obscureText: isObscurePassword.value,
                         validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.min(4),
-                          FormBuilderValidators.required(),
+                          FormBuilderValidators.required(
+                            errorText: 'Password Tidak Boleh Kosong',
+                          ),
+                          FormBuilderValidators.minLength(
+                            6,
+                            errorText: 'Password Tidak Boleh Kurang dari 6',
+                          ),
                         ]),
                         suffixIcon: Material(
                           color: Colors.transparent,

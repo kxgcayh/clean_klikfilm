@@ -139,7 +139,7 @@ class AuthenticationPage extends StatelessWidget {
                       SizedBox(
                         width: 352,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () => LoginPhoneNumberRoute().push(context),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(horizontal: 13, vertical: 14),
                           ),

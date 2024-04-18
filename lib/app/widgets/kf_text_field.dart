@@ -11,8 +11,10 @@ class KfTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool obscureText;
   final GlobalKey<FormBuilderState>? formKey;
+  final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool alignCenter;
+  final TextInputType? keyboardType;
 
   const KfTextField({
     super.key,
@@ -23,8 +25,10 @@ class KfTextField extends StatelessWidget {
     this.validator,
     this.obscureText = false,
     this.formKey,
+    this.prefixIcon,
     this.suffixIcon,
     this.alignCenter = false,
+    this.keyboardType,
   });
 
   @override
@@ -43,9 +47,10 @@ class KfTextField extends StatelessWidget {
         FormBuilderTextField(
           key: formKey,
           name: label.camelCase,
+          keyboardType: keyboardType,
           textAlign: alignCenter ? TextAlign.center : TextAlign.start,
           textAlignVertical: alignCenter ? TextAlignVertical.center : TextAlignVertical.top,
-          style: TextStyle(fontSize: 16, color: Colors.black),
+          style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
           cursorColor: KColors.primaryGrey,
           obscureText: obscureText,
           decoration: InputDecoration(
@@ -64,6 +69,7 @@ class KfTextField extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: Colors.white, width: 0.5),
             ),
+            prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
           ),
           validator: validator,
