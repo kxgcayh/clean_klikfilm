@@ -120,10 +120,10 @@ class LoginMailPage extends HookConsumerWidget {
                                       msisdn: '${local.msisdn}',
                                     )));
                                   }
-                                  await ref
-                                      .read(localUserNotifierProvider.notifier)
-                                      .setLogin(AuthenticationType.email)
-                                      .then((_) => HomeRoute().go(context));
+                                  ref.read(localUserNotifierProvider.notifier)
+                                    ..updateUserId(userId: response.data?.id)
+                                    ..updateAccessToken(response.data?.id)
+                                    ..setLogin(AuthenticationType.email).then((_) => HomeRoute().go(context));
                                 }
                               });
                             }

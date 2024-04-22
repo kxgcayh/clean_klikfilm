@@ -16,6 +16,7 @@ class PanelCategoryHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (child == null) return SizedBox.shrink();
     return Container(
       decoration: index == 0
           ? BoxDecoration(

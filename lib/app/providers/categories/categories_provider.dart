@@ -50,5 +50,5 @@ final playlistFutureProvider = FutureProvider((ref) async {
 
 final continueWatchingFutureProvider = FutureProvider((ref) async {
   final result = await ref.read(continueWatchingProvider);
-  return result.data as VideoHighlightModel;
+  return result.data;
 });

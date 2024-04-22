@@ -291,9 +291,13 @@ class DrawerPage extends HookConsumerWidget {
                   fontFamily: FontFamily.poppins,
                 ),
               ),
-              onTap: () {
+              onTap: () async {
                 if (localUserProvider.authenticationType.isGuest) {
                   AuthenticationRoute().pushReplacement(context);
+                } else {
+                  await ref.read(localUserNotifierProvider.notifier).setLogout().then((_) {
+                    HomeRoute().go(context);
+                  });
                 }
               },
             ),

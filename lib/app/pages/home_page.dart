@@ -160,7 +160,7 @@ class HomePage extends HookConsumerWidget {
                               contents: playlist.contents,
                               onTap: (content) {},
                             ),
-                            error: (error, stackTrace) => PanelCategoryContents(parentIndex: parentIndex),
+                            error: (error, stackTrace) => null,
                             loading: () => PanelCategoryContents(parentIndex: parentIndex),
                           ),
                         );
@@ -177,7 +177,7 @@ class HomePage extends HookConsumerWidget {
                               contents: hashtag.contents,
                               onTap: (content) {},
                             ),
-                            error: (error, stackTrace) => PanelCategoryContents(parentIndex: parentIndex),
+                            error: (error, stackTrace) => null,
                             loading: () => PanelCategoryContents(parentIndex: parentIndex),
                           ),
                         );
@@ -196,7 +196,7 @@ class HomePage extends HookConsumerWidget {
                               contents: trending.data,
                               onTap: (content) {},
                             ),
-                            error: (error, stackTrace) => PanelCategoryContents(parentIndex: parentIndex),
+                            error: (error, stackTrace) => null,
                             loading: () => PanelCategoryContents(parentIndex: parentIndex),
                           ),
                         );
@@ -215,7 +215,7 @@ class HomePage extends HookConsumerWidget {
                               contents: higlight.contents,
                               onTap: (content) {},
                             ),
-                            error: (error, stackTrace) => PanelCategoryContents(parentIndex: parentIndex),
+                            error: (error, stackTrace) => null,
                             loading: () => PanelCategoryContents(parentIndex: parentIndex),
                           ),
                         );
@@ -229,10 +229,10 @@ class HomePage extends HookConsumerWidget {
                           child: provider.when(
                             data: (continueWatching) => PanelCategoryContents(
                               parentIndex: parentIndex,
-                              contents: continueWatching.contents,
+                              contents: continueWatching,
                               onTap: (content) {},
                             ),
-                            error: (error, stackTrace) => PanelCategoryContents(parentIndex: parentIndex),
+                            error: (error, stackTrace) => null,
                             loading: () => PanelCategoryContents(parentIndex: parentIndex),
                           ),
                         );
