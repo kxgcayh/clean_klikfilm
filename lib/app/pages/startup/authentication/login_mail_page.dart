@@ -6,13 +6,17 @@ import 'package:fl_klikfilm/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 
-class LoginMailPage extends HookWidget {
+class LoginMailPage extends HookConsumerWidget {
   const LoginMailPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isObscurePassword = useState<bool>(true);
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
     final formKey = useState(GlobalKey<FormState>());
 
     return Container(
@@ -53,6 +57,7 @@ class LoginMailPage extends HookWidget {
                       KfTextField(
                         label: 'KlikFilm Account',
                         hintText: 'example : email@klikfilm.com',
+                        controller: emailController,
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.email(
                             errorText: 'Alamat Email Tidak Valid',
@@ -66,6 +71,7 @@ class LoginMailPage extends HookWidget {
                       KfTextField(
                         label: 'Password',
                         hintText: '************',
+                        controller: passwordController,
                         obscureText: isObscurePassword.value,
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.required(
@@ -99,9 +105,27 @@ class LoginMailPage extends HookWidget {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (formKey.value.currentState?.validate() ?? false) {
-                              //
+                              final ManualLoginFamily loginArg = ManualLoginFamily(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                              final local = ref.watch(localUserNotifierProvider);
+                              await ref.read(manualLoginProvider(loginArg)).then((response) async {
+                                if (response.success) {
+                                  if (local.msisdn != null) {
+                                    await ref.read(msisdnPairingProvider(MsisdnPairingFamily(
+                                      uid: '${response.data?.id}',
+                                      msisdn: '${local.msisdn}',
+                                    )));
+                                  }
+                                  await ref
+                                      .read(localUserNotifierProvider.notifier)
+                                      .setLogin(AuthenticationType.email)
+                                      .then((_) => HomeRoute().go(context));
+                                }
+                              });
                             }
                           },
                           child: Text('Login'),

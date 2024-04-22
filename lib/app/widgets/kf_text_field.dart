@@ -15,6 +15,7 @@ class KfTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool alignCenter;
   final TextInputType? keyboardType;
+  final TextEditingController? controller;
 
   const KfTextField({
     super.key,
@@ -29,6 +30,7 @@ class KfTextField extends StatelessWidget {
     this.suffixIcon,
     this.alignCenter = false,
     this.keyboardType,
+    this.controller,
   });
 
   @override
@@ -47,6 +49,7 @@ class KfTextField extends StatelessWidget {
         FormBuilderTextField(
           key: formKey,
           name: label.camelCase,
+          controller: controller,
           keyboardType: keyboardType,
           textAlign: alignCenter ? TextAlign.center : TextAlign.start,
           textAlignVertical: alignCenter ? TextAlignVertical.center : TextAlignVertical.top,

@@ -11,6 +11,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
+class $AssetsAnimationsGen {
+  const $AssetsAnimationsGen();
+
+  /// File path: assets/animations/loading_bar.json
+  String get loadingBar => 'assets/animations/loading_bar.json';
+
+  /// List of all assets
+  List<String> get values => [loadingBar];
+}
+
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
@@ -105,6 +115,7 @@ class $AssetsPicturesGen {
 class Assets {
   Assets._();
 
+  static const $AssetsAnimationsGen animations = $AssetsAnimationsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsPicturesGen pictures = $AssetsPicturesGen();
 }

@@ -7,8 +7,10 @@ import 'package:fl_klikfilm/app/widgets/kf_shimmer.dart';
 import 'package:fl_klikfilm/gen/assets.gen.dart';
 import 'package:fl_klikfilm/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
+import 'package:lottie/lottie.dart';
 import 'package:smooth_sheets/smooth_sheets.dart';
 
 part 'home_page.p.dart';
@@ -19,8 +21,27 @@ class HomePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bannerProvider = ref.watch(bannerStateProvider);
-    final categoriesProvider = ref.watch(categoriesFutureProvider);
+    final categoriesProvider = ref.watch(categoriesAsyncNotifier);
+    final categoriesNotifier = ref.read(categoriesAsyncNotifier.notifier);
+    final scrollController = useMemoized(() => SheetController());
+    final isLoadingMore = useState(false);
     final dummies = List.generate(20, (index) => 'Item-$index');
+
+    void scrollListener() async {
+      if ((scrollController.value ?? 0) == (scrollController.metrics?.maxPixels ?? 0)) {
+        if (!isLoadingMore.value) {
+          isLoadingMore.value = true;
+          await Future.delayed(Duration(seconds: 1));
+          await categoriesNotifier.scroll().then((_) => isLoadingMore.value = false);
+        }
+      }
+    }
+
+    useEffect(() {
+      scrollController.addListener(scrollListener);
+      return () => scrollController.removeListener(scrollListener);
+    }, [scrollController]);
+
     return Scaffold(
       appBar: KfAppBar(),
       body: Stack(
@@ -85,6 +106,7 @@ class HomePage extends HookConsumerWidget {
             ),
           ),
           ScrollableSheet(
+            controller: scrollController,
             initialExtent: Extent.pixels(
               MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.3),
             ),
@@ -121,9 +143,10 @@ class HomePage extends HookConsumerWidget {
               clipBehavior: Clip.antiAlias,
               child: categoriesProvider.when(
                 data: (categories) => ListView.builder(
-                  itemCount: categories.length,
+                  // controller: scrollController,
+                  itemCount: categories.index,
                   itemBuilder: (context, parentIndex) {
-                    final VideoHomeCategoryModel category = categories[parentIndex];
+                    final VideoHomeCategoryModel category = categories.data[parentIndex];
                     return category.when(
                       myList: (type, title) {
                         final provider = ref.watch(playlistFutureProvider);
@@ -322,6 +345,20 @@ class HomePage extends HookConsumerWidget {
                     );
                   },
                 ),
+              ),
+            ),
+          ),
+          Visibility(
+            visible: isLoadingMore.value,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: 45,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: KColors.primaryGrey.withOpacity(0.85),
+                ),
+                child: Center(child: LottieBuilder.asset(Assets.animations.loadingBar)),
               ),
             ),
           ),
