@@ -1,3 +1,4 @@
+import 'package:fl_klikfilm/app/providers/categories/categories_provider.dart';
 import 'package:fl_klikfilm/app/routes/app_router.dart';
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
 import 'package:fl_klikfilm/app/widgets/kf_app_bar.dart';
@@ -296,6 +297,7 @@ class DrawerPage extends HookConsumerWidget {
                   AuthenticationRoute().pushReplacement(context);
                 } else {
                   await ref.read(localUserNotifierProvider.notifier).setLogout().then((_) {
+                    ref.invalidate(categoriesAsyncNotifier);
                     HomeRoute().go(context);
                   });
                 }

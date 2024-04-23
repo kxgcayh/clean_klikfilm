@@ -14,11 +14,14 @@ import 'package:flutter/services.dart';
 class $AssetsAnimationsGen {
   const $AssetsAnimationsGen();
 
+  /// File path: assets/animations/fail_bouncy.json
+  String get failBouncy => 'assets/animations/fail_bouncy.json';
+
   /// File path: assets/animations/loading_bar.json
   String get loadingBar => 'assets/animations/loading_bar.json';
 
   /// List of all assets
-  List<String> get values => [loadingBar];
+  List<String> get values => [failBouncy, loadingBar];
 }
 
 class $AssetsIconsGen {
