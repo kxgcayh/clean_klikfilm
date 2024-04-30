@@ -8,10 +8,11 @@ part of 'app_router.dart';
 
 List<RouteBase> get $appRoutes => [
       $homeRoute,
+      $authenticationRoute,
     ];
 
 RouteBase get $homeRoute => GoRouteData.$route(
-      path: '/',
+      path: '/home',
       name: 'Home',
       factory: $HomeRouteExtension._fromState,
       routes: [
@@ -50,33 +51,6 @@ RouteBase get $homeRoute => GoRouteData.$route(
           name: 'Support',
           factory: $SupportRouteExtension._fromState,
         ),
-        GoRouteData.$route(
-          path: 'authentication',
-          name: 'Authentication',
-          factory: $AuthenticationRouteExtension._fromState,
-          routes: [
-            GoRouteData.$route(
-              path: 'email',
-              name: 'Login Email',
-              factory: $LoginMailRouteExtension._fromState,
-            ),
-            GoRouteData.$route(
-              path: 'register',
-              name: 'Register Email',
-              factory: $RegisterMailRouteExtension._fromState,
-            ),
-            GoRouteData.$route(
-              path: 'forgot-password',
-              name: 'Forgot Password',
-              factory: $ForgotPasswordRouteExtension._fromState,
-            ),
-            GoRouteData.$route(
-              path: 'phone',
-              name: 'Phone Number',
-              factory: $LoginPhoneNumberRouteExtension._fromState,
-            ),
-          ],
-        ),
       ],
     );
 
@@ -84,7 +58,7 @@ extension $HomeRouteExtension on HomeRoute {
   static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
 
   String get location => GoRouteData.$location(
-        '/',
+        '/home',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -101,7 +75,7 @@ extension $SearchRouteExtension on SearchRoute {
   static SearchRoute _fromState(GoRouterState state) => const SearchRoute();
 
   String get location => GoRouteData.$location(
-        '/search',
+        '/home/search',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -118,7 +92,7 @@ extension $MenuRouteExtension on MenuRoute {
   static MenuRoute _fromState(GoRouterState state) => const MenuRoute();
 
   String get location => GoRouteData.$location(
-        '/menu',
+        '/home/menu',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -135,7 +109,7 @@ extension $AccountRouteExtension on AccountRoute {
   static AccountRoute _fromState(GoRouterState state) => const AccountRoute();
 
   String get location => GoRouteData.$location(
-        '/account',
+        '/home/account',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -152,7 +126,7 @@ extension $PointRouteExtension on PointRoute {
   static PointRoute _fromState(GoRouterState state) => const PointRoute();
 
   String get location => GoRouteData.$location(
-        '/point',
+        '/home/point',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -169,7 +143,7 @@ extension $LinkToTvRouteExtension on LinkToTvRoute {
   static LinkToTvRoute _fromState(GoRouterState state) => const LinkToTvRoute();
 
   String get location => GoRouteData.$location(
-        '/link-to-tv',
+        '/home/link-to-tv',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -186,7 +160,7 @@ extension $KidsModeRouteExtension on KidsModeRoute {
   static KidsModeRoute _fromState(GoRouterState state) => const KidsModeRoute();
 
   String get location => GoRouteData.$location(
-        '/kids-mode',
+        '/home/kids-mode',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -206,7 +180,7 @@ extension $SupportRouteExtension on SupportRoute {
       );
 
   String get location => GoRouteData.$location(
-        '/support',
+        '/home/support',
         queryParams: {
           'type': _$GeneralInformationTypeEnumMap[type],
         },
@@ -228,6 +202,46 @@ const _$GeneralInformationTypeEnumMap = {
   GeneralInformationType.faq: 'faq',
   GeneralInformationType.privacyPolicy: 'privacy-policy',
 };
+
+extension<T extends Enum> on Map<T, String> {
+  T _$fromName(String value) =>
+      entries.singleWhere((element) => element.value == value).key;
+}
+
+RouteBase get $authenticationRoute => GoRouteData.$route(
+      path: '/authentication',
+      name: 'Authentication',
+      factory: $AuthenticationRouteExtension._fromState,
+      routes: [
+        GoRouteData.$route(
+          path: 'email',
+          name: 'Login Email',
+          factory: $LoginMailRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'register',
+          name: 'Register Email',
+          factory: $RegisterMailRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'forgot-password',
+          name: 'Forgot Password',
+          factory: $ForgotPasswordRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'phone',
+          name: 'Phone Number',
+          factory: $LoginPhoneNumberRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'phone-otp',
+              name: 'Phone Number OTP',
+              factory: $PhoneOtpRouteExtension._fromState,
+            ),
+          ],
+        ),
+      ],
+    );
 
 extension $AuthenticationRouteExtension on AuthenticationRoute {
   static AuthenticationRoute _fromState(GoRouterState state) =>
@@ -319,7 +333,26 @@ extension $LoginPhoneNumberRouteExtension on LoginPhoneNumberRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension<T extends Enum> on Map<T, String> {
-  T _$fromName(String value) =>
-      entries.singleWhere((element) => element.value == value).key;
+extension $PhoneOtpRouteExtension on PhoneOtpRoute {
+  static PhoneOtpRoute _fromState(GoRouterState state) => PhoneOtpRoute(
+        sessionId: state.uri.queryParameters['session-id']!,
+        phoneNumber: state.uri.queryParameters['phone-number']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/authentication/phone/phone-otp',
+        queryParams: {
+          'session-id': sessionId,
+          'phone-number': phoneNumber,
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }

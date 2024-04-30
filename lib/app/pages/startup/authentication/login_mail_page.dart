@@ -109,39 +109,33 @@ class LoginMailPage extends HookConsumerWidget {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (formKey.value.currentState?.validate() ?? false) {
-                              final ManualLoginFamily loginArg = ManualLoginFamily(
-                                email: emailController.text,
-                                password: passwordController.text,
-                              );
-                              final local = ref.watch(localUserNotifierProvider);
-                              await ref.read(manualLoginProvider(loginArg)).then((response) async {
-                                if (response.success) {
-                                  if (local.msisdn != null) {
-                                    await ref.read(msisdnPairingProvider(MsisdnPairingFamily(
-                                      uid: '${response.data?.id}',
-                                      msisdn: '${local.msisdn}',
-                                    )));
+                              final authentication = ref.read(authenticationProvider);
+
+                              await authentication.loginByEmail(
+                                ManualLoginFamily(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                ),
+                                onValue: (result) async {
+                                  if (result.success) {
+                                    ref.invalidate(categoriesAsyncNotifier);
+                                    HomeRoute().go(context);
+                                  } else {
+                                    await showDialog(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      useRootNavigator: false,
+                                      builder: (BuildContext context) {
+                                        return KfDialog(
+                                          title: 'Login Failed',
+                                          message: result.desc ?? 'Something went wrong',
+                                          lottieAsset: Assets.animations.failBouncy,
+                                        );
+                                      },
+                                    );
                                   }
-                                  ref.invalidate(categoriesAsyncNotifier);
-                                  ref.read(localUserNotifierProvider.notifier)
-                                    ..updateUserId(userId: response.data?.id)
-                                    ..updateAccessToken(response.data?.id)
-                                    ..setLogin(AuthenticationType.email).then((_) => HomeRoute().go(context));
-                                } else {
-                                  await showDialog(
-                                    context: context,
-                                    barrierDismissible: true,
-                                    useRootNavigator: false,
-                                    builder: (BuildContext context) {
-                                      return KfDialog(
-                                        title: 'Login Failed',
-                                        message: response.desc ?? 'Something went wrong',
-                                        lottieAsset: Assets.animations.failBouncy,
-                                      );
-                                    },
-                                  );
-                                }
-                              });
+                                },
+                              );
                             }
                           },
                           child: Text('Login'),

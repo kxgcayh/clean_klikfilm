@@ -38,7 +38,8 @@ class KfDialog extends StatelessWidget {
             ),
             SizedBox(height: 12),
             Text(
-              'Error',
+              title,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,

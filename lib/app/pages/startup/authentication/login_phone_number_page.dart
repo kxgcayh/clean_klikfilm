@@ -1,10 +1,13 @@
+import 'package:fl_klikfilm/app/routes/app_router.dart';
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
 import 'package:fl_klikfilm/app/widgets/kf_app_bar.dart';
+import 'package:fl_klikfilm/app/widgets/kf_dialog.dart';
 import 'package:fl_klikfilm/app/widgets/kf_text_field.dart';
 import 'package:fl_klikfilm/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 
@@ -104,10 +107,29 @@ class LoginPhoneNumberPage extends HookConsumerWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () async {
-                            klog.w('okay');
                             if (formKey.value.currentState?.validate() ?? false) {
                               final passVmKey = await ref.read(passVmKeyProvider(phoneController.text));
-                              await ref.read(pushOtpProvider(passVmKey.result.msisdn));
+                              await ref.read(pushOtpProvider(passVmKey.result.msisdn)).then((result) async {
+                                if (result.status?.sessionId != null) {
+                                  PhoneOtpRoute(
+                                    sessionId: '${result.status?.sessionId}',
+                                    phoneNumber: passVmKey.result.msisdn,
+                                  ).push(context);
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    useRootNavigator: false,
+                                    builder: (BuildContext context) {
+                                      return KfDialog(
+                                        title: 'Anda belum berlangganan KlikFilm',
+                                        message: 'Hubungi *500*60# untuk berlangganan',
+                                        lottieAsset: Assets.animations.failBouncy,
+                                      );
+                                    },
+                                  ).then((_) => context.pop());
+                                }
+                              });
                             }
                           },
                           child: Text('Send Code'),

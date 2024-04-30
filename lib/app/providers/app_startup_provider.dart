@@ -19,18 +19,16 @@ final FutureProvider<void> appStartupProvider = FutureProvider<void>((ref) async
   });
 
   await ref.watch(sharedPreferencesProvider.future);
-  final thirdPartyRepository = ref.read(thirdPartyRepositoryProvider);
   final videoRepository = ref.read(videoCatalogRepositoryProvider);
-  final LocalUserDataNotifier localNotifier = ref.read(localUserNotifierProvider.notifier);
-  final deviceDetail = await thirdPartyRepository.networkDetail();
-  await localNotifier.updateCountryCode(deviceDetail?.countryCode ?? 'ID');
+  final localNotifier = ref.read(localUserNotifierProvider.notifier);
+  await localNotifier.updateCountryCode();
   await localNotifier.updateUserAgent();
-  await localNotifier.updateUserId(
-    platform: ref.watch(localUserNotifierProvider.select((value) => value.userAgent)),
-  );
+  await localNotifier.updateUserId();
   final accessTokenResponse = await videoRepository.accessToken(
-    uid: ref.watch(localUserNotifierProvider.select((value) => value.userId)),
+    uid: ref.read(localUserNotifierProvider.select((value) => value.userId)),
   );
-  await localNotifier.updateAccessToken(accessTokenResponse.data?.token);
+  if (accessTokenResponse.data?.token != null) {
+    await localNotifier.updateAccessToken('${accessTokenResponse.data?.token}');
+  }
   await Future.delayed(Duration(seconds: 1));
 });

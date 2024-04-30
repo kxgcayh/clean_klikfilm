@@ -163,7 +163,7 @@ class DrawerPage extends HookConsumerWidget {
                         ),
                         onTap: () => context.pushReplacementNamed(KidsModeRoute.name),
                         trailing: Stack(
-                          alignment: localUserProvider.kidsMode != null
+                          alignment: localUserProvider.kidsMode.isNotEmpty
                               ? Alignment.centerRight
                               : Alignment.centerLeft,
                           children: [
@@ -172,7 +172,7 @@ class DrawerPage extends HookConsumerWidget {
                               height: 25,
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(
-                                  localUserProvider.kidsMode != null ? 0.8 : 0.2,
+                                  localUserProvider.kidsMode.isNotEmpty ? 0.8 : 0.2,
                                 ),
                                 borderRadius: BorderRadius.circular(80),
                               ),
@@ -181,7 +181,7 @@ class DrawerPage extends HookConsumerWidget {
                               width: 28,
                               height: 28,
                               decoration: BoxDecoration(
-                                color: localUserProvider.kidsMode != null ? KColors.primary : Colors.white,
+                                color: localUserProvider.kidsMode.isNotEmpty ? KColors.primary : Colors.white,
                                 borderRadius: BorderRadius.circular(28 / 2),
                               ),
                             ),
@@ -296,7 +296,7 @@ class DrawerPage extends HookConsumerWidget {
                 if (localUserProvider.authenticationType.isGuest) {
                   AuthenticationRoute().pushReplacement(context);
                 } else {
-                  await ref.read(localUserNotifierProvider.notifier).setLogout().then((_) {
+                  await ref.read(localUserNotifierProvider.notifier).setLogout().then((_) async {
                     ref.invalidate(categoriesAsyncNotifier);
                     HomeRoute().go(context);
                   });

@@ -150,18 +150,25 @@ class HomePage extends HookConsumerWidget {
                     return category.when(
                       myList: (type, title) {
                         final provider = ref.watch(playlistFutureProvider);
-                        return PanelCategoryHeader(
-                          index: parentIndex,
-                          title: title,
-                          onTapMore: () {},
-                          child: provider.when(
-                            data: (playlist) => PanelCategoryContents(
-                              parentIndex: parentIndex,
-                              contents: playlist.contents,
-                              onTap: (content) {},
-                            ),
-                            error: (error, stackTrace) => null,
-                            loading: () => PanelCategoryContents(parentIndex: parentIndex),
+                        return provider.when(
+                          data: (playlist) {
+                            return playlist.contents.isNotEmpty
+                                ? PanelCategoryHeader(
+                                    index: parentIndex,
+                                    title: title,
+                                    onTapMore: () {},
+                                    child: PanelCategoryContents(
+                                      parentIndex: parentIndex,
+                                      contents: playlist.contents,
+                                      onTap: (content) {},
+                                    ),
+                                  )
+                                : SizedBox.shrink();
+                          },
+                          error: (error, stackTrace) => SizedBox.shrink(),
+                          loading: () => PanelCategoryHeader(
+                            title: title,
+                            child: PanelCategoryContents(parentIndex: parentIndex),
                           ),
                         );
                       },
@@ -222,18 +229,25 @@ class HomePage extends HookConsumerWidget {
                       },
                       continueWatching: (type, title) {
                         final provider = ref.watch(continueWatchingFutureProvider);
-                        return PanelCategoryHeader(
-                          index: parentIndex,
-                          title: title,
-                          onTapMore: () {},
-                          child: provider.when(
-                            data: (continueWatching) => PanelCategoryContents(
-                              parentIndex: parentIndex,
-                              contents: continueWatching,
-                              onTap: (content) {},
-                            ),
-                            error: (error, stackTrace) => null,
-                            loading: () => PanelCategoryContents(parentIndex: parentIndex),
+                        return provider.when(
+                          data: (continueWatching) {
+                            return continueWatching.isNotEmpty
+                                ? PanelCategoryHeader(
+                                    index: parentIndex,
+                                    title: title,
+                                    onTapMore: () {},
+                                    child: PanelCategoryContents(
+                                      parentIndex: parentIndex,
+                                      contents: continueWatching,
+                                      onTap: (content) {},
+                                    ),
+                                  )
+                                : SizedBox.shrink();
+                          },
+                          error: (error, stackTrace) => SizedBox.shrink(),
+                          loading: () => PanelCategoryHeader(
+                            title: title,
+                            child: PanelCategoryContents(parentIndex: parentIndex),
                           ),
                         );
                       },

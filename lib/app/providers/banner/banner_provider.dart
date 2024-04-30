@@ -11,11 +11,11 @@ final bannerStateProvider = FutureProvider((ref) async {
   if (banner.subcategory?.id != null) {
     detailResponse = await repository.videoDetailApp(
       tel: localUser.telcoCode,
-      uid: '${localUser.userId}',
+      uid: localUser.userId,
       cst: banner.custom,
       subCat: banner.subcategory?.id,
       vid: banner.id,
-      tok: '${localUser.accessToken}',
+      tok: localUser.accessToken,
       cc: localUser.countryCode,
     );
   }
