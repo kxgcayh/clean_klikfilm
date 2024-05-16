@@ -36,7 +36,7 @@ final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'mainBottomNaviga
 class HomeRoute extends GoRouteData {
   const HomeRoute();
   static const name = 'Home';
-  static const path = '/home';
+  static const path = '/';
 
   @override
   CustomTransitionPage<void> buildPage(BuildContext context, GoRouterState state) {

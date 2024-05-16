@@ -20,8 +20,11 @@ class $AssetsAnimationsGen {
   /// File path: assets/animations/loading_bar.json
   String get loadingBar => 'assets/animations/loading_bar.json';
 
+  /// File path: assets/animations/loading_roller.json
+  String get loadingRoller => 'assets/animations/loading_roller.json';
+
   /// List of all assets
-  List<String> get values => [failBouncy, loadingBar];
+  List<String> get values => [failBouncy, loadingBar, loadingRoller];
 }
 
 class $AssetsIconsGen {

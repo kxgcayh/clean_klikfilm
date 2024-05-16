@@ -12,7 +12,7 @@ List<RouteBase> get $appRoutes => [
     ];
 
 RouteBase get $homeRoute => GoRouteData.$route(
-      path: '/home',
+      path: '/',
       name: 'Home',
       factory: $HomeRouteExtension._fromState,
       routes: [
@@ -58,7 +58,7 @@ extension $HomeRouteExtension on HomeRoute {
   static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
 
   String get location => GoRouteData.$location(
-        '/home',
+        '/',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -75,7 +75,7 @@ extension $SearchRouteExtension on SearchRoute {
   static SearchRoute _fromState(GoRouterState state) => const SearchRoute();
 
   String get location => GoRouteData.$location(
-        '/home/search',
+        '/search',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -92,7 +92,7 @@ extension $MenuRouteExtension on MenuRoute {
   static MenuRoute _fromState(GoRouterState state) => const MenuRoute();
 
   String get location => GoRouteData.$location(
-        '/home/menu',
+        '/menu',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -109,7 +109,7 @@ extension $AccountRouteExtension on AccountRoute {
   static AccountRoute _fromState(GoRouterState state) => const AccountRoute();
 
   String get location => GoRouteData.$location(
-        '/home/account',
+        '/account',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -126,7 +126,7 @@ extension $PointRouteExtension on PointRoute {
   static PointRoute _fromState(GoRouterState state) => const PointRoute();
 
   String get location => GoRouteData.$location(
-        '/home/point',
+        '/point',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -143,7 +143,7 @@ extension $LinkToTvRouteExtension on LinkToTvRoute {
   static LinkToTvRoute _fromState(GoRouterState state) => const LinkToTvRoute();
 
   String get location => GoRouteData.$location(
-        '/home/link-to-tv',
+        '/link-to-tv',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -160,7 +160,7 @@ extension $KidsModeRouteExtension on KidsModeRoute {
   static KidsModeRoute _fromState(GoRouterState state) => const KidsModeRoute();
 
   String get location => GoRouteData.$location(
-        '/home/kids-mode',
+        '/kids-mode',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -180,7 +180,7 @@ extension $SupportRouteExtension on SupportRoute {
       );
 
   String get location => GoRouteData.$location(
-        '/home/support',
+        '/support',
         queryParams: {
           'type': _$GeneralInformationTypeEnumMap[type],
         },

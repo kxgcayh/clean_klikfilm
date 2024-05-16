@@ -229,7 +229,7 @@ class DrawerPage extends HookConsumerWidget {
                                   ),
                                 ),
                                 onTap: () {
-                                  SupportRoute(type: GeneralInformationType.contact).pushReplacement(context);
+                                  SupportRoute(type: GeneralInformationType.contact).push(context);
                                 },
                               ),
                               ListTile(
@@ -243,7 +243,7 @@ class DrawerPage extends HookConsumerWidget {
                                   ),
                                 ),
                                 onTap: () {
-                                  SupportRoute(type: GeneralInformationType.tou).pushReplacement(context);
+                                  SupportRoute(type: GeneralInformationType.tou).push(context);
                                 },
                               ),
                               ListTile(
@@ -253,7 +253,7 @@ class DrawerPage extends HookConsumerWidget {
                                   style: TextStyle(color: Colors.white, fontSize: 18),
                                 ),
                                 onTap: () {
-                                  SupportRoute(type: GeneralInformationType.faq).pushReplacement(context);
+                                  SupportRoute(type: GeneralInformationType.faq).push(context);
                                 },
                               ),
                               ListTile(
@@ -267,8 +267,7 @@ class DrawerPage extends HookConsumerWidget {
                                   ),
                                 ),
                                 onTap: () {
-                                  SupportRoute(type: GeneralInformationType.privacyPolicy)
-                                      .pushReplacement(context);
+                                  SupportRoute(type: GeneralInformationType.privacyPolicy).push(context);
                                 },
                               ),
                             ],

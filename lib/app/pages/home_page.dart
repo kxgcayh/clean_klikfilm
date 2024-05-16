@@ -111,7 +111,7 @@ class HomePage extends HookConsumerWidget {
               MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.3),
             ),
             minExtent: Extent.pixels(
-              MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.3),
+              MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.35),
             ),
             physics: StretchingSheetPhysics(
               stretchingRange: const Extent.proportional(0.050),
@@ -119,10 +119,7 @@ class HomePage extends HookConsumerWidget {
                 snappingBehavior: SnapToNearest(
                   snapTo: [
                     Extent.pixels(
-                      MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.3),
-                    ),
-                    Extent.pixels(
-                      MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.5),
+                      MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.35),
                     ),
                     const Extent.proportional(0.8),
                     const Extent.proportional(1),
@@ -143,7 +140,6 @@ class HomePage extends HookConsumerWidget {
               clipBehavior: Clip.antiAlias,
               child: categoriesProvider.when(
                 data: (categories) => ListView.builder(
-                  // controller: scrollController,
                   itemCount: categories.index,
                   itemBuilder: (context, parentIndex) {
                     final VideoHomeCategoryModel category = categories.data[parentIndex];
