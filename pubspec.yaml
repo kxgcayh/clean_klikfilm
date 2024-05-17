@@ -31,6 +31,7 @@ dependencies:
   klikfilm_dart_resources:
     path: ../klikfilm_dart_resources
   firebase_core: ^2.31.0
+  flutter_native_splash: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -169,3 +170,16 @@ flutter:
 flutter_gen:
   integrations:
     flutter_svg: true
+
+flutter_native_splash:
+  ios: true
+  android: true
+  color: "#000000"
+  # icon_background_color: "#000000"
+  image: assets/pictures/splash_logo.png
+  # background_image: "assets/pictures/splash_background.png"
+
+  # android_12:
+    # color: "#000000"
+    # icon_background_color: "#000000"
+    # image: assets/pictures/mini_logo.png
