@@ -29,6 +29,9 @@ class KColors {
   /// Return `Color` with Hex value => #920705
   static const Color primary = Color(0xFF920705);
 
+  /// Return `Color` with Hex value => #9E1F14
+  static const Color darkRed = Color(0xFF9E1F14);
+
   /// Return `Color` with Hex value => #9D1F14
   static const Color crimson = Color(0xFF9D1F14);
 

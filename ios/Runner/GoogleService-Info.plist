@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1037402011718-8b1vu8crgjkk26dl4cb4nj7cfdph521c.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1037402011718-8b1vu8crgjkk26dl4cb4nj7cfdph521c</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1037402011718-1uofga9c9se4h8vlti834g0f4igthooc.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyALas468enN5ZB9QW1OSiwlY6_r9Gwqvhw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1037402011718</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>falcon.klifkfilm</string>
+	<key>PROJECT_ID</key>
+	<string>klikfilm-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>klikfilm-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1037402011718:ios:8bcba463e58738a5</string>
+	<key>DATABASE_URL</key>
+	<string>https://klikfilm-app.firebaseio.com</string>
+</dict>
+</plist>

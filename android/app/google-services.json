@@ -1,0 +1,171 @@
+{
+  "project_info": {
+    "project_number": "1037402011718",
+    "firebase_url": "https://klikfilm-app.firebaseio.com",
+    "project_id": "klikfilm-app",
+    "storage_bucket": "klikfilm-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037402011718:android:c91848186d950c7e2bb247",
+        "android_client_info": {
+          "package_name": "com.klikfilm.tv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037402011718-4cmjnatbojmdg8clgueq2575g5qbh3dk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.klikfilm.tv",
+            "certificate_hash": "a8432f45415451b40d49c5848de474e583d0182f"
+          }
+        },
+        {
+          "client_id": "1037402011718-edblqocr4a8fp4mq1rjoh0u2cghnad62.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.klikfilm.tv",
+            "certificate_hash": "e4333934f6f1e53938c8679bd9f8e66fda132c90"
+          }
+        },
+        {
+          "client_id": "1037402011718-s3ud2e4rn2rahfslt7ui68k0g39p7li8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDG4ky0jU2ddC4iIleW5XKbejsoIOMRyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037402011718-s3ud2e4rn2rahfslt7ui68k0g39p7li8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1037402011718-3ha8kh4gn6rsmm5kjmcsv1542e7753jv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.klikFilm"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037402011718:android:be3f72b81cd98ed4",
+        "android_client_info": {
+          "package_name": "net.klikfilm.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037402011718-1uofga9c9se4h8vlti834g0f4igthooc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.klikfilm.app",
+            "certificate_hash": "4a4365a5f0fa022f089d24f1824832bc73991066"
+          }
+        },
+        {
+          "client_id": "1037402011718-6kusukvrrgi8nfgog5lqcnhmjj1fi4sm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.klikfilm.app",
+            "certificate_hash": "b3dc5295c37e618bb8421a22e87fbdd54613fb96"
+          }
+        },
+        {
+          "client_id": "1037402011718-emi6pc0cdjfapl5qkj75vqrsa2a65rmn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.klikfilm.app",
+            "certificate_hash": "8d22cd0da85b633d93a6d43bfb51eab02b7c32b9"
+          }
+        },
+        {
+          "client_id": "1037402011718-g5us4ji0c7qtv70md5ld69feuk0ib9du.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.klikfilm.app",
+            "certificate_hash": "e4333934f6f1e53938c8679bd9f8e66fda132c90"
+          }
+        },
+        {
+          "client_id": "1037402011718-h98qasr2gprmcedt24g40ras6oof02dp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.klikfilm.app",
+            "certificate_hash": "2749b642ac40f5055beb2bf531c66821ed68fd7a"
+          }
+        },
+        {
+          "client_id": "1037402011718-m1dberh4khhmqqc038qfq7p2kcn1m8sc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.klikfilm.app",
+            "certificate_hash": "31dc41883234c470c6879be194222f0c70ac4f9c"
+          }
+        },
+        {
+          "client_id": "1037402011718-o7uf94dt2s4psvht25s55ob4fu9n97df.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.klikfilm.app",
+            "certificate_hash": "b55020b4ad7e5f04a656dbba45d936cf777a7253"
+          }
+        },
+        {
+          "client_id": "1037402011718-qhhomhuug67cjkkecpfd16jep29vt2co.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.klikfilm.app",
+            "certificate_hash": "7065e23b4865b232be5fc2cbf8f6914fd53920ab"
+          }
+        },
+        {
+          "client_id": "1037402011718-rvsbok7e5lpm639mmg30heqp5i4acvks.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.klikfilm.app",
+            "certificate_hash": "312a5d1ad7e465464f7f6d4f7f38ca1629a6a3a5"
+          }
+        },
+        {
+          "client_id": "1037402011718-s3ud2e4rn2rahfslt7ui68k0g39p7li8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDG4ky0jU2ddC4iIleW5XKbejsoIOMRyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037402011718-s3ud2e4rn2rahfslt7ui68k0g39p7li8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1037402011718-3ha8kh4gn6rsmm5kjmcsv1542e7753jv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.klikFilm"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
