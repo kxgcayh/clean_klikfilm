@@ -1,5 +1,4 @@
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
-import 'package:fl_klikfilm/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
