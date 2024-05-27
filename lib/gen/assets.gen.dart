@@ -109,13 +109,33 @@ class $AssetsPicturesGen {
   /// File path: assets/pictures/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/pictures/logo.png');
 
+  /// File path: assets/pictures/mini_logo.png
+  AssetGenImage get miniLogo =>
+      const AssetGenImage('assets/pictures/mini_logo.png');
+
+  /// File path: assets/pictures/splash_background.png
+  AssetGenImage get splashBackground =>
+      const AssetGenImage('assets/pictures/splash_background.png');
+
+  /// File path: assets/pictures/splash_logo.png
+  AssetGenImage get splashLogo =>
+      const AssetGenImage('assets/pictures/splash_logo.png');
+
   /// File path: assets/pictures/support_header.png
   AssetGenImage get supportHeader =>
       const AssetGenImage('assets/pictures/support_header.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [batikApb, batikDrawer, batikPanel, logo, supportHeader];
+  List<AssetGenImage> get values => [
+        batikApb,
+        batikDrawer,
+        batikPanel,
+        logo,
+        miniLogo,
+        splashBackground,
+        splashLogo,
+        supportHeader
+      ];
 }
 
 class Assets {

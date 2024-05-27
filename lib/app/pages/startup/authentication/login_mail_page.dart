@@ -17,8 +17,8 @@ class LoginMailPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isObscurePassword = useState<bool>(true);
-    final emailController = useTextEditingController();
-    final passwordController = useTextEditingController();
+    final emailController = useTextEditingController(text: 'togipangihutan@gmail.com');
+    final passwordController = useTextEditingController(text: 'bangsat');
     final formKey = useState(GlobalKey<FormState>());
 
     return Container(

@@ -18,292 +18,297 @@ class DrawerPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final localUserProvider = ref.watch(localUserNotifierProvider);
     final supportExpanded = useState(false);
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          alignment: Alignment.centerLeft,
-          image: AssetImage(Assets.pictures.batikDrawer.path),
-          fit: BoxFit.fitHeight,
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: KfAppBar(),
-        body: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                physics: AlwaysScrollableScrollPhysics(),
-                child: Column(
-                  children: [
-                    ListTile(
-                      horizontalTitleGap: 20,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 23),
-                      leading: Assets.icons.home.svg(),
-                      title: Text(
-                        'HOME',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: FontFamily.poppins,
-                        ),
-                      ),
-                      onTap: () => context.goNamed(HomeRoute.name),
-                    ),
-                    Visibility(
-                      visible: !localUserProvider.authenticationType.isGuest,
-                      child: ListTile(
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: KfAppBar(),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                alignment: Alignment.centerLeft,
+                image: AssetImage(Assets.pictures.batikDrawer.path),
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+          ),
+          Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    children: [
+                      ListTile(
                         horizontalTitleGap: 20,
                         contentPadding: EdgeInsets.symmetric(horizontal: 23),
-                        leading: Container(
-                          width: 24,
-                          height: 24,
-                          child: Icon(Icons.account_circle_rounded, color: Colors.white),
-                        ),
+                        leading: Assets.icons.home.svg(),
                         title: Text(
-                          'MY ACCOUNT',
+                          'HOME',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
                             fontFamily: FontFamily.poppins,
                           ),
                         ),
-                        onTap: () => context.pushReplacementNamed(AccountRoute.name),
+                        onTap: () => context.goNamed(HomeRoute.name),
                       ),
-                    ),
-                    Visibility(
-                      visible: !localUserProvider.authenticationType.isGuest,
-                      child: ListTile(
-                        horizontalTitleGap: 20,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 23),
-                        leading: Assets.icons.points.svg(),
-                        title: Text(
-                          'POINTS',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: FontFamily.poppins,
-                          ),
-                        ),
-                        onTap: () => context.pushReplacementNamed(PointRoute.name),
-                      ),
-                    ),
-                    Visibility(
-                      visible: !localUserProvider.authenticationType.isGuest,
-                      child: ListTile(
-                        horizontalTitleGap: 20,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 23),
-                        leading: Container(
-                          width: 24,
-                          height: 24,
-                          child: Icon(
-                            Icons.videogame_asset,
-                            color: Colors.white,
-                          ),
-                        ),
-                        title: Text(
-                          'KLIKFILM ARCADE',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: FontFamily.poppins,
-                          ),
-                        ),
-                        onTap: () {},
-                      ),
-                    ),
-                    ListTile(
-                      horizontalTitleGap: 20,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 23),
-                      leading: Assets.icons.rewards.svg(),
-                      title: Text(
-                        'REWARDS',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: FontFamily.poppins,
-                        ),
-                      ),
-                      onTap: () async {
-                        await launchUrl(
-                          Uri.parse('https://klikfilm.com/v3/desktop/static_page/iphone'),
-                        );
-                      },
-                    ),
-                    Visibility(
-                      visible: !localUserProvider.authenticationType.isGuest,
-                      child: ListTile(
-                        horizontalTitleGap: 20,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 23),
-                        leading: Assets.icons.tv.svg(),
-                        title: Text(
-                          'LINK TO TV',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: FontFamily.poppins,
-                          ),
-                        ),
-                        onTap: () => context.pushReplacementNamed(LinkToTvRoute.name),
-                      ),
-                    ),
-                    Visibility(
-                      visible: !localUserProvider.authenticationType.isGuest,
-                      child: ListTile(
-                        horizontalTitleGap: 20,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 23),
-                        leading: Assets.icons.kids.svg(),
-                        title: Text(
-                          'KIDS MODE',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: FontFamily.poppins,
-                          ),
-                        ),
-                        onTap: () => context.pushReplacementNamed(KidsModeRoute.name),
-                        trailing: Stack(
-                          alignment: localUserProvider.kidsMode.isNotEmpty
-                              ? Alignment.centerRight
-                              : Alignment.centerLeft,
-                          children: [
-                            Container(
-                              width: 45,
-                              height: 25,
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(
-                                  localUserProvider.kidsMode.isNotEmpty ? 0.8 : 0.2,
-                                ),
-                                borderRadius: BorderRadius.circular(80),
-                              ),
-                            ),
-                            Container(
-                              width: 28,
-                              height: 28,
-                              decoration: BoxDecoration(
-                                color: localUserProvider.kidsMode.isNotEmpty ? KColors.primary : Colors.white,
-                                borderRadius: BorderRadius.circular(28 / 2),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        ListTile(
+                      Visibility(
+                        visible: !localUserProvider.authenticationType.isGuest,
+                        child: ListTile(
                           horizontalTitleGap: 20,
                           contentPadding: EdgeInsets.symmetric(horizontal: 23),
-                          leading: Assets.icons.support.svg(),
+                          leading: Container(
+                            width: 24,
+                            height: 24,
+                            child: Icon(Icons.account_circle_rounded, color: Colors.white),
+                          ),
                           title: Text(
-                            'SUPPORTS',
+                            'MY ACCOUNT',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
                               fontFamily: FontFamily.poppins,
                             ),
                           ),
-                          trailing: Icon(
-                            supportExpanded.value
-                                ? Icons.keyboard_arrow_up_rounded
-                                : Icons.keyboard_arrow_down_rounded,
-                            color: Colors.white,
-                          ),
-                          onTap: () {
-                            supportExpanded.value = !supportExpanded.value;
-                          },
+                          onTap: () => context.pushReplacementNamed(AccountRoute.name),
                         ),
-                        AnimatedOpacity(
-                          opacity: supportExpanded.value ? 1.0 : 0,
-                          duration: Duration(milliseconds: 250),
-                          child: Column(
+                      ),
+                      Visibility(
+                        visible: !localUserProvider.authenticationType.isGuest,
+                        child: ListTile(
+                          horizontalTitleGap: 20,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 23),
+                          leading: Assets.icons.points.svg(),
+                          title: Text(
+                            'POINTS',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: FontFamily.poppins,
+                            ),
+                          ),
+                          onTap: () => context.pushReplacementNamed(PointRoute.name),
+                        ),
+                      ),
+                      Visibility(
+                        visible: !localUserProvider.authenticationType.isGuest,
+                        child: ListTile(
+                          horizontalTitleGap: 20,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 23),
+                          leading: Container(
+                            width: 24,
+                            height: 24,
+                            child: Icon(
+                              Icons.videogame_asset,
+                              color: Colors.white,
+                            ),
+                          ),
+                          title: Text(
+                            'KLIKFILM ARCADE',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: FontFamily.poppins,
+                            ),
+                          ),
+                          onTap: () {},
+                        ),
+                      ),
+                      ListTile(
+                        horizontalTitleGap: 20,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 23),
+                        leading: Assets.icons.rewards.svg(),
+                        title: Text(
+                          'REWARDS',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: FontFamily.poppins,
+                          ),
+                        ),
+                        onTap: () async {
+                          await launchUrl(
+                            Uri.parse('https://klikfilm.com/v3/desktop/static_page/iphone'),
+                          );
+                        },
+                      ),
+                      Visibility(
+                        visible: !localUserProvider.authenticationType.isGuest,
+                        child: ListTile(
+                          horizontalTitleGap: 20,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 23),
+                          leading: Assets.icons.tv.svg(width: 24, height: 24),
+                          title: Text(
+                            'LINK TO TV',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: FontFamily.poppins,
+                            ),
+                          ),
+                          onTap: () => context.pushReplacementNamed(LinkToTvRoute.name),
+                        ),
+                      ),
+                      Visibility(
+                        visible: !localUserProvider.authenticationType.isGuest,
+                        child: ListTile(
+                          horizontalTitleGap: 20,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 23),
+                          leading: Assets.icons.kids.svg(),
+                          title: Text(
+                            'KIDS MODE',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: FontFamily.poppins,
+                            ),
+                          ),
+                          onTap: () => context.pushReplacementNamed(KidsModeRoute.name),
+                          trailing: Stack(
+                            alignment: localUserProvider.kidsMode.isNotEmpty
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
                             children: [
-                              ListTile(
-                                contentPadding: EdgeInsets.symmetric(horizontal: 67),
-                                title: Text(
-                                  'CONTACT US',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontFamily: FontFamily.poppins,
+                              Container(
+                                width: 45,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(
+                                    localUserProvider.kidsMode.isNotEmpty ? 0.8 : 0.2,
                                   ),
+                                  borderRadius: BorderRadius.circular(80),
                                 ),
-                                onTap: () {
-                                  SupportRoute(type: GeneralInformationType.contact).push(context);
-                                },
                               ),
-                              ListTile(
-                                contentPadding: EdgeInsets.symmetric(horizontal: 67),
-                                title: Text(
-                                  'TERMS OF USE',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontFamily: FontFamily.poppins,
-                                  ),
+                              Container(
+                                width: 28,
+                                height: 28,
+                                decoration: BoxDecoration(
+                                  color:
+                                      localUserProvider.kidsMode.isNotEmpty ? KColors.primary : Colors.white,
+                                  borderRadius: BorderRadius.circular(28 / 2),
                                 ),
-                                onTap: () {
-                                  SupportRoute(type: GeneralInformationType.tou).push(context);
-                                },
-                              ),
-                              ListTile(
-                                contentPadding: EdgeInsets.symmetric(horizontal: 67),
-                                title: Text(
-                                  'FAQ',
-                                  style: TextStyle(color: Colors.white, fontSize: 18),
-                                ),
-                                onTap: () {
-                                  SupportRoute(type: GeneralInformationType.faq).push(context);
-                                },
-                              ),
-                              ListTile(
-                                contentPadding: EdgeInsets.symmetric(horizontal: 67),
-                                title: Text(
-                                  'PRIVACY POLICY',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontFamily: FontFamily.poppins,
-                                  ),
-                                ),
-                                onTap: () {
-                                  SupportRoute(type: GeneralInformationType.privacyPolicy).push(context);
-                                },
                               ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                      Column(
+                        children: [
+                          ListTile(
+                            horizontalTitleGap: 20,
+                            contentPadding: EdgeInsets.symmetric(horizontal: 23),
+                            leading: Assets.icons.support.svg(),
+                            title: Text(
+                              'SUPPORTS',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: FontFamily.poppins,
+                              ),
+                            ),
+                            trailing: Icon(
+                              supportExpanded.value
+                                  ? Icons.keyboard_arrow_up_rounded
+                                  : Icons.keyboard_arrow_down_rounded,
+                              color: Colors.white,
+                            ),
+                            onTap: () {
+                              supportExpanded.value = !supportExpanded.value;
+                            },
+                          ),
+                          AnimatedOpacity(
+                            opacity: supportExpanded.value ? 1.0 : 0,
+                            duration: Duration(milliseconds: 250),
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 67),
+                                  title: Text(
+                                    'CONTACT US',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    SupportRoute(type: GeneralInformationType.contact).push(context);
+                                  },
+                                ),
+                                ListTile(
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 67),
+                                  title: Text(
+                                    'TERMS OF USE',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    SupportRoute(type: GeneralInformationType.tou).push(context);
+                                  },
+                                ),
+                                ListTile(
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 67),
+                                  title: Text(
+                                    'FAQ',
+                                    style: TextStyle(color: Colors.white, fontSize: 18),
+                                  ),
+                                  onTap: () {
+                                    SupportRoute(type: GeneralInformationType.faq).push(context);
+                                  },
+                                ),
+                                ListTile(
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 67),
+                                  title: Text(
+                                    'PRIVACY POLICY',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    SupportRoute(type: GeneralInformationType.privacyPolicy).push(context);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            ListTile(
-              horizontalTitleGap: 20,
-              contentPadding: EdgeInsets.symmetric(horizontal: 23),
-              leading: Assets.icons.logout.svg(),
-              title: Text(
-                localUserProvider.authenticationType.isGuest ? 'LOGIN' : 'LOGOUT',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontFamily: FontFamily.poppins,
+              ListTile(
+                horizontalTitleGap: 20,
+                contentPadding: EdgeInsets.symmetric(horizontal: 23),
+                leading: Assets.icons.logout.svg(),
+                title: Text(
+                  localUserProvider.authenticationType.isGuest ? 'LOGIN' : 'LOGOUT',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontFamily: FontFamily.poppins,
+                  ),
                 ),
+                onTap: () async {
+                  if (localUserProvider.authenticationType.isGuest) {
+                    AuthenticationRoute().pushReplacement(context);
+                  } else {
+                    await ref.read(localUserNotifierProvider.notifier).setLogout().then((_) async {
+                      ref.invalidate(categoriesAsyncNotifier);
+                      HomeRoute().go(context);
+                    });
+                  }
+                },
               ),
-              onTap: () async {
-                if (localUserProvider.authenticationType.isGuest) {
-                  AuthenticationRoute().pushReplacement(context);
-                } else {
-                  await ref.read(localUserNotifierProvider.notifier).setLogout().then((_) async {
-                    ref.invalidate(categoriesAsyncNotifier);
-                    HomeRoute().go(context);
-                  });
-                }
-              },
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }

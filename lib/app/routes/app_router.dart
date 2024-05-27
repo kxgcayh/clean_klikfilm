@@ -1,5 +1,7 @@
-import 'package:fl_klikfilm/app/pages/account_page.dart';
 import 'package:fl_klikfilm/app/pages/authentication_page.dart';
+import 'package:fl_klikfilm/app/pages/dialog_page.dart';
+import 'package:fl_klikfilm/app/pages/account_page.dart';
+import 'package:fl_klikfilm/app/pages/delete_account_page.dart';
 import 'package:fl_klikfilm/app/pages/drawer_page.dart';
 import 'package:fl_klikfilm/app/pages/home_page.dart';
 import 'package:fl_klikfilm/app/pages/kids_mode_page.dart';
@@ -26,7 +28,16 @@ final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'mainBottomNaviga
   routes: [
     TypedGoRoute<SearchRoute>(path: SearchRoute.path, name: SearchRoute.name),
     TypedGoRoute<MenuRoute>(path: MenuRoute.path, name: MenuRoute.name),
-    TypedGoRoute<AccountRoute>(path: AccountRoute.path, name: AccountRoute.name),
+    TypedGoRoute<AccountRoute>(
+      path: AccountRoute.path,
+      name: AccountRoute.name,
+      routes: [
+        TypedGoRoute<DeleteAccountRoute>(
+          path: DeleteAccountRoute.path,
+          name: DeleteAccountRoute.name,
+        ),
+      ],
+    ),
     TypedGoRoute<PointRoute>(path: PointRoute.path, name: PointRoute.name),
     TypedGoRoute<LinkToTvRoute>(path: LinkToTvRoute.path, name: LinkToTvRoute.name),
     TypedGoRoute<KidsModeRoute>(path: KidsModeRoute.path, name: KidsModeRoute.name),
@@ -87,8 +98,11 @@ class MenuRoute extends GoRouteData {
       child: const DrawerPage(),
       transitionDuration: Duration(milliseconds: 350),
       transitionsBuilder: (context, animation, animation2, child) {
-        return FadeTransition(
-          opacity: CurveTween(curve: Curves.easeIn).animate(animation),
+        return SlideTransition(
+          position: Tween(
+            begin: const Offset(1, 0),
+            end: const Offset(0, 0),
+          ).animate(animation),
           child: child,
         );
       },
@@ -114,6 +128,17 @@ class AccountRoute extends GoRouteData {
         );
       },
     );
+  }
+}
+
+class DeleteAccountRoute extends GoRouteData {
+  const DeleteAccountRoute();
+  static const name = 'Delete Account';
+  static const path = 'delete-account';
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return DialogPage(child: DeleteAccountPage());
   }
 }
 

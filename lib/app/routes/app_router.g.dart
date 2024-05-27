@@ -30,6 +30,13 @@ RouteBase get $homeRoute => GoRouteData.$route(
           path: 'account',
           name: 'Account',
           factory: $AccountRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'delete-account',
+              name: 'Delete Account',
+              factory: $DeleteAccountRouteExtension._fromState,
+            ),
+          ],
         ),
         GoRouteData.$route(
           path: 'point',
@@ -110,6 +117,24 @@ extension $AccountRouteExtension on AccountRoute {
 
   String get location => GoRouteData.$location(
         '/account',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $DeleteAccountRouteExtension on DeleteAccountRoute {
+  static DeleteAccountRoute _fromState(GoRouterState state) =>
+      const DeleteAccountRoute();
+
+  String get location => GoRouteData.$location(
+        '/account/delete-account',
       );
 
   void go(BuildContext context) => context.go(location);
