@@ -1,16 +1,14 @@
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
+import 'package:fl_klikfilm/app/widgets/kf_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-enum DeleteAccountWizardType { info, confirmation, success }
 
 class DeleteAccountPage extends HookConsumerWidget {
   const DeleteAccountPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final
     // final loginNotifier = ref.read(podLoginNotifier.notifier);
     // final local = ref.watch(localUserNotifierProvider);
     return Column(
@@ -53,7 +51,7 @@ class DeleteAccountPage extends HookConsumerWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.circle, color: Colors.white, size: 8),
+                        Icon(Icons.circle, color: Colors.white, size: 6),
                         SizedBox(width: 6),
                         Text(
                           'Aktivitas dan riwayat tontonan.',
@@ -63,7 +61,7 @@ class DeleteAccountPage extends HookConsumerWidget {
                     ),
                     Row(
                       children: [
-                        Icon(Icons.circle, color: Colors.white, size: 8),
+                        Icon(Icons.circle, color: Colors.white, size: 6),
                         SizedBox(width: 6),
                         Text(
                           'Masa berlangganan dan pembayaran lainnya.',
@@ -73,7 +71,7 @@ class DeleteAccountPage extends HookConsumerWidget {
                     ),
                     Row(
                       children: [
-                        Icon(Icons.circle, color: Colors.white, size: 8),
+                        Icon(Icons.circle, color: Colors.white, size: 6),
                         SizedBox(width: 6),
                         Expanded(
                           child: Text(
@@ -88,7 +86,7 @@ class DeleteAccountPage extends HookConsumerWidget {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(top: 6),
-                          child: Icon(Icons.circle, color: Colors.white, size: 8),
+                          child: Icon(Icons.circle, color: Colors.white, size: 6),
                         ),
                         SizedBox(width: 6),
                         Expanded(
@@ -114,7 +112,22 @@ class DeleteAccountPage extends HookConsumerWidget {
                 SizedBox(
                   width: double.infinity,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (context) {
+                          return KfDialog(
+                            subTitle: 'Delete Account',
+                            description: 'Proses penghapuskan tidak '
+                                'akan bisa dibatalkan setelah Anda mengkonfirmasinya',
+                            confirmText: 'Delete',
+                            onConfirm: () {
+                              // context.goNamed(AccountRoute.name);
+                            },
+                          );
+                        },
+                      );
+                    },
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),

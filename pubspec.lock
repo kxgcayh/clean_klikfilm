@@ -354,7 +354,7 @@ packages:
     source: hosted
     version: "5.4.1"
   enhanced_enum:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: enhanced_enum
       ref: HEAD
@@ -363,7 +363,7 @@ packages:
     source: git
     version: "0.2.5"
   enhanced_enum_generator:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: enhanced_enum_generator
       ref: HEAD

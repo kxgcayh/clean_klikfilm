@@ -2,7 +2,7 @@ import 'package:fl_klikfilm/app/providers/categories/categories_provider.dart';
 import 'package:fl_klikfilm/app/routes/app_router.dart';
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
 import 'package:fl_klikfilm/app/widgets/kf_app_bar.dart';
-import 'package:fl_klikfilm/app/widgets/kf_dialog.dart';
+import 'package:fl_klikfilm/app/widgets/kf_animation_dialog.dart';
 import 'package:fl_klikfilm/app/widgets/kf_text_field.dart';
 import 'package:fl_klikfilm/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
@@ -126,7 +126,7 @@ class LoginMailPage extends HookConsumerWidget {
                                       barrierDismissible: true,
                                       useRootNavigator: false,
                                       builder: (BuildContext context) {
-                                        return KfDialog(
+                                        return KfAnimationDialog(
                                           title: 'Login Failed',
                                           message: result.desc ?? 'Something went wrong',
                                           lottieAsset: Assets.animations.failBouncy,

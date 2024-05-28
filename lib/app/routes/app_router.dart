@@ -1,5 +1,5 @@
 import 'package:fl_klikfilm/app/pages/authentication_page.dart';
-import 'package:fl_klikfilm/app/pages/dialog_page.dart';
+import 'package:fl_klikfilm/app/pages/fullscreen_dialog_page.dart';
 import 'package:fl_klikfilm/app/pages/account_page.dart';
 import 'package:fl_klikfilm/app/pages/delete_account_page.dart';
 import 'package:fl_klikfilm/app/pages/drawer_page.dart';
@@ -138,7 +138,7 @@ class DeleteAccountRoute extends GoRouteData {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return DialogPage(child: DeleteAccountPage());
+    return FullscreenDialogPage(child: DeleteAccountPage());
   }
 }
 

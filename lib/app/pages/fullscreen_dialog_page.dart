@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// A dialog page with Material entrance and exit animations, modal barrier color,
 /// and modal barrier behavior (dialog is dismissible with a tap on the barrier).
-class DialogPage<T> extends Page<T> {
+class FullscreenDialogPage<T> extends Page<T> {
   final Offset? anchorPoint;
   final Color? barrierColor;
   final bool barrierDismissible;
@@ -11,7 +11,7 @@ class DialogPage<T> extends Page<T> {
   final CapturedThemes? themes;
   final Widget child;
 
-  const DialogPage({
+  const FullscreenDialogPage({
     required this.child,
     this.anchorPoint,
     this.barrierColor = Colors.black54,
