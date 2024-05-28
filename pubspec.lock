@@ -354,23 +354,23 @@ packages:
     source: hosted
     version: "5.4.1"
   enhanced_enum:
-    dependency: transitive
+    dependency: "direct main"
     description:
-      path: "."
+      path: enhanced_enum
       ref: HEAD
-      resolved-ref: b5dcf440d47dfaf15c749f055f388c2153a11253
-      url: "https://github.com/kxgcayh/enchanced_enum"
+      resolved-ref: "21c328692ab24f1659468c2eaae1fe1fed23acc2"
+      url: "https://github.com/kxgcayh/enhanced_enum"
     source: git
-    version: "0.2.4"
+    version: "0.2.5"
   enhanced_enum_generator:
-    dependency: transitive
+    dependency: "direct main"
     description:
-      path: "."
+      path: enhanced_enum_generator
       ref: HEAD
-      resolved-ref: ea499e5a1c0dfb8e9a7cd99109059328cd02c06a
-      url: "https://github.com/kxgcayh/enchanced_enum_generator"
+      resolved-ref: "21c328692ab24f1659468c2eaae1fe1fed23acc2"
+      url: "https://github.com/kxgcayh/enhanced_enum"
     source: git
-    version: "0.2.4"
+    version: "0.2.5"
   fake_async:
     dependency: transitive
     description:

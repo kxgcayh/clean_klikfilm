@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class DeleteAccountPage extends ConsumerWidget {
+enum DeleteAccountWizardType { info, confirmation, success }
+
+class DeleteAccountPage extends HookConsumerWidget {
   const DeleteAccountPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // final
     // final loginNotifier = ref.read(podLoginNotifier.notifier);
     // final local = ref.watch(localUserNotifierProvider);
     return Column(

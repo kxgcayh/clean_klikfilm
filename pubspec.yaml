@@ -33,6 +33,14 @@ dependencies:
     path: ../klikfilm_dart_resources
   firebase_core: ^2.31.0
   flutter_native_splash: ^2.4.0
+  enhanced_enum:
+    git:
+      url: https://github.com/kxgcayh/enhanced_enum
+      path: enhanced_enum
+  enhanced_enum_generator:
+    git:
+      url: https://github.com/kxgcayh/enhanced_enum
+      path: enhanced_enum_generator
 
 dev_dependencies:
   flutter_test:
