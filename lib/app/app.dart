@@ -7,6 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class KlikFilmApp extends HookConsumerWidget {
   const KlikFilmApp({super.key});
@@ -32,6 +33,15 @@ class KlikFilmApp extends HookConsumerWidget {
       child: MaterialApp.router(
         title: 'KlikFilm',
         routerConfig: router,
+        builder: (context, child) => ResponsiveBreakpoints.builder(
+          child: child!,
+          breakpoints: [
+            const Breakpoint(start: 0, end: 450, name: MOBILE),
+            const Breakpoint(start: 451, end: 800, name: TABLET),
+            const Breakpoint(start: 801, end: 1920, name: DESKTOP),
+            const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+          ],
+        ),
         debugShowCheckedModeBanner: false,
         supportedLocales: const [
           ...FormBuilderLocalizations.supportedLocales,

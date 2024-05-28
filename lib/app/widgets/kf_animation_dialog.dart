@@ -1,4 +1,5 @@
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
+import 'package:fl_klikfilm/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -13,6 +14,12 @@ class KfAnimationDialog extends StatelessWidget {
     required this.lottieAsset,
     this.message,
   });
+
+  KfAnimationDialog.success({
+    super.key,
+    this.message,
+  })  : title = 'Success',
+        lottieAsset = Assets.animations.success;
 
   @override
   Widget build(BuildContext context) {

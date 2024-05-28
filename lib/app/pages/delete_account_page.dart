@@ -1,4 +1,6 @@
+import 'package:fl_klikfilm/app/routes/app_router.dart';
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
+import 'package:fl_klikfilm/app/widgets/kf_animation_dialog.dart';
 import 'package:fl_klikfilm/app/widgets/kf_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -121,8 +123,13 @@ class DeleteAccountPage extends HookConsumerWidget {
                             description: 'Proses penghapuskan tidak '
                                 'akan bisa dibatalkan setelah Anda mengkonfirmasinya',
                             confirmText: 'Delete',
-                            onConfirm: () {
-                              // context.goNamed(AccountRoute.name);
+                            onConfirm: () async {
+                              await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return KfAnimationDialog.success(message: 'Penghapusan akun telah selesai');
+                                },
+                              ).then((_) => context.goNamed(HomeRoute.name));
                             },
                           );
                         },

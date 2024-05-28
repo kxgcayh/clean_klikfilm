@@ -14,9 +14,7 @@ FutureOr<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     ProviderScope(
-      child: AppStartupWidget(
-        onLoaded: (context) => const KlikFilmApp(),
-      ),
+      child: AppStartupWidget(onLoaded: (context) => const KlikFilmApp()),
     ),
   );
 }
