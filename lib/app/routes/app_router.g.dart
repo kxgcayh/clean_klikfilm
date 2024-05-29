@@ -247,6 +247,13 @@ RouteBase get $authenticationRoute => GoRouteData.$route(
           path: 'register',
           name: 'Register Email',
           factory: $RegisterMailRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'verification-email-register',
+              name: 'Verification Email',
+              factory: $VerificationMailRouteExtension._fromState,
+            ),
+          ],
         ),
         GoRouteData.$route(
           path: 'forgot-password',
@@ -310,6 +317,31 @@ extension $RegisterMailRouteExtension on RegisterMailRoute {
 
   String get location => GoRouteData.$location(
         '/authentication/register',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $VerificationMailRouteExtension on VerificationMailRoute {
+  static VerificationMailRoute _fromState(GoRouterState state) =>
+      VerificationMailRoute(
+        email: state.uri.queryParameters['email']!,
+        password: state.uri.queryParameters['password']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/authentication/register/verification-email-register',
+        queryParams: {
+          'email': email,
+          'password': password,
+        },
       );
 
   void go(BuildContext context) => context.go(location);

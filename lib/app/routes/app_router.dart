@@ -1,3 +1,4 @@
+import 'package:fl_klikfilm/app/pages/authentication/verification_mail_page.dart';
 import 'package:fl_klikfilm/app/pages/authentication_page.dart';
 import 'package:fl_klikfilm/app/pages/fullscreen_dialog_page.dart';
 import 'package:fl_klikfilm/app/pages/account_page.dart';
@@ -210,7 +211,16 @@ class KidsModeRoute extends GoRouteData {
   name: AuthenticationRoute.name,
   routes: <TypedRoute<RouteData>>[
     TypedGoRoute<LoginMailRoute>(path: LoginMailRoute.path, name: LoginMailRoute.name),
-    TypedGoRoute<RegisterMailRoute>(path: RegisterMailRoute.path, name: RegisterMailRoute.name),
+    TypedGoRoute<RegisterMailRoute>(
+      path: RegisterMailRoute.path,
+      name: RegisterMailRoute.name,
+      routes: [
+        TypedGoRoute<VerificationMailRoute>(
+          path: VerificationMailRoute.path,
+          name: VerificationMailRoute.name,
+        ),
+      ],
+    ),
     TypedGoRoute<ForgotPasswordRoute>(path: ForgotPasswordRoute.path, name: ForgotPasswordRoute.name),
     TypedGoRoute<LoginPhoneNumberRoute>(
       path: LoginPhoneNumberRoute.path,
@@ -273,6 +283,32 @@ class RegisterMailRoute extends GoRouteData {
     return CustomTransitionPage<void>(
       key: state.pageKey,
       child: const RegisterMailPage(),
+      transitionDuration: Duration(milliseconds: 350),
+      transitionsBuilder: (context, animation, animation2, child) {
+        return FadeTransition(
+          opacity: CurveTween(curve: Curves.easeIn).animate(animation),
+          child: child,
+        );
+      },
+    );
+  }
+}
+
+class VerificationMailRoute extends GoRouteData {
+  final String email;
+  final String password;
+  const VerificationMailRoute({
+    required this.email,
+    required this.password,
+  });
+  static const name = 'Verification Email';
+  static const path = 'verification-email-register';
+
+  @override
+  CustomTransitionPage<void> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage<void>(
+      key: state.pageKey,
+      child: VerificationMailPage(email: email, password: password),
       transitionDuration: Duration(milliseconds: 350),
       transitionsBuilder: (context, animation, animation2, child) {
         return FadeTransition(

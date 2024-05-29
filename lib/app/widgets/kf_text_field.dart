@@ -59,7 +59,7 @@ class KfTextField extends StatelessWidget {
           decoration: InputDecoration(
             filled: true,
             hintText: hintText,
-            contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+            contentPadding: EdgeInsets.fromLTRB(16, prefixIcon != null ? 12 : 14, 16, 14),
             hintStyle: hintStyle ?? TextStyle(fontSize: 16, color: KColors.silverSand),
             alignLabelWithHint: true,
             fillColor: Colors.white,

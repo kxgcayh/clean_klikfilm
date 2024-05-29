@@ -110,9 +110,8 @@ class LoginMailPage extends HookConsumerWidget {
                           onPressed: () async {
                             if (formKey.value.currentState?.validate() ?? false) {
                               final authentication = ref.read(authenticationProvider);
-
                               await authentication.loginByEmail(
-                                ManualLoginFamily(
+                                ManualAuthFamily(
                                   email: emailController.text,
                                   password: passwordController.text,
                                 ),

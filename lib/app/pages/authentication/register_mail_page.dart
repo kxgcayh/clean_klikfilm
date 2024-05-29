@@ -1,4 +1,6 @@
+import 'package:fl_klikfilm/app/routes/app_router.dart';
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
+import 'package:fl_klikfilm/app/widgets/kf_animation_dialog.dart';
 import 'package:fl_klikfilm/app/widgets/kf_app_bar.dart';
 import 'package:fl_klikfilm/app/widgets/kf_text_field.dart';
 import 'package:fl_klikfilm/gen/assets.gen.dart';
@@ -6,14 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 
-class RegisterMailPage extends HookWidget {
+class RegisterMailPage extends HookConsumerWidget {
   const RegisterMailPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isObscurePassword = useState<bool>(true);
     final formKey = useState(GlobalKey<FormState>());
+    final txtMail = useTextEditingController();
+    final txtPassword = useTextEditingController();
 
     return Container(
       height: MediaQuery.of(context).size.height,
@@ -53,6 +59,7 @@ class RegisterMailPage extends HookWidget {
                       KfTextField(
                         label: 'Email',
                         hintText: 'example : email@klikfilm.com',
+                        controller: txtMail,
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.email(),
                           FormBuilderValidators.required(),
@@ -62,6 +69,7 @@ class RegisterMailPage extends HookWidget {
                       KfTextField(
                         label: 'Password',
                         hintText: '************',
+                        controller: txtPassword,
                         obscureText: isObscurePassword.value,
                         validator: FormBuilderValidators.compose([
                           FormBuilderValidators.min(4),
@@ -86,9 +94,38 @@ class RegisterMailPage extends HookWidget {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            final local = ref.watch(localUserNotifierProvider);
+                            final authentication = ref.read(authenticationProvider);
+                            final ManualAuthFamily arg = ManualAuthFamily(
+                              email: txtMail.text,
+                              password: txtPassword.text,
+                            );
                             if (formKey.value.currentState?.validate() ?? false) {
-                              //
+                              await authentication.registerByEmail(arg, onValue: (response) async {
+                                if (response.data?.id != null) {
+                                  VerificationMailRoute(
+                                    email: txtMail.text,
+                                    password: txtPassword.text,
+                                  ).push(context);
+                                } else {
+                                  if (local.registrationId.isNotEmpty) {
+                                    await ref
+                                        .read(resendRegisterActivationProvider)
+                                        .then((value) => VerificationMailRoute(
+                                              email: txtMail.text,
+                                              password: txtPassword.text,
+                                            ).push(context));
+                                  } else {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return KfAnimationDialog.error(message: response.desc);
+                                      },
+                                    );
+                                  }
+                                }
+                              });
                             }
                           },
                           child: Text('Register'),

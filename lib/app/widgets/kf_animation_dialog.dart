@@ -21,14 +21,21 @@ class KfAnimationDialog extends StatelessWidget {
   })  : title = 'Success',
         lottieAsset = Assets.animations.success;
 
+  KfAnimationDialog.error({
+    super.key,
+    this.message,
+  })  : title = 'Error',
+        lottieAsset = Assets.animations.failBouncy;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
       alignment: Alignment.center,
       backgroundColor: Colors.transparent,
+      surfaceTintColor: KColors.primaryGrey.withOpacity(0.95),
       child: Container(
         decoration: BoxDecoration(
-          color: KColors.primaryGrey.withOpacity(0.8),
+          color: KColors.primaryGrey.withOpacity(0.95),
           borderRadius: BorderRadius.circular(18),
         ),
         constraints: BoxConstraints(
