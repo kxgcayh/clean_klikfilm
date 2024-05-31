@@ -1,13 +1,12 @@
 import 'package:fl_klikfilm/app/routes/app_router.dart';
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
-import 'package:fl_klikfilm/app/widgets/kf_app_bar.dart';
 import 'package:fl_klikfilm/app/widgets/kf_animation_dialog.dart';
+import 'package:fl_klikfilm/app/widgets/kf_app_bar.dart';
 import 'package:fl_klikfilm/app/widgets/kf_text_field.dart';
 import 'package:fl_klikfilm/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 
@@ -127,7 +126,7 @@ class LoginPhoneNumberPage extends HookConsumerWidget {
                                         lottieAsset: Assets.animations.failBouncy,
                                       );
                                     },
-                                  ).then((_) => context.pop());
+                                  );
                                 }
                               });
                             }

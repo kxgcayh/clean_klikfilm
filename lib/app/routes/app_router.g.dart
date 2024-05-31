@@ -333,14 +333,14 @@ extension $VerificationMailRouteExtension on VerificationMailRoute {
   static VerificationMailRoute _fromState(GoRouterState state) =>
       VerificationMailRoute(
         email: state.uri.queryParameters['email']!,
-        password: state.uri.queryParameters['password']!,
+        registrationId: state.uri.queryParameters['registration-id']!,
       );
 
   String get location => GoRouteData.$location(
         '/authentication/register/verification-email-register',
         queryParams: {
           'email': email,
-          'password': password,
+          'registration-id': registrationId,
         },
       );
 

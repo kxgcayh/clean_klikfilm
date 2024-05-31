@@ -12,11 +12,11 @@ import 'package:pinput/pinput.dart';
 
 class VerificationMailPage extends HookConsumerWidget {
   final String email;
-  final String password;
+  final String registrationId;
   const VerificationMailPage({
     super.key,
     required this.email,
-    required this.password,
+    required this.registrationId,
   });
 
   @override
@@ -113,6 +113,7 @@ class VerificationMailPage extends HookConsumerWidget {
                       await authentication.registerActivation(
                         otpController.text,
                         email: email,
+                        registrationId: registrationId,
                         onValue: (response) async {
                           if (response.success) {
                             ref.invalidate(categoriesAsyncNotifier);

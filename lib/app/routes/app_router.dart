@@ -296,10 +296,10 @@ class RegisterMailRoute extends GoRouteData {
 
 class VerificationMailRoute extends GoRouteData {
   final String email;
-  final String password;
+  final String registrationId;
   const VerificationMailRoute({
     required this.email,
-    required this.password,
+    required this.registrationId,
   });
   static const name = 'Verification Email';
   static const path = 'verification-email-register';
@@ -308,7 +308,7 @@ class VerificationMailRoute extends GoRouteData {
   CustomTransitionPage<void> buildPage(BuildContext context, GoRouterState state) {
     return CustomTransitionPage<void>(
       key: state.pageKey,
-      child: VerificationMailPage(email: email, password: password),
+      child: VerificationMailPage(email: email, registrationId: registrationId),
       transitionDuration: Duration(milliseconds: 350),
       transitionsBuilder: (context, animation, animation2, child) {
         return FadeTransition(

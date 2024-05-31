@@ -1,3 +1,4 @@
+import 'package:fl_klikfilm/app/providers/categories/categories_provider.dart';
 import 'package:fl_klikfilm/app/routes/app_router.dart';
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
 import 'package:fl_klikfilm/app/widgets/kf_animation_dialog.dart';
@@ -5,6 +6,7 @@ import 'package:fl_klikfilm/app/widgets/kf_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 
 class DeleteAccountPage extends HookConsumerWidget {
   const DeleteAccountPage({super.key});
@@ -124,12 +126,35 @@ class DeleteAccountPage extends HookConsumerWidget {
                                 'akan bisa dibatalkan setelah Anda mengkonfirmasinya',
                             confirmText: 'Delete',
                             onConfirm: () async {
-                              await showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return KfAnimationDialog.success(message: 'Penghapusan akun telah selesai');
-                                },
-                              ).then((_) => context.goNamed(HomeRoute.name));
+                              await ref.read(accountDeletionProvider).then((response) async {
+                                if (response.success) {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return KfAnimationDialog.success(
+                                        message: 'Penghapusan akun telah selesai',
+                                      );
+                                    },
+                                  ).then((_) async {
+                                    await ref
+                                        .read(localUserNotifierProvider.notifier)
+                                        .setLogout()
+                                        .then((_) async {
+                                      ref.invalidate(categoriesAsyncNotifier);
+                                      HomeRoute().go(context);
+                                    });
+                                  });
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return KfAnimationDialog.error(
+                                        message: response.error?.desc ?? 'Something went wrong',
+                                      );
+                                    },
+                                  );
+                                }
+                              });
                             },
                           );
                         },

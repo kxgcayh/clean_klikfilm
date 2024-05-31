@@ -106,24 +106,25 @@ class RegisterMailPage extends HookConsumerWidget {
                                 if (response.data?.id != null) {
                                   VerificationMailRoute(
                                     email: txtMail.text,
-                                    password: txtPassword.text,
+                                    registrationId: response.data!.id,
                                   ).push(context);
+                                }
+                                if (!response.success && local.registrationId.isNotEmpty) {
+                                  await ref
+                                      .read(resendRegisterActivationProvider)
+                                      .then((value) => VerificationMailRoute(
+                                            email: txtMail.text,
+                                            registrationId: local.registrationId,
+                                          ).push(context));
                                 } else {
-                                  if (local.registrationId.isNotEmpty) {
-                                    await ref
-                                        .read(resendRegisterActivationProvider)
-                                        .then((value) => VerificationMailRoute(
-                                              email: txtMail.text,
-                                              password: txtPassword.text,
-                                            ).push(context));
-                                  } else {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return KfAnimationDialog.error(message: response.desc);
-                                      },
-                                    );
-                                  }
+                                  await showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return KfAnimationDialog.error(
+                                        message: response.desc ?? 'Something went wrong',
+                                      );
+                                    },
+                                  );
                                 }
                               });
                             }

@@ -61,7 +61,7 @@ class PhoneOtpPage extends HookConsumerWidget {
               ),
               SizedBox(height: 85),
               Text(
-                'Enter 4 digit code we sent to\n$phoneNumber',
+                'Enter 6 digit code we sent to\n$phoneNumber',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
@@ -121,7 +121,7 @@ class PhoneOtpPage extends HookConsumerWidget {
                   SizedBox(width: 5),
                   Countdown(
                     controller: countDownController,
-                    seconds: 30,
+                    seconds: 60,
                     build: (_, double time) => Text(
                       TimerHelper.durationToMinSec(time),
                       style: TextStyle(
@@ -131,7 +131,7 @@ class PhoneOtpPage extends HookConsumerWidget {
                     ),
                     interval: Duration(milliseconds: 100),
                     onFinished: () async {
-                      await ref.read(pushOtpProvider(phoneNumber)).then((_) => countDownController.restart());
+                      // await ref.read(pushOtpProvider(phoneNumber)).then((_) => countDownController.restart());
                     },
                   ),
                 ],

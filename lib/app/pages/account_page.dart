@@ -40,29 +40,29 @@ class AccountPage extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (local.isNonIdOnIos)
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: SizedBox(
-                                width: 35,
-                                height: 35,
-                                child: PopupMenuButton(
-                                  splashRadius: 10,
-                                  color: KColors.grey,
-                                  icon: FaIcon(FontAwesomeIcons.ellipsis),
-                                  iconSize: 20,
-                                  itemBuilder: (context) => [
-                                    PopupMenuItem(
-                                      onTap: () => DeleteAccountRoute().push(context),
-                                      child: Text(
-                                        'Delete Account',
-                                        style: TextStyle(color: KColors.darkRed),
-                                      ),
+                          // if (local.isNonIdOnIos)
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: SizedBox(
+                              width: 35,
+                              height: 35,
+                              child: PopupMenuButton(
+                                splashRadius: 10,
+                                color: KColors.grey,
+                                icon: FaIcon(FontAwesomeIcons.ellipsis),
+                                iconSize: 20,
+                                itemBuilder: (context) => [
+                                  PopupMenuItem(
+                                    onTap: () => DeleteAccountRoute().push(context),
+                                    child: Text(
+                                      'Delete Account',
+                                      style: TextStyle(color: KColors.darkRed),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
+                          ),
                           Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: 16,
