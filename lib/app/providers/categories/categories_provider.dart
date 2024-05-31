@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fl_klikfilm/app/providers/banner/banner_provider.dart';
 import 'package:fl_klikfilm/app/providers/categories/video_categories_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
@@ -25,6 +26,16 @@ class VideoCategoriesNotifier extends AsyncNotifier<VideoCategoriesState> {
     state = AsyncData(previousState.copyWith(
       index: previousState.total >= nextIndex ? nextIndex : previousState.total,
     ));
+  }
+
+  Future<void> forceRefresh() async {
+    ref.invalidateSelf();
+    ref.invalidate(bannerStateProvider);
+    ref.invalidate(higlightsCategoryFutureProvider);
+    ref.invalidate(trendingCategoryFutureProvider);
+    ref.invalidate(videoHashtagFutureProvider);
+    ref.invalidate(playlistFutureProvider);
+    ref.invalidate(continueWatchingFutureProvider);
   }
 }
 

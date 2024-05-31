@@ -140,8 +140,12 @@ class DeleteAccountPage extends HookConsumerWidget {
                                         .read(localUserNotifierProvider.notifier)
                                         .setLogout()
                                         .then((_) async {
-                                      ref.invalidate(categoriesAsyncNotifier);
-                                      HomeRoute().go(context);
+                                      await ref
+                                          .read(categoriesAsyncNotifier.notifier)
+                                          .forceRefresh()
+                                          .then((_) {
+                                        return HomeRoute().go(context);
+                                      });
                                     });
                                   });
                                 } else {

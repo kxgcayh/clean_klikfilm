@@ -117,8 +117,9 @@ class LoginMailPage extends HookConsumerWidget {
                                 ),
                                 onValue: (result) async {
                                   if (result.success) {
-                                    ref.invalidate(categoriesAsyncNotifier);
-                                    HomeRoute().go(context);
+                                    await ref.read(categoriesAsyncNotifier.notifier).forceRefresh().then((_) {
+                                      return HomeRoute().go(context);
+                                    });
                                   } else {
                                     await showDialog(
                                       context: context,

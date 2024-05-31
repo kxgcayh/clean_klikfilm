@@ -268,10 +268,11 @@ class HomePage extends HookConsumerWidget {
                               ),
                               gradient: LinearGradient(
                                 colors: [
-                                  Color(0xFF8FB001),
-                                  Color(0xFF6C8501),
-                                  Color(0xFF495A01),
-                                  Color(0xFF232B00),
+                                  Color(0xFFB00101),
+                                  Color(0xFF850101),
+                                  Color(0xFF5A0101),
+                                  Color(0xFF2B0000),
+                                  Colors.black,
                                   Colors.black.withOpacity(0.5),
                                   Colors.transparent,
                                 ],

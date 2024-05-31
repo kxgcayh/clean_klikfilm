@@ -116,8 +116,9 @@ class VerificationMailPage extends HookConsumerWidget {
                         registrationId: registrationId,
                         onValue: (response) async {
                           if (response.success) {
-                            ref.invalidate(categoriesAsyncNotifier);
-                            HomeRoute().go(context);
+                            await ref.read(categoriesAsyncNotifier.notifier).forceRefresh().then((_) {
+                              return HomeRoute().go(context);
+                            });
                           } else {
                             await showDialog(
                               context: context,
