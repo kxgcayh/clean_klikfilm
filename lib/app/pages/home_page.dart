@@ -59,7 +59,9 @@ class HomePage extends HookConsumerWidget {
                     '${state.banner.thumbnail?.the380x543}',
                     boxFit: BoxFit.fitHeight,
                     alignment: Alignment.topCenter,
-                    onTap: () {},
+                    onTap: () async {
+                      // await ref.read(localUserNotifierProvider.notifier).updateCountryCode('US');
+                    },
                   );
                 },
                 error: (error, stack) => GestureDetector(

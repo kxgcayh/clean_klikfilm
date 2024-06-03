@@ -8,6 +8,7 @@ import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 
 final FutureProvider<void> appStartupProvider = FutureProvider<void>((ref) async {
   ref.onDispose(() {
+    klog.w('appStartupProvider disposed');
     // ensure dependent providers are disposed as well
   });
   FlutterNativeSplash.remove();
@@ -30,5 +31,5 @@ final FutureProvider<void> appStartupProvider = FutureProvider<void>((ref) async
   if (accessTokenResponse.data?.token != null) {
     await localNotifier.updateAccessToken('${accessTokenResponse.data?.token}');
   }
-  await Future.delayed(Duration(seconds: 1));
+  await Future.delayed(Duration(milliseconds: 500));
 });
