@@ -32,6 +32,7 @@ dependencies:
   flutter_widget_from_html: ^0.14.11
   klikfilm_dart_resources:
     path: ../klikfilm_dart_resources
+  easy_refresh: ^3.4.0
   firebase_core: ^2.31.0
   flutter_debouncer: ^2.0.0
   flutter_native_splash: ^2.4.0

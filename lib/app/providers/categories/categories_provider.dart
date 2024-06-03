@@ -20,12 +20,13 @@ class VideoCategoriesNotifier extends AsyncNotifier<VideoCategoriesState> {
     );
   }
 
-  Future<void> scroll() async {
+  Future<bool> scroll() async {
     final previousState = await future;
     final nextIndex = previousState.index + 5;
     state = AsyncData(previousState.copyWith(
       index: previousState.total >= nextIndex ? nextIndex : previousState.total,
     ));
+    return previousState.total >= nextIndex;
   }
 
   Future<void> forceRefresh() async {

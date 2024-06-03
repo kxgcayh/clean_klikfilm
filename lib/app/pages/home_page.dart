@@ -1,4 +1,3 @@
-import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:fl_klikfilm/app/providers/banner/banner_provider.dart';
 import 'package:fl_klikfilm/app/providers/categories/categories_provider.dart';
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
@@ -28,18 +27,21 @@ class HomePage extends HookConsumerWidget {
     final Debouncer debouncer = useMemoized(() => Debouncer());
     final sheetController = useMemoized(() => SheetController());
     final isLoadingMore = useState(false);
+    final canLoadMore = useState(true);
     final dummies = List.generate(20, (index) => 'Item-$index');
 
     void scrollListener() {
       if ((sheetController.value ?? 0) > (sheetController.metrics?.maxPixels ?? 0)) {
-        if (!isLoadingMore.value) {
+        if (!isLoadingMore.value && canLoadMore.value) {
           isLoadingMore.value = true;
           debouncer.debounce(
             type: BehaviorType.trailingEdge,
-            duration: Duration(milliseconds: 500),
+            duration: Duration(seconds: 1),
             onDebounce: () async {
-              await categoriesNotifier.scroll();
-              isLoadingMore.value = false;
+              await categoriesNotifier.scroll().then((bool status) {
+                isLoadingMore.value = false;
+                canLoadMore.value = status;
+              });
             },
           );
         }
@@ -183,7 +185,9 @@ class HomePage extends HookConsumerWidget {
                         );
                       },
                       hashtag: (type, tag, title) {
-                        final provider = ref.watch(videoHashtagFutureProvider(VideoHashtagFamily(tag: tag)));
+                        final provider = ref.watch(
+                          videoHashtagFutureProvider(VideoHashtagFamily(tag: tag)),
+                        );
                         return PanelCategoryHeader(
                           index: parentIndex,
                           title: title,
