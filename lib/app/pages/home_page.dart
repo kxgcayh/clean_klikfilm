@@ -1,3 +1,4 @@
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:fl_klikfilm/app/providers/banner/banner_provider.dart';
 import 'package:fl_klikfilm/app/providers/categories/categories_provider.dart';
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
@@ -7,6 +8,7 @@ import 'package:fl_klikfilm/app/widgets/kf_shimmer.dart';
 import 'package:fl_klikfilm/gen/assets.gen.dart';
 import 'package:fl_klikfilm/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_debouncer/flutter_debouncer.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
@@ -23,24 +25,34 @@ class HomePage extends HookConsumerWidget {
     final bannerProvider = ref.watch(bannerStateProvider);
     final categoriesProvider = ref.watch(categoriesAsyncNotifier);
     final categoriesNotifier = ref.read(categoriesAsyncNotifier.notifier);
-    final scrollController = useMemoized(() => SheetController());
+    final Debouncer debouncer = useMemoized(() => Debouncer());
+    final sheetController = useMemoized(() => SheetController());
     final isLoadingMore = useState(false);
     final dummies = List.generate(20, (index) => 'Item-$index');
 
-    void scrollListener() async {
-      if ((scrollController.value ?? 0) == (scrollController.metrics?.maxPixels ?? 0)) {
+    void scrollListener() {
+      if ((sheetController.value ?? 0) > (sheetController.metrics?.maxPixels ?? 0)) {
         if (!isLoadingMore.value) {
           isLoadingMore.value = true;
-          await Future.delayed(Duration(seconds: 1));
-          await categoriesNotifier.scroll().then((_) => isLoadingMore.value = false);
+          debouncer.debounce(
+            type: BehaviorType.trailingEdge,
+            duration: Duration(milliseconds: 500),
+            onDebounce: () async {
+              await categoriesNotifier.scroll();
+              isLoadingMore.value = false;
+            },
+          );
         }
       }
     }
 
     useEffect(() {
-      scrollController.addListener(scrollListener);
-      return () => scrollController.removeListener(scrollListener);
-    }, [scrollController]);
+      sheetController.addListener(scrollListener);
+      return () {
+        debouncer.cancel();
+        sheetController.removeListener(scrollListener);
+      };
+    }, [sheetController, debouncer]);
 
     return Scaffold(
       appBar: KfAppBar(),
@@ -108,7 +120,7 @@ class HomePage extends HookConsumerWidget {
             ),
           ),
           ScrollableSheet(
-            controller: scrollController,
+            controller: sheetController,
             initialExtent: Extent.pixels(
               MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.3),
             ),
