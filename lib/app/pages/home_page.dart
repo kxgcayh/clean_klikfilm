@@ -74,7 +74,7 @@ class HomePage extends HookConsumerWidget {
                     boxFit: BoxFit.fitHeight,
                     alignment: Alignment.topCenter,
                     onTap: () async {
-                      // await ref.read(localUserNotifierProvider.notifier).updateCountryCode('US');
+                      await ref.read(localUserNotifierProvider.notifier).updateCountryCode('US');
                     },
                   );
                 },

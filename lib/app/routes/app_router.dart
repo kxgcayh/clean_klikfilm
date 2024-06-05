@@ -101,7 +101,7 @@ class MenuRoute extends GoRouteData {
       transitionsBuilder: (context, animation, animation2, child) {
         return SlideTransition(
           position: Tween(
-            begin: const Offset(1, 0),
+            begin: const Offset(-1, 0),
             end: const Offset(0, 0),
           ).animate(animation),
           child: child,
