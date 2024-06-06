@@ -1,5 +1,6 @@
 import 'package:fl_klikfilm/app/providers/banner/banner_provider.dart';
 import 'package:fl_klikfilm/app/providers/categories/categories_provider.dart';
+import 'package:fl_klikfilm/app/routes/app_router.dart';
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
 import 'package:fl_klikfilm/app/widgets/kf_app_bar.dart';
 import 'package:fl_klikfilm/app/widgets/kf_image.dart';
@@ -172,7 +173,12 @@ class HomePage extends HookConsumerWidget {
                                     child: PanelCategoryContents(
                                       parentIndex: parentIndex,
                                       contents: playlist.contents,
-                                      onTap: (content) {},
+                                      onTap: (content) {
+                                        VideoRoute(
+                                          videoId: content.id,
+                                          subcategoryId: content.subcategory?.id,
+                                        ).push(context);
+                                      },
                                     ),
                                   )
                                 : SizedBox.shrink();
@@ -196,7 +202,12 @@ class HomePage extends HookConsumerWidget {
                             data: (hashtag) => PanelCategoryContents(
                               parentIndex: parentIndex,
                               contents: hashtag.contents,
-                              onTap: (content) {},
+                              onTap: (content) {
+                                VideoRoute(
+                                  videoId: content.id,
+                                  subcategoryId: content.subcategory?.id,
+                                ).push(context);
+                              },
                             ),
                             error: (error, stackTrace) => null,
                             loading: () => PanelCategoryContents(parentIndex: parentIndex),
@@ -215,7 +226,12 @@ class HomePage extends HookConsumerWidget {
                             data: (trending) => PanelCategoryContents(
                               parentIndex: parentIndex,
                               contents: trending.data,
-                              onTap: (content) {},
+                              onTap: (content) {
+                                VideoRoute(
+                                  videoId: content.id,
+                                  subcategoryId: content.subcategory?.id,
+                                ).push(context);
+                              },
                             ),
                             error: (error, stackTrace) => null,
                             loading: () => PanelCategoryContents(parentIndex: parentIndex),
@@ -234,7 +250,12 @@ class HomePage extends HookConsumerWidget {
                             data: (higlight) => PanelCategoryContents(
                               parentIndex: parentIndex,
                               contents: higlight.contents,
-                              onTap: (content) {},
+                              onTap: (content) {
+                                VideoRoute(
+                                  videoId: content.id,
+                                  subcategoryId: content.subcategory?.id,
+                                ).push(context);
+                              },
                             ),
                             error: (error, stackTrace) => null,
                             loading: () => PanelCategoryContents(parentIndex: parentIndex),
@@ -253,7 +274,12 @@ class HomePage extends HookConsumerWidget {
                                     child: PanelCategoryContents(
                                       parentIndex: parentIndex,
                                       contents: continueWatching,
-                                      onTap: (content) {},
+                                      onTap: (content) {
+                                        VideoRoute(
+                                          videoId: content.id,
+                                          subcategoryId: content.subcategory?.id,
+                                        ).push(context);
+                                      },
                                     ),
                                   )
                                 : SizedBox.shrink();

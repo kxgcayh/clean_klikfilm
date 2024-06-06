@@ -39,6 +39,11 @@ RouteBase get $homeRoute => GoRouteData.$route(
           ],
         ),
         GoRouteData.$route(
+          path: 'video',
+          name: 'Video',
+          factory: $VideoRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
           path: 'point',
           name: 'Point',
           factory: $PointRouteExtension._fromState,
@@ -135,6 +140,30 @@ extension $DeleteAccountRouteExtension on DeleteAccountRoute {
 
   String get location => GoRouteData.$location(
         '/account/delete-account',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $VideoRouteExtension on VideoRoute {
+  static VideoRoute _fromState(GoRouterState state) => VideoRoute(
+        videoId: int.parse(state.uri.queryParameters['video-id']!),
+        subcategoryId: int.parse(state.uri.queryParameters['subcategory-id']!),
+      );
+
+  String get location => GoRouteData.$location(
+        '/video',
+        queryParams: {
+          'video-id': videoId.toString(),
+          'subcategory-id': subcategoryId.toString(),
+        },
       );
 
   void go(BuildContext context) => context.go(location);

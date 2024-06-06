@@ -8,7 +8,6 @@ import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 
 final FutureProvider<void> appStartupProvider = FutureProvider<void>((ref) async {
   ref.onDispose(() {
-    klog.w('appStartupProvider disposed');
     // ensure dependent providers are disposed as well
   });
   FlutterNativeSplash.remove();
@@ -19,6 +18,11 @@ final FutureProvider<void> appStartupProvider = FutureProvider<void>((ref) async
       ref.read(connectityNotifier.notifier).change(connection);
     }
   });
+
+  // ref.listen(appLinkStreamProvider, (previous, next) {
+  //   klog.w('appLinkStream: ${next.value}');
+  //   rootNavigatorKey.currentState?.pushNamed(SearchRoute.name);
+  // });
 
   await ref.watch(sharedPreferencesProvider.future);
   final videoRepository = ref.read(videoCatalogRepositoryProvider);

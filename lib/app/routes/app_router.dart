@@ -15,6 +15,7 @@ import 'package:fl_klikfilm/app/pages/authentication/login_phone_number_page.dar
 import 'package:fl_klikfilm/app/pages/authentication/phone_otp_page.dart';
 import 'package:fl_klikfilm/app/pages/authentication/register_mail_page.dart';
 import 'package:fl_klikfilm/app/pages/support_page.dart';
+import 'package:fl_klikfilm/app/pages/video_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
@@ -39,6 +40,7 @@ final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'mainBottomNaviga
         ),
       ],
     ),
+    TypedGoRoute<VideoRoute>(path: VideoRoute.path, name: VideoRoute.name),
     TypedGoRoute<PointRoute>(path: PointRoute.path, name: PointRoute.name),
     TypedGoRoute<LinkToTvRoute>(path: LinkToTvRoute.path, name: LinkToTvRoute.name),
     TypedGoRoute<KidsModeRoute>(path: KidsModeRoute.path, name: KidsModeRoute.name),
@@ -140,6 +142,32 @@ class DeleteAccountRoute extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return FullscreenDialogPage(child: DeleteAccountPage());
+  }
+}
+
+class VideoRoute extends GoRouteData {
+  final int videoId;
+  final int subcategoryId;
+  const VideoRoute({
+    required this.videoId,
+    required this.subcategoryId,
+  });
+  static const name = 'Video';
+  static const path = 'video';
+
+  @override
+  CustomTransitionPage<void> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage<void>(
+      key: state.pageKey,
+      child: VideoPage(videoId: videoId, subcategoryId: subcategoryId),
+      transitionDuration: Duration(milliseconds: 350),
+      transitionsBuilder: (context, animation, animation2, child) {
+        return FadeTransition(
+          opacity: CurveTween(curve: Curves.easeIn).animate(animation),
+          child: child,
+        );
+      },
+    );
   }
 }
 

@@ -23,6 +23,17 @@ class RouterListener extends AutoDisposeAsyncNotifier<void> implements Listenabl
   }
 
   String? redirect(BuildContext context, GoRouterState state) {
+    // Deep Link Handler
+    if (state.matchedLocation.contains('/r/')) {
+      try {
+        final splitMatched = state.matchedLocation.split('/');
+        final videoID = int.parse(splitMatched[2]);
+        final subCategoryId = int.parse(splitMatched[3]);
+        return '/video?video-id=$videoID&subcategory-id=$subCategoryId';
+      } catch (_, __) {
+        return null;
+      }
+    }
     return null;
   }
 
