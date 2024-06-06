@@ -18,8 +18,6 @@ import 'package:flutter/material.dart';
 /// Color(0xFFFF9000)` (`FF` FOR THE ALPHA, `FF` FOR THE RED, `90` FOR THE
 /// green, and `00` for the blue).
 class KColors {
-  KColors._();
-
   // Only use this getter in development!
   static Color get random {
     double value = math.Random().nextDouble() * 0xFFFFFF;
@@ -49,4 +47,14 @@ class KColors {
 
   /// Return `Color` with Hex value => #C4C4C4
   static const Color silverSand = Color(0xFFC4C4C4);
+
+  static List<Color> primaryGradient = <Color>[
+    Color(0xFFB00101),
+    Color(0xFF850101),
+    Color(0xFF5A0101),
+    Color(0xFF2B0000),
+    Colors.black,
+    Colors.black.withOpacity(0.5),
+    Colors.transparent,
+  ];
 }

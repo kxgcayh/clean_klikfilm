@@ -567,6 +567,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.14.11"
+  flutterlifecyclehooks:
+    dependency: "direct main"
+    description:
+      name: flutterlifecyclehooks
+      sha256: "25c16ff88513445c049735013ed66ddd364530c9467b5784a5667ee0e644dd67"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
   font_awesome_flutter:
     dependency: "direct main"
     description:

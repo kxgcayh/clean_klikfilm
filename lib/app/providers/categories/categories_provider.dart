@@ -41,26 +41,25 @@ class VideoCategoriesNotifier extends AsyncNotifier<VideoCategoriesState> {
 }
 
 final higlightsCategoryFutureProvider = FutureProviderFamily((ref, HighlightCategoryFamily arg) async {
-  final result = await ref.read(highlightsByCategoryProvider(arg));
+  final VideoHighlightsResponseModel result = await ref.watch(highlightsByCategoryProvider(arg));
   return result.data as VideoHighlightModel;
 });
 
 final trendingCategoryFutureProvider = FutureProviderFamily((ref, VideoTrendingFamily arg) async {
-  final result = await ref.read(videoTrendingProvider(arg));
-  return result;
+  return await ref.watch(videoTrendingProvider(arg));
 });
 
 final videoHashtagFutureProvider = FutureProviderFamily((ref, VideoHashtagFamily arg) async {
-  final result = await ref.read(videoByHashtagProvider(arg));
+  final result = await ref.watch(videoByHashtagProvider(arg));
   return result.data as VideoHighlightModel;
 });
 
 final playlistFutureProvider = FutureProvider((ref) async {
-  final result = await ref.read(playlistProvider);
+  final result = await ref.watch(playlistProvider);
   return result.data as VideoHighlightModel;
 });
 
 final continueWatchingFutureProvider = FutureProvider((ref) async {
-  final result = await ref.read(continueWatchingProvider);
+  final result = await ref.watch(continueWatchingProvider);
   return result.data;
 });
