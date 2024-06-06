@@ -23,11 +23,15 @@ class $AssetsAnimationsGen {
   /// File path: assets/animations/loading_roller.json
   String get loadingRoller => 'assets/animations/loading_roller.json';
 
+  /// File path: assets/animations/sad_not_found.json
+  String get sadNotFound => 'assets/animations/sad_not_found.json';
+
   /// File path: assets/animations/success.json
   String get success => 'assets/animations/success.json';
 
   /// List of all assets
-  List<String> get values => [failBouncy, loadingBar, loadingRoller, success];
+  List<String> get values =>
+      [failBouncy, loadingBar, loadingRoller, sadNotFound, success];
 }
 
 class $AssetsIconsGen {

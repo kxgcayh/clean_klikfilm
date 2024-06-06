@@ -83,8 +83,11 @@ class HomePage extends HookConsumerWidget {
                       '${state.banner.thumbnail?.the380x543}',
                       boxFit: BoxFit.fitHeight,
                       alignment: Alignment.topCenter,
-                      onTap: () async {
-                        //
+                      onTap: () {
+                        VideoRoute(
+                          videoId: state.banner.id,
+                          subcategoryId: state.banner.subcategory?.id,
+                        ).push(context);
                       },
                     );
                   },
@@ -203,7 +206,7 @@ class HomePage extends HookConsumerWidget {
                         },
                         hashtag: (type, tag, title) {
                           final provider = ref.watch(
-                            videoHashtagFutureProvider(VideoHashtagFamily(tag: tag)),
+                            videoByHashtagProvider(VideoHashtagFamily(tag: tag)),
                           );
                           return PanelCategoryHeader(
                             index: parentIndex,
@@ -214,7 +217,7 @@ class HomePage extends HookConsumerWidget {
                             child: provider.when(
                               data: (hashtag) => PanelCategoryContents(
                                 parentIndex: parentIndex,
-                                contents: hashtag.contents,
+                                contents: hashtag.data?.contents ?? [],
                                 onTap: (content) {
                                   VideoRoute(
                                     videoId: content.id,
@@ -254,7 +257,7 @@ class HomePage extends HookConsumerWidget {
                           );
                         },
                         highlight: (type, id, title, liveStream, streamingCode) {
-                          final provider = ref.watch(higlightsCategoryFutureProvider(
+                          final provider = ref.watch(highlightsByCategoryProvider(
                             HighlightCategoryFamily(categoryId: id, offset: 6),
                           ));
                           return PanelCategoryHeader(
@@ -266,7 +269,7 @@ class HomePage extends HookConsumerWidget {
                             child: provider.when(
                               data: (higlight) => PanelCategoryContents(
                                 parentIndex: parentIndex,
-                                contents: higlight.contents,
+                                contents: higlight.data?.contents ?? [],
                                 onTap: (content) {
                                   VideoRoute(
                                     videoId: content.id,
@@ -280,10 +283,10 @@ class HomePage extends HookConsumerWidget {
                           );
                         },
                         continueWatching: (type, title) {
-                          final provider = ref.watch(continueWatchingFutureProvider);
+                          final provider = ref.watch(continueWatchingProvider);
                           return provider.when(
                             data: (continueWatching) {
-                              return continueWatching.isNotEmpty
+                              return continueWatching.data.isNotEmpty
                                   ? PanelCategoryHeader(
                                       index: parentIndex,
                                       title: title,
@@ -292,7 +295,7 @@ class HomePage extends HookConsumerWidget {
                                       },
                                       child: PanelCategoryContents(
                                         parentIndex: parentIndex,
-                                        contents: continueWatching,
+                                        contents: continueWatching.data,
                                         onTap: (content) {
                                           VideoRoute(
                                             videoId: content.id,

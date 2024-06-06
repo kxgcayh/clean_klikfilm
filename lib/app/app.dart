@@ -15,15 +15,17 @@ class KlikFilmApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final routerListenerNotifier = ref.watch(routerListenerProvider.notifier);
+    final rootKey = useMemoized(() => rootNavigatorKey);
     final GoRouter router = useMemoized(
       () => GoRouter(
-        navigatorKey: rootNavigatorKey,
+        navigatorKey: rootKey,
         refreshListenable: routerListenerNotifier,
         initialLocation: HomeRoute.path,
         debugLogDiagnostics: true,
         routes: $appRoutes,
         redirect: routerListenerNotifier.redirect,
-        // errorBuilder: (context, state) {},
+        errorPageBuilder: (context, state) =>
+            PageNotFoundRoute(error: state.error!).buildPage(context, state),
       ),
       [routerListenerNotifier],
     );

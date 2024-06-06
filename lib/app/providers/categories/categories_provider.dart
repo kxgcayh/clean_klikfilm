@@ -12,7 +12,7 @@ final categoriesAsyncNotifier = AsyncNotifierProvider<VideoCategoriesNotifier, V
 class VideoCategoriesNotifier extends AsyncNotifier<VideoCategoriesState> {
   @override
   FutureOr<VideoCategoriesState> build() async {
-    final result = await ref.read(listHomeCategoryProvider);
+    final result = await ref.read(listHomeCategoryProvider.future);
     return VideoCategoriesState(
       total: result.data.length,
       index: result.data.length <= 6 ? result.data.length : 6,
@@ -32,34 +32,19 @@ class VideoCategoriesNotifier extends AsyncNotifier<VideoCategoriesState> {
   Future<void> forceRefresh() async {
     ref.invalidateSelf();
     ref.invalidate(bannerStateProvider);
-    ref.invalidate(higlightsCategoryFutureProvider);
+    ref.invalidate(highlightsByCategoryProvider);
     ref.invalidate(trendingCategoryFutureProvider);
-    ref.invalidate(videoHashtagFutureProvider);
+    ref.invalidate(videoByHashtagProvider);
     ref.invalidate(playlistFutureProvider);
-    ref.invalidate(continueWatchingFutureProvider);
+    ref.invalidate(continueWatchingProvider);
   }
 }
-
-final higlightsCategoryFutureProvider = FutureProviderFamily((ref, HighlightCategoryFamily arg) async {
-  final VideoHighlightsResponseModel result = await ref.watch(highlightsByCategoryProvider(arg));
-  return result.data as VideoHighlightModel;
-});
 
 final trendingCategoryFutureProvider = FutureProviderFamily((ref, VideoTrendingFamily arg) async {
   return await ref.watch(videoTrendingProvider(arg));
 });
 
-final videoHashtagFutureProvider = FutureProviderFamily((ref, VideoHashtagFamily arg) async {
-  final result = await ref.watch(videoByHashtagProvider(arg));
-  return result.data as VideoHighlightModel;
-});
-
 final playlistFutureProvider = FutureProvider((ref) async {
   final result = await ref.watch(playlistProvider);
   return result.data as VideoHighlightModel;
-});
-
-final continueWatchingFutureProvider = FutureProvider((ref) async {
-  final result = await ref.watch(continueWatchingProvider);
-  return result.data;
 });

@@ -1,5 +1,6 @@
 import 'package:fl_klikfilm/app/pages/authentication/verification_mail_page.dart';
 import 'package:fl_klikfilm/app/pages/authentication_page.dart';
+import 'package:fl_klikfilm/app/pages/error/page_not_found_page.dart';
 import 'package:fl_klikfilm/app/pages/fullscreen_dialog_page.dart';
 import 'package:fl_klikfilm/app/pages/account_page.dart';
 import 'package:fl_klikfilm/app/pages/delete_account_page.dart';
@@ -431,6 +432,26 @@ class SupportRoute extends GoRouteData {
     return CustomTransitionPage<void>(
       key: state.pageKey,
       child: SupportPage(type: type),
+      transitionDuration: Duration(milliseconds: 350),
+      transitionsBuilder: (context, animation, animation2, child) {
+        return FadeTransition(
+          opacity: CurveTween(curve: Curves.easeIn).animate(animation),
+          child: child,
+        );
+      },
+    );
+  }
+}
+
+class PageNotFoundRoute extends GoRouteData {
+  final Exception error;
+  const PageNotFoundRoute({required this.error});
+
+  @override
+  CustomTransitionPage<void> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage<void>(
+      key: state.pageKey,
+      child: PageNotFoundPage(error: error),
       transitionDuration: Duration(milliseconds: 350),
       transitionsBuilder: (context, animation, animation2, child) {
         return FadeTransition(
