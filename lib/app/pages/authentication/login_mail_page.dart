@@ -103,7 +103,7 @@ class LoginMailPage extends HookConsumerWidget {
                           letterSpacing: 6,
                         ),
                       ),
-                      SizedBox(height: 60),
+                      SizedBox(height: 28),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -143,12 +143,19 @@ class LoginMailPage extends HookConsumerWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 24),
+                  SizedBox(height: 32),
                   TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.white.withOpacity(0.025),
+                    ),
                     onPressed: () => RegisterMailRoute().push(context),
                     child: Text('Register'),
                   ),
+                  SizedBox(height: 8),
                   TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.white.withOpacity(0.025),
+                    ),
                     onPressed: () => ForgotPasswordRoute().push(context),
                     child: Text('Forgot Password'),
                   ),

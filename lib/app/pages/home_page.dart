@@ -81,7 +81,7 @@ class HomePage extends HookConsumerWidget {
                     return KFImage(
                       width: double.infinity,
                       '${state.banner.thumbnail?.the380x543}',
-                      boxFit: BoxFit.fitHeight,
+                      boxFit: BoxFit.fill,
                       alignment: Alignment.topCenter,
                       onTap: () {
                         VideoRoute(
@@ -137,7 +137,7 @@ class HomePage extends HookConsumerWidget {
             ScrollableSheet(
               controller: sheetController,
               initialExtent: Extent.pixels(
-                MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.3),
+                MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.35),
               ),
               minExtent: Extent.pixels(
                 MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.35),
@@ -181,9 +181,11 @@ class HomePage extends HookConsumerWidget {
                                   ? PanelCategoryHeader(
                                       index: parentIndex,
                                       title: title,
-                                      onTapMore: () {
-                                        klog.i('onTapMore: $type');
-                                      },
+                                      onTapMore: playlist.contents.length > 3
+                                          ? () {
+                                              klog.i('onTapMore: $type');
+                                            }
+                                          : null,
                                       child: PanelCategoryContents(
                                         parentIndex: parentIndex,
                                         contents: playlist.contents,
@@ -290,9 +292,11 @@ class HomePage extends HookConsumerWidget {
                                   ? PanelCategoryHeader(
                                       index: parentIndex,
                                       title: title,
-                                      onTapMore: () {
-                                        klog.i('onTapMore: $type');
-                                      },
+                                      onTapMore: continueWatching.data.length > 3
+                                          ? () {
+                                              klog.i('onTapMore: $type');
+                                            }
+                                          : null,
                                       child: PanelCategoryContents(
                                         parentIndex: parentIndex,
                                         contents: continueWatching.data,

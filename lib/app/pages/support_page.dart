@@ -1,4 +1,3 @@
-import 'package:fl_klikfilm/app/providers/support_provider.dart';
 import 'package:fl_klikfilm/app/styles/kfilm_colors.dart';
 import 'package:fl_klikfilm/app/widgets/kf_app_bar.dart';
 import 'package:fl_klikfilm/app/widgets/kf_shimmer.dart';
@@ -15,7 +14,7 @@ class SupportPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final support = ref.watch(generalInformationFutureProvider(type));
+    final support = ref.watch(generalInformationProvider(type));
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -59,23 +58,25 @@ class SupportPage extends ConsumerWidget {
                     children: [
                       SizedBox(height: 155),
                       Text(
-                        result.title,
+                        '${result.data?.title}',
                         style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
                       ),
-                      SizedBox(height: 24),
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                        child: HtmlWidget(
-                          result.text,
-                          textStyle: TextStyle(
-                            color: KColors.grey,
-                            fontSize: 16,
-                            fontFamily: FontFamily.nunito,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 24),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          child: HtmlWidget(
+                            '${result.data?.text}',
+                            textStyle: TextStyle(
+                              color: KColors.grey,
+                              fontSize: 16,
+                              fontFamily: FontFamily.nunito,
+                            ),
                           ),
                         ),
                       ),
@@ -85,27 +86,22 @@ class SupportPage extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 155),
-                      KfShimmer(
-                        height: 28,
-                        width: 100,
-                        borderRadius: BorderRadius.circular(8),
+                      Text(
+                        'Error',
+                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
                       ),
-                      SizedBox(height: 22),
+                      SizedBox(height: 18),
                       Container(
                         width: double.infinity,
-                        height: MediaQuery.of(context).size.height / 3,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(18),
-                          child: KfShimmer(
-                            height: 28,
-                            width: 100,
-                            baseColor: Colors.transparent,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                          child: TextButton(
+                              onPressed: () => ref.invalidate(generalInformationProvider(type)),
+                              child: Text('Refresh')),
                         ),
                       ),
                     ],
@@ -115,7 +111,7 @@ class SupportPage extends ConsumerWidget {
                     children: [
                       SizedBox(height: 155),
                       KfShimmer(
-                        height: 28,
+                        height: 26,
                         width: 100,
                         borderRadius: BorderRadius.circular(8),
                       ),

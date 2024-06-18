@@ -74,38 +74,39 @@ class PanelCategoryHeader extends StatelessWidget {
                     ),
                   ],
                 ),
-                Material(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(10),
-                  child: InkWell(
-                    onTap: onTapMore,
+                if (onTapMore != null)
+                  Material(
+                    color: Colors.transparent,
                     borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      padding: EdgeInsets.all(2),
-                      child: Column(
-                        children: [
-                          Text(
-                            'More',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: FontFamily.nunito,
+                    child: InkWell(
+                      onTap: onTapMore,
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        padding: EdgeInsets.all(2),
+                        child: Column(
+                          children: [
+                            Text(
+                              'More',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: FontFamily.nunito,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 4),
-                          Container(
-                            width: 12,
-                            height: 3,
-                            decoration: BoxDecoration(
-                              color: index == 0 ? Colors.white : KColors.red,
-                              borderRadius: BorderRadius.circular(4.5),
+                            SizedBox(height: 4),
+                            Container(
+                              width: 12,
+                              height: 3,
+                              decoration: BoxDecoration(
+                                color: index == 0 ? Colors.white : KColors.red,
+                                borderRadius: BorderRadius.circular(4.5),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
               ],
             ),
           ),
@@ -133,7 +134,7 @@ class PanelCategoryContents extends StatelessWidget {
     return SizedBox(
       height: parentIndex == 0 ? 230 : 200,
       child: ListView.builder(
-        shrinkWrap: true,
+        shrinkWrap: false,
         itemCount: contents.isNotEmpty ? contents.length : 6,
         scrollDirection: Axis.horizontal,
         itemExtent: parentIndex == 0 ? 170 : 140,
