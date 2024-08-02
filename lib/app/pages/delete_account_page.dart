@@ -136,10 +136,7 @@ class DeleteAccountPage extends HookConsumerWidget {
                                       );
                                     },
                                   ).then((_) async {
-                                    await ref
-                                        .read(localUserNotifierProvider.notifier)
-                                        .setLogout()
-                                        .then((_) async {
+                                    await ref.read(userAuthDataNotifier.notifier).setLogout().then((_) async {
                                       await ref
                                           .read(categoriesAsyncNotifier.notifier)
                                           .forceRefresh()
@@ -153,7 +150,7 @@ class DeleteAccountPage extends HookConsumerWidget {
                                     context: context,
                                     builder: (context) {
                                       return KfAnimationDialog.error(
-                                        message: response.error?.desc ?? 'Something went wrong',
+                                        message: response.error?.message ?? 'Something went wrong',
                                       );
                                     },
                                   );

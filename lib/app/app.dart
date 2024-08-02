@@ -14,17 +14,17 @@ class KlikFilmApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final routerListenerNotifier = ref.watch(routerListenerProvider.notifier);
-    final rootKey = useMemoized(() => rootNavigatorKey);
     final GoRouter router = useMemoized(
       () => GoRouter(
-        navigatorKey: rootKey,
+        navigatorKey: rootNavigatorKey,
         refreshListenable: routerListenerNotifier,
         initialLocation: HomeRoute.path,
         debugLogDiagnostics: true,
         routes: $appRoutes,
         redirect: routerListenerNotifier.redirect,
-        errorPageBuilder: (context, state) =>
-            PageNotFoundRoute(error: state.error!).buildPage(context, state),
+        errorPageBuilder: (context, state) {
+          return PageNotFoundRoute(error: state.error!).buildPage(context, state);
+        },
       ),
       [routerListenerNotifier],
     );
@@ -51,33 +51,6 @@ class KlikFilmApp extends HookConsumerWidget {
           FormBuilderLocalizations.delegate,
         ],
         theme: KFilmThemes.defaultTheme(context, bodyFont: 'Roboto', displayFont: 'Roboto'),
-        // theme: ThemeData(
-        //   useMaterial3: true,
-        //   visualDensity: VisualDensity.adaptivePlatformDensity,
-        //   primaryColor: KColors.primary,
-        //   fontFamily: FontFamily.roboto,
-        //   brightness: Brightness.dark,
-        //   elevatedButtonTheme: ElevatedButtonThemeData(
-        //     style: ElevatedButton.styleFrom(
-        //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
-        //       foregroundColor: Colors.white,
-        //       backgroundColor: KColors.primary,
-        //       textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, fontFamily: FontFamily.roboto),
-        //       padding: EdgeInsets.symmetric(vertical: 16),
-        //     ),
-        //   ),
-        //   textButtonTheme: TextButtonThemeData(
-        //     style: TextButton.styleFrom(
-        //       backgroundColor: KColors.primary,
-        //       foregroundColor: Colors.white,
-        //       textStyle: TextStyle(
-        //         color: Colors.grey,
-        //         fontSize: 18,
-        //         fontFamily: FontFamily.roboto,
-        //       ),
-        //     ),
-        //   ),
-        // ),
       ),
     );
   }

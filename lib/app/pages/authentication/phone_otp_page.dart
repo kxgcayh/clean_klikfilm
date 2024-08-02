@@ -165,7 +165,7 @@ class PhoneOtpPage extends HookConsumerWidget {
                             await ref.read(checkMembershipByMsisdnProvider(phoneNumber)).then((response) {
                               if (response.data != null) {
                                 ref.invalidate(categoriesAsyncNotifier);
-                                ref.read(localUserNotifierProvider.notifier)
+                                ref.read(userAuthDataNotifier.notifier)
                                   ..updateUserId(userId: response.data?.id ?? phoneNumber)
                                   ..updateAccessToken(response.data?.id ?? phoneNumber)
                                   ..setLogin(AuthenticationType.phone).then((_) => HomeRoute().go(context));

@@ -16,7 +16,8 @@ class DrawerPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final localUserProvider = ref.watch(localUserNotifierProvider);
+    final localUserProvider = ref.watch(commonUserDataProvider);
+    final auth = ref.watch(userAuthDataNotifier);
     final supportExpanded = useState(false);
     return Scaffold(
       backgroundColor: Colors.black,
@@ -54,7 +55,7 @@ class DrawerPage extends HookConsumerWidget {
                         onTap: () => context.goNamed(HomeRoute.name),
                       ),
                       Visibility(
-                        visible: !localUserProvider.authenticationType.isGuest,
+                        visible: !auth.authenticationType.isGuest,
                         child: ListTile(
                           horizontalTitleGap: 20,
                           contentPadding: EdgeInsets.symmetric(horizontal: 23),
@@ -75,7 +76,7 @@ class DrawerPage extends HookConsumerWidget {
                         ),
                       ),
                       Visibility(
-                        visible: !localUserProvider.authenticationType.isGuest,
+                        visible: !auth.authenticationType.isGuest,
                         child: ListTile(
                           horizontalTitleGap: 20,
                           contentPadding: EdgeInsets.symmetric(horizontal: 23),
@@ -92,7 +93,7 @@ class DrawerPage extends HookConsumerWidget {
                         ),
                       ),
                       Visibility(
-                        visible: !localUserProvider.authenticationType.isGuest,
+                        visible: !auth.authenticationType.isGuest,
                         child: ListTile(
                           horizontalTitleGap: 20,
                           contentPadding: EdgeInsets.symmetric(horizontal: 23),
@@ -134,7 +135,7 @@ class DrawerPage extends HookConsumerWidget {
                         },
                       ),
                       Visibility(
-                        visible: !localUserProvider.authenticationType.isGuest,
+                        visible: !auth.authenticationType.isGuest,
                         child: ListTile(
                           horizontalTitleGap: 20,
                           contentPadding: EdgeInsets.symmetric(horizontal: 23),
@@ -151,7 +152,7 @@ class DrawerPage extends HookConsumerWidget {
                         ),
                       ),
                       Visibility(
-                        visible: !localUserProvider.authenticationType.isGuest,
+                        visible: !auth.authenticationType.isGuest,
                         child: ListTile(
                           horizontalTitleGap: 20,
                           contentPadding: EdgeInsets.symmetric(horizontal: 23),
@@ -288,7 +289,7 @@ class DrawerPage extends HookConsumerWidget {
                 contentPadding: EdgeInsets.symmetric(horizontal: 23),
                 leading: Assets.icons.logout.svg(),
                 title: Text(
-                  localUserProvider.authenticationType.isGuest ? 'LOGIN' : 'LOGOUT',
+                  auth.authenticationType.isGuest ? 'LOGIN' : 'LOGOUT',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -296,10 +297,10 @@ class DrawerPage extends HookConsumerWidget {
                   ),
                 ),
                 onTap: () async {
-                  if (localUserProvider.authenticationType.isGuest) {
+                  if (auth.authenticationType.isGuest) {
                     AuthenticationRoute().pushReplacement(context);
                   } else {
-                    await ref.read(localUserNotifierProvider.notifier).setLogout().then((_) async {
+                    await ref.read(userAuthDataNotifier.notifier).setLogout().then((_) async {
                       await ref.read(categoriesAsyncNotifier.notifier).forceRefresh().then((_) {
                         return HomeRoute().go(context);
                       });

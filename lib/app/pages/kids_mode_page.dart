@@ -13,7 +13,7 @@ class KidsModePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final localNotifier = ref.read(localUserNotifierProvider.notifier);
+    final localNotifier = ref.read(commonUserDataProvider.notifier);
     final pinController = useTextEditingController();
 
     return Container(
@@ -129,7 +129,7 @@ class KidsModePage extends HookConsumerWidget {
                               child: TextButton(
                                 onPressed: () async {
                                   if (pinController.length == 4) {
-                                    await localNotifier.updateKidsMode(pinController.text);
+                                    await localNotifier.setKidsMode(pinController.text);
                                     await Future.delayed(Duration()).then((_) => HomeRoute().go(context));
                                   }
                                 },

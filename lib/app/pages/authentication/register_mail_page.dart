@@ -95,7 +95,7 @@ class RegisterMailPage extends HookConsumerWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () async {
-                            final local = ref.watch(localUserNotifierProvider);
+                            final local = ref.watch(userAuthDataNotifier);
                             final authentication = ref.read(authenticationProvider);
                             final ManualAuthFamily arg = ManualAuthFamily(
                               email: txtMail.text,

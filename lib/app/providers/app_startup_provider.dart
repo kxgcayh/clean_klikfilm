@@ -26,10 +26,9 @@ final FutureProvider<void> appStartupProvider = FutureProvider<void>((ref) async
 
   await ref.watch(sharedPreferencesProvider.future);
   final videoRepository = ref.read(videoCatalogRepositoryProvider);
-  final local = ref.read(localUserNotifierProvider);
-  final localNotifier = ref.read(localUserNotifierProvider.notifier);
-  await localNotifier.updateCountryCode();
-  await localNotifier.updateUserAgent();
+  final local = ref.read(userAuthDataNotifier);
+  final localNotifier = ref.read(userAuthDataNotifier.notifier);
+  await ref.read(commonUserDataProvider.notifier).setCountryCode();
   await localNotifier.updateUserId();
   final accessTokenResponse = await videoRepository.accessToken(uid: local.userId);
   if (accessTokenResponse.data?.token != null) {

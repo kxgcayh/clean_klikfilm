@@ -28,8 +28,8 @@ class HomePage extends HookConsumerWidget {
     final bannerProvider = ref.watch(bannerStateProvider);
     final categoriesProvider = ref.watch(categoriesAsyncNotifier);
     final categoriesNotifier = ref.read(categoriesAsyncNotifier.notifier);
-    final Debouncer debouncer = useMemoized(() => Debouncer());
     final sheetController = useMemoized(() => SheetController());
+    final Debouncer debouncer = useMemoized(() => Debouncer());
     final isLoadingMore = useState(false);
     final canLoadMore = useState(true);
 
@@ -63,7 +63,7 @@ class HomePage extends HookConsumerWidget {
       onAppLifecycleChange: (event) async {
         final connection = ref.watch(connectityNotifier);
         if (connection != ConnectivityResult.none && event == AppLifecycleState.resumed) {
-          await ref.read(localUserNotifierProvider.notifier).updateCountryCode();
+          await ref.read(commonUserDataProvider.notifier).setCountryCode();
         }
       },
       child: Scaffold(
@@ -71,31 +71,41 @@ class HomePage extends HookConsumerWidget {
         body: Stack(
           alignment: Alignment.topCenter,
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 1.52,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: bannerProvider.when(
-                  data: (state) {
-                    return KFImage(
-                      width: double.infinity,
-                      '${state.banner.thumbnail?.the380x543}',
-                      boxFit: BoxFit.fill,
-                      alignment: Alignment.topCenter,
-                      onTap: () {
-                        VideoRoute(
-                          videoId: state.banner.id,
-                          subcategoryId: state.banner.subcategory?.id,
-                        ).push(context);
-                      },
-                    );
-                  },
-                  error: (error, stack) => GestureDetector(
-                    onTap: () => ref.invalidate(bannerStateProvider),
-                    child: KfShimmer(highlightColor: Colors.red),
+            GestureDetector(
+              onVerticalDragUpdate: (details) {
+                sheetController.animateTo(
+                  details.delta.dy.isNegative
+                      ? Extent.proportional(1)
+                      : Extent.pixels(
+                          MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.35)),
+                );
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 1.52,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: bannerProvider.when(
+                    data: (state) {
+                      return KFImage(
+                        width: double.infinity,
+                        '${state.banner.thumbnail?.the380x543}',
+                        boxFit: BoxFit.fill,
+                        alignment: Alignment.topCenter,
+                        onTap: () {
+                          VideoRoute(
+                            videoId: state.banner.id,
+                            subcategoryId: state.banner.subcategory?.id,
+                          ).push(context);
+                        },
+                      );
+                    },
+                    error: (error, stack) => GestureDetector(
+                      onTap: () => ref.invalidate(bannerStateProvider),
+                      child: KfShimmer(highlightColor: Colors.red),
+                    ),
+                    loading: () => KfShimmer(),
                   ),
-                  loading: () => KfShimmer(),
                 ),
               ),
             ),

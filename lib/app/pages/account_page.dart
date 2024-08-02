@@ -15,7 +15,7 @@ class AccountPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final local = ref.watch(localUserNotifierProvider);
+    final local = ref.watch(commonUserDataProvider);
     final userInfo = ref.watch(userInfoProvider);
     return Scaffold(
       appBar: KfAppBar(title: 'My Account', showLogo: false),
