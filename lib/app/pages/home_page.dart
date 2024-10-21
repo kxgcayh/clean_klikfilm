@@ -34,7 +34,7 @@ class HomePage extends HookConsumerWidget {
     final canLoadMore = useState(true);
 
     void scrollListener() {
-      if ((sheetController.value ?? 0) > (sheetController.metrics?.maxPixels ?? 0)) {
+      if ((sheetController.value ?? 0) > (sheetController.metrics.maxPixels)) {
         if (!isLoadingMore.value && canLoadMore.value) {
           isLoadingMore.value = true;
           debouncer.debounce(
@@ -67,18 +67,19 @@ class HomePage extends HookConsumerWidget {
         }
       },
       child: Scaffold(
+        extendBody: true,
         appBar: KfAppBar(),
         body: Stack(
           alignment: Alignment.topCenter,
           children: [
             GestureDetector(
               onVerticalDragUpdate: (details) {
-                sheetController.animateTo(
-                  details.delta.dy.isNegative
-                      ? Extent.proportional(1)
-                      : Extent.pixels(
-                          MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.35)),
-                );
+                // sheetController.animateTo(
+                //   details.delta.dy.isNegative
+                //       ? Extent.proportional(1)
+                //       : Extent.pixels(
+                //           MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.35)),
+                // );
               },
               child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -146,22 +147,21 @@ class HomePage extends HookConsumerWidget {
             ),
             ScrollableSheet(
               controller: sheetController,
-              initialExtent: Extent.pixels(
+              initialPosition: SheetAnchor.pixels(
                 MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.35),
               ),
-              minExtent: Extent.pixels(
+              minPosition: SheetAnchor.pixels(
                 MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.35),
               ),
-              physics: StretchingSheetPhysics(
-                stretchingRange: const Extent.proportional(0.050),
+              physics: BouncingSheetPhysics(
                 parent: SnappingSheetPhysics(
-                  snappingBehavior: SnapToNearest(
-                    snapTo: [
-                      Extent.pixels(
+                  behavior: SnapToNearest(
+                    anchors: [
+                      const SheetAnchor.proportional(1),
+                      const SheetAnchor.proportional(0.8),
+                      SheetAnchor.pixels(
                         MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 1.35),
                       ),
-                      const Extent.proportional(0.8),
-                      const Extent.proportional(1),
                     ],
                   ),
                 ),

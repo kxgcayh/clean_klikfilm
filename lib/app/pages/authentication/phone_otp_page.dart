@@ -72,7 +72,7 @@ class PhoneOtpPage extends HookConsumerWidget {
               Pinput(
                 length: 6,
                 controller: otpController,
-                senderPhoneNumber: phoneNumber,
+                // senderPhoneNumber: phoneNumber,
                 hapticFeedbackType: HapticFeedbackType.lightImpact,
                 defaultPinTheme: PinTheme(
                   width: 48,
@@ -103,7 +103,7 @@ class PhoneOtpPage extends HookConsumerWidget {
                 ),
                 showCursor: true,
                 pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+                // androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
               ),
               SizedBox(height: 45),
               Row(

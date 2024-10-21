@@ -101,7 +101,7 @@ class VerificationMailPage extends HookConsumerWidget {
                 ),
                 showCursor: true,
                 pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+                // androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
               ),
               SizedBox(height: 70),
               SizedBox(

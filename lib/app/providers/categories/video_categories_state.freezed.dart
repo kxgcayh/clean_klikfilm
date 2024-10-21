@@ -20,7 +20,9 @@ mixin _$VideoCategoriesState {
   int get index => throw _privateConstructorUsedError;
   List<VideoHomeCategoryModel> get data => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of VideoCategoriesState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $VideoCategoriesStateCopyWith<VideoCategoriesState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -45,6 +47,8 @@ class _$VideoCategoriesStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of VideoCategoriesState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -88,6 +92,8 @@ class __$$VideoCategoriesStateImplCopyWithImpl<$Res>
       $Res Function(_$VideoCategoriesStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of VideoCategoriesState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -156,7 +162,9 @@ class _$VideoCategoriesStateImpl implements _VideoCategoriesState {
   int get hashCode => Object.hash(
       runtimeType, total, index, const DeepCollectionEquality().hash(_data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of VideoCategoriesState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$VideoCategoriesStateImplCopyWith<_$VideoCategoriesStateImpl>
@@ -177,8 +185,11 @@ abstract class _VideoCategoriesState implements VideoCategoriesState {
   int get index;
   @override
   List<VideoHomeCategoryModel> get data;
+
+  /// Create a copy of VideoCategoriesState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$VideoCategoriesStateImplCopyWith<_$VideoCategoriesStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

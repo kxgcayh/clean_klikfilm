@@ -121,7 +121,6 @@ class KidsModePage extends HookConsumerWidget {
                               ),
                               showCursor: true,
                               pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                              androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
                             ),
                             SizedBox(height: 12),
                             SizedBox(

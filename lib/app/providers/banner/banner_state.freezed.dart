@@ -19,7 +19,9 @@ mixin _$BannerState {
   BannerModel get banner => throw _privateConstructorUsedError;
   VideoDetailModel? get detail => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BannerState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BannerStateCopyWith<BannerState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,6 +45,8 @@ class _$BannerStateCopyWithImpl<$Res, $Val extends BannerState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BannerState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -81,6 +85,8 @@ class __$$BannerStateImplCopyWithImpl<$Res>
       _$BannerStateImpl _value, $Res Function(_$BannerStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BannerState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -127,7 +133,9 @@ class _$BannerStateImpl implements _BannerState {
   @override
   int get hashCode => Object.hash(runtimeType, banner, detail);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BannerState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BannerStateImplCopyWith<_$BannerStateImpl> get copyWith =>
@@ -143,8 +151,11 @@ abstract class _BannerState implements BannerState {
   BannerModel get banner;
   @override
   VideoDetailModel? get detail;
+
+  /// Create a copy of BannerState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BannerStateImplCopyWith<_$BannerStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
