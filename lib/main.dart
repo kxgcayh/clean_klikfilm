@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_secure_storage/get_secure_storage.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 import 'app/routes/app_pages.dart';
@@ -13,6 +14,7 @@ Future<void> main() async {
   final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await GetStorage.init();
   await GetSecureStorage.init(password: 'strongpassword');
   runApp(
     GetMaterialApp(

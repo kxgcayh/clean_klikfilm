@@ -1,13 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fl_klikfilm/app/controllers/theming_controller.dart';
 import 'package:fl_klikfilm/app/data/app_colors.dart';
 import 'package:fl_klikfilm/app/data/app_shimmer.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/banner_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/categories_controller.dart';
+import 'package:fl_klikfilm/app/modules/home/controllers/highlights_category_controller.dart';
+import 'package:fl_klikfilm/app/modules/home/views/home_categories_loading_view.dart';
+import 'package:fl_klikfilm/app/modules/home/views/panel_category_header_view.dart';
 import 'package:fl_klikfilm/app/views/views/app_image.dart';
 import 'package:fl_klikfilm/app/views/views/kf_app_bar_view.dart';
 import 'package:fl_klikfilm/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterlifecyclehooks/flutterlifecyclehooks.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_sheets/smooth_sheets.dart';
 
@@ -16,6 +23,7 @@ class HomeView extends GetView<CategoriesController> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Get.find<ThemingController>();
     return LifecycleHooksSubscriber(
       onAppLifecycleChange: (event) async {
         // final connection = ref.watch(connectityNotifier);
@@ -25,6 +33,7 @@ class HomeView extends GetView<CategoriesController> {
       },
       child: Scaffold(
         appBar: KfAppBar(),
+        backgroundColor: HexColor(theme.data.value.general.background.color),
         extendBody: true,
         body: Stack(
           alignment: Alignment.topCenter,
@@ -124,367 +133,201 @@ class HomeView extends GetView<CategoriesController> {
                   ),
                 ),
               ),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  image: DecorationImage(
-                    image: AssetImage(Assets.pictures.batikDrawer.path),
-                    alignment: Alignment.centerLeft,
-                    fit: BoxFit.fitHeight,
-                    repeat: ImageRepeat.repeatY,
+              child: Obx(
+                () => Container(
+                  decoration: BoxDecoration(
+                    color: HexColor(theme.data.value.general.background.color),
+                    image: DecorationImage(
+                      image: CachedNetworkImageProvider(theme.data.value.pattern.bottom),
+                      alignment: Alignment.centerLeft,
+                      fit: context.isTablet ? BoxFit.fitHeight : BoxFit.fill,
+                      repeat: context.isTablet ? ImageRepeat.repeatX : ImageRepeat.noRepeat,
+                    ),
                   ),
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: controller.obx(
-                  (categories) {
-                    if (categories == null) return SizedBox.shrink();
-                    return ListView.builder(
-                      itemCount: 20,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          decoration: index == 0
-                              ? BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(Assets.pictures.batikPanel.path),
-                                    alignment: Alignment.topCenter,
-                                    repeat: ImageRepeat.repeatX,
-                                  ),
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(2),
-                                    topRight: Radius.circular(2),
-                                  ),
-                                  gradient: LinearGradient(
-                                    colors: AppColors.primaryGradient,
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                  ),
-                                )
-                              : null,
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: 12,
-                                  right: 12,
-                                  top: index == 0 ? 12 : 24,
-                                  bottom: 8,
+                  clipBehavior: Clip.antiAlias,
+                  child: controller.obx(
+                    (categories) {
+                      if (categories == null) return SizedBox.shrink();
+                      return ListView.builder(
+                        itemCount: controller.index.value,
+                        itemBuilder: (context, parentIndex) {
+                          final VideoHomeCategoryModel category = categories[parentIndex];
+                          return category.when(
+                            myList: (type, title) {
+                              return PanelCategoryHeader(
+                                title: title,
+                                index: parentIndex,
+                                child: PanelCategoryContents(parentIndex: parentIndex),
+                              );
+                              // final provider = ref.watch(playlistFutureProvider);
+                              // return provider.when(
+                              //   data: (playlist) {
+                              //     return playlist.contents.isNotEmpty
+                              //         ? PanelCategoryHeader(
+                              //             index: parentIndex,
+                              //             title: title,
+                              //             onTapMore: playlist.contents.length > 3
+                              //                 ? () {
+                              //                     klog.i('onTapMore: $type');
+                              //                   }
+                              //                 : null,
+                              //             child: PanelCategoryContents(
+                              //               parentIndex: parentIndex,
+                              //               contents: playlist.contents,
+                              //               onTap: (content) {
+                              //                 VideoRoute(
+                              //                   videoId: content.id,
+                              //                   subcategoryId: content.subcategory?.id,
+                              //                 ).push(context);
+                              //               },
+                              //             ),
+                              //           )
+                              //         : SizedBox.shrink();
+                              //   },
+                              //   error: (error, stackTrace) => SizedBox.shrink(),
+                              //   loading: () => PanelCategoryHeader(
+                              //     title: title,
+                              //     child: PanelCategoryContents(parentIndex: parentIndex),
+                              //   ),
+                              // );
+                            },
+                            hashtag: (type, tag, title) {
+                              return PanelCategoryHeader(
+                                title: title,
+                                index: parentIndex,
+                                child: PanelCategoryContents(parentIndex: parentIndex),
+                              );
+                              // final provider = ref.watch(
+                              //   videoByHashtagProvider(VideoHashtagFamily(tag: tag)),
+                              // );
+                              // return PanelCategoryHeader(
+                              //   index: parentIndex,
+                              //   title: title,
+                              //   onTapMore: () {
+                              //     klog.i('onTapMore: $type');
+                              //   },
+                              //   child: provider.when(
+                              //     data: (hashtag) => PanelCategoryContents(
+                              //       parentIndex: parentIndex,
+                              //       contents: hashtag.data?.contents ?? [],
+                              //       onTap: (content) {
+                              //         VideoRoute(
+                              //           videoId: content.id,
+                              //           subcategoryId: content.subcategory?.id,
+                              //         ).push(context);
+                              //       },
+                              //     ),
+                              //     error: (error, stackTrace) => null,
+                              //     loading: () => PanelCategoryContents(parentIndex: parentIndex),
+                              //   ),
+                              // );
+                            },
+                            trending: (type, title) {
+                              return PanelCategoryHeader(
+                                title: title,
+                                index: parentIndex,
+                                child: PanelCategoryContents(parentIndex: parentIndex),
+                              );
+                              // final provider = ref.watch(trendingCategoryFutureProvider(
+                              //   const VideoTrendingFamily(random: true, offset: 6),
+                              // ));
+                              // return PanelCategoryHeader(
+                              //   index: parentIndex,
+                              //   title: title,
+                              //   onTapMore: () {
+                              //     klog.i('onTapMore: $type');
+                              //   },
+                              //   child: provider.when(
+                              //     data: (trending) => PanelCategoryContents(
+                              //       parentIndex: parentIndex,
+                              //       contents: trending.data,
+                              //       onTap: (content) {
+                              //         VideoRoute(
+                              //           videoId: content.id,
+                              //           subcategoryId: content.subcategory?.id,
+                              //         ).push(context);
+                              //       },
+                              //     ),
+                              //     error: (error, stackTrace) => null,
+                              //     loading: () => PanelCategoryContents(parentIndex: parentIndex),
+                              //   ),
+                              // );
+                            },
+                            highlight: (type, id, title, liveStream, streamingCode) {
+                              return GetBuilder<HighlightsCategoryController>(
+                                tag: '$type-$id',
+                                init: Get.put(
+                                  HighlightsCategoryController(categoryId: id),
+                                  tag: '$type-$id',
                                 ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        AppShimmer(
-                                          width: 166,
-                                          height: 27,
-                                          baseColor: AppColors.primaryGrey.withOpacity(0.5),
-                                          borderRadius: BorderRadius.circular(4.5),
-                                        ),
-                                        SizedBox(height: 4),
-                                        AppShimmer(
-                                          width: 24,
-                                          height: 3,
-                                          baseColor: AppColors.primaryGrey.withOpacity(0.5),
-                                          borderRadius: BorderRadius.circular(4.5),
-                                        ),
-                                      ],
+                                builder: (controller) {
+                                  return PanelCategoryHeader(
+                                    index: parentIndex,
+                                    title: title,
+                                    onTapMore: () {},
+                                    child: controller.obx(
+                                      (highlight) {
+                                        return PanelCategoryContents(
+                                          parentIndex: parentIndex,
+                                          contents: highlight?.contents ?? [],
+                                          onTap: (content) {
+                                            // VideoRoute(
+                                            //   videoId: content.id,
+                                            //   subcategoryId: content.subcategory?.id,
+                                            // ).push(context);
+                                          },
+                                        );
+                                      },
+                                      onLoading: PanelCategoryContents(parentIndex: parentIndex),
                                     ),
-                                    Column(
-                                      children: [
-                                        AppShimmer(
-                                          width: 32,
-                                          height: 16,
-                                          baseColor: AppColors.primaryGrey.withOpacity(0.5),
-                                          borderRadius: BorderRadius.circular(4.5),
-                                        ),
-                                        SizedBox(height: 4),
-                                        AppShimmer(
-                                          width: 12,
-                                          height: 3,
-                                          baseColor: AppColors.primaryGrey.withOpacity(0.5),
-                                          borderRadius: BorderRadius.circular(4.5),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: index == 0 ? 230 : 200,
-                                child: ListView.builder(
-                                  itemCount: 6,
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  itemExtent: index == 0 ? 170 : 140,
-                                  padding: EdgeInsets.only(left: 12, right: 4),
-                                  itemBuilder: (context, index) {
-                                    return LayoutBuilder(builder: (context, constraints) {
-                                      return Padding(
-                                        padding: EdgeInsets.only(right: 8),
-                                        child: AppShimmer(
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                      );
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                    // return ListView.builder(
-                    //   itemCount: categories.index,
-                    //   itemBuilder: (context, parentIndex) {
-                    //     final VideoHomeCategoryModel category = categories.data[parentIndex];
-                    //     return category.when(
-                    //       myList: (type, title) {
-                    //         final provider = ref.watch(playlistFutureProvider);
-                    //         return provider.when(
-                    //           data: (playlist) {
-                    //             return playlist.contents.isNotEmpty
-                    //                 ? PanelCategoryHeader(
-                    //                     index: parentIndex,
-                    //                     title: title,
-                    //                     onTapMore: playlist.contents.length > 3
-                    //                         ? () {
-                    //                             klog.i('onTapMore: $type');
-                    //                           }
-                    //                         : null,
-                    //                     child: PanelCategoryContents(
-                    //                       parentIndex: parentIndex,
-                    //                       contents: playlist.contents,
-                    //                       onTap: (content) {
-                    //                         VideoRoute(
-                    //                           videoId: content.id,
-                    //                           subcategoryId: content.subcategory?.id,
-                    //                         ).push(context);
-                    //                       },
-                    //                     ),
-                    //                   )
-                    //                 : SizedBox.shrink();
-                    //           },
-                    //           error: (error, stackTrace) => SizedBox.shrink(),
-                    //           loading: () => PanelCategoryHeader(
-                    //             title: title,
-                    //             child: PanelCategoryContents(parentIndex: parentIndex),
-                    //           ),
-                    //         );
-                    //       },
-                    //       hashtag: (type, tag, title) {
-                    //         final provider = ref.watch(
-                    //           videoByHashtagProvider(VideoHashtagFamily(tag: tag)),
-                    //         );
-                    //         return PanelCategoryHeader(
-                    //           index: parentIndex,
-                    //           title: title,
-                    //           onTapMore: () {
-                    //             klog.i('onTapMore: $type');
-                    //           },
-                    //           child: provider.when(
-                    //             data: (hashtag) => PanelCategoryContents(
-                    //               parentIndex: parentIndex,
-                    //               contents: hashtag.data?.contents ?? [],
-                    //               onTap: (content) {
-                    //                 VideoRoute(
-                    //                   videoId: content.id,
-                    //                   subcategoryId: content.subcategory?.id,
-                    //                 ).push(context);
-                    //               },
-                    //             ),
-                    //             error: (error, stackTrace) => null,
-                    //             loading: () => PanelCategoryContents(parentIndex: parentIndex),
-                    //           ),
-                    //         );
-                    //       },
-                    //       trending: (type, title) {
-                    //         final provider = ref.watch(trendingCategoryFutureProvider(
-                    //           const VideoTrendingFamily(random: true, offset: 6),
-                    //         ));
-                    //         return PanelCategoryHeader(
-                    //           index: parentIndex,
-                    //           title: title,
-                    //           onTapMore: () {
-                    //             klog.i('onTapMore: $type');
-                    //           },
-                    //           child: provider.when(
-                    //             data: (trending) => PanelCategoryContents(
-                    //               parentIndex: parentIndex,
-                    //               contents: trending.data,
-                    //               onTap: (content) {
-                    //                 VideoRoute(
-                    //                   videoId: content.id,
-                    //                   subcategoryId: content.subcategory?.id,
-                    //                 ).push(context);
-                    //               },
-                    //             ),
-                    //             error: (error, stackTrace) => null,
-                    //             loading: () => PanelCategoryContents(parentIndex: parentIndex),
-                    //           ),
-                    //         );
-                    //       },
-                    //       highlight: (type, id, title, liveStream, streamingCode) {
-                    //         final provider = ref.watch(highlightsByCategoryProvider(
-                    //           HighlightCategoryFamily(categoryId: id, offset: 6),
-                    //         ));
-                    //         return PanelCategoryHeader(
-                    //           index: parentIndex,
-                    //           title: title,
-                    //           onTapMore: () {
-                    //             klog.i('onTapMore: $type');
-                    //           },
-                    //           child: provider.when(
-                    //             data: (higlight) => PanelCategoryContents(
-                    //               parentIndex: parentIndex,
-                    //               contents: higlight.data?.contents ?? [],
-                    //               onTap: (content) {
-                    //                 VideoRoute(
-                    //                   videoId: content.id,
-                    //                   subcategoryId: content.subcategory?.id,
-                    //                 ).push(context);
-                    //               },
-                    //             ),
-                    //             error: (error, stackTrace) => null,
-                    //             loading: () => PanelCategoryContents(parentIndex: parentIndex),
-                    //           ),
-                    //         );
-                    //       },
-                    //       continueWatching: (type, title) {
-                    //         final provider = ref.watch(continueWatchingProvider);
-                    //         return provider.when(
-                    //           data: (continueWatching) {
-                    //             return continueWatching.data.isNotEmpty
-                    //                 ? PanelCategoryHeader(
-                    //                     index: parentIndex,
-                    //                     title: title,
-                    //                     onTapMore: continueWatching.data.length > 3
-                    //                         ? () {
-                    //                             klog.i('onTapMore: $type');
-                    //                           }
-                    //                         : null,
-                    //                     child: PanelCategoryContents(
-                    //                       parentIndex: parentIndex,
-                    //                       contents: continueWatching.data,
-                    //                       onTap: (content) {
-                    //                         VideoRoute(
-                    //                           videoId: content.id,
-                    //                           subcategoryId: content.subcategory?.id,
-                    //                         ).push(context);
-                    //                       },
-                    //                     ),
-                    //                   )
-                    //                 : SizedBox.shrink();
-                    //           },
-                    //           error: (error, stackTrace) => SizedBox.shrink(),
-                    //           loading: () => PanelCategoryHeader(
-                    //             title: title,
-                    //             child: PanelCategoryContents(parentIndex: parentIndex),
-                    //           ),
-                    //         );
-                    //       },
-                    //     );
-                    //   },
-                    // );
-                  },
-                  onError: (error) => SizedBox.shrink(),
-                  onLoading: ListView.builder(
-                    itemCount: 20,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        decoration: index == 0
-                            ? BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(Assets.pictures.batikPanel.path),
-                                  alignment: Alignment.topCenter,
-                                  repeat: ImageRepeat.repeatX,
-                                ),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(2),
-                                  topRight: Radius.circular(2),
-                                ),
-                                gradient: LinearGradient(
-                                  colors: AppColors.primaryGradient,
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
-                              )
-                            : null,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: 12,
-                                right: 12,
-                                top: index == 0 ? 12 : 24,
-                                bottom: 8,
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      AppShimmer(
-                                        width: 166,
-                                        height: 27,
-                                        baseColor: AppColors.primaryGrey.withOpacity(0.5),
-                                        borderRadius: BorderRadius.circular(4.5),
-                                      ),
-                                      SizedBox(height: 4),
-                                      AppShimmer(
-                                        width: 24,
-                                        height: 3,
-                                        baseColor: AppColors.primaryGrey.withOpacity(0.5),
-                                        borderRadius: BorderRadius.circular(4.5),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      AppShimmer(
-                                        width: 32,
-                                        height: 16,
-                                        baseColor: AppColors.primaryGrey.withOpacity(0.5),
-                                        borderRadius: BorderRadius.circular(4.5),
-                                      ),
-                                      SizedBox(height: 4),
-                                      AppShimmer(
-                                        width: 12,
-                                        height: 3,
-                                        baseColor: AppColors.primaryGrey.withOpacity(0.5),
-                                        borderRadius: BorderRadius.circular(4.5),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: index == 0 ? 230 : 200,
-                              child: ListView.builder(
-                                itemCount: 6,
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                itemExtent: index == 0 ? 170 : 140,
-                                padding: EdgeInsets.only(left: 12, right: 4),
-                                itemBuilder: (context, index) {
-                                  return LayoutBuilder(builder: (context, constraints) {
-                                    return Padding(
-                                      padding: EdgeInsets.only(right: 8),
-                                      child: AppShimmer(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                    );
-                                  });
+                                  );
                                 },
-                              ),
-                            ),
-                          ],
-                        ),
+                              );
+                            },
+                            continueWatching: (type, title) {
+                              return PanelCategoryHeader(
+                                title: title,
+                                index: parentIndex,
+                                child: PanelCategoryContents(parentIndex: parentIndex),
+                              );
+                              // final provider = ref.watch(continueWatchingProvider);
+                              // return provider.when(
+                              //   data: (continueWatching) {
+                              //     return continueWatching.data.isNotEmpty
+                              //         ? PanelCategoryHeader(
+                              //             index: parentIndex,
+                              //             title: title,
+                              //             onTapMore: continueWatching.data.length > 3
+                              //                 ? () {
+                              //                     klog.i('onTapMore: $type');
+                              //                   }
+                              //                 : null,
+                              //             child: PanelCategoryContents(
+                              //               parentIndex: parentIndex,
+                              //               contents: continueWatching.data,
+                              //               onTap: (content) {
+                              //                 VideoRoute(
+                              //                   videoId: content.id,
+                              //                   subcategoryId: content.subcategory?.id,
+                              //                 ).push(context);
+                              //               },
+                              //             ),
+                              //           )
+                              //         : SizedBox.shrink();
+                              //   },
+                              //   error: (error, stackTrace) => SizedBox.shrink(),
+                              //   loading: () => PanelCategoryHeader(
+                              //     title: title,
+                              //     child: PanelCategoryContents(parentIndex: parentIndex),
+                              //   ),
+                              // );
+                            },
+                          );
+                        },
                       );
                     },
+                    onError: (error) => SizedBox.shrink(),
+                    onLoading: HomeCategoriesLoadingView(),
                   ),
                 ),
               ),
@@ -505,22 +348,6 @@ class HomeView extends GetView<CategoriesController> {
             ),
           ],
         ),
-        // body: Column(
-        //   children: [
-        //     Get.find<BannerController>().obx(
-        //       (state) => Text('Banner is Loaded '),
-        //       onLoading: Center(
-        //         child: CircularProgressIndicator(),
-        //       ),
-        //     ),
-        //     controller.obx(
-        //       (state) => Text('Categories is Loaded'),
-        //       onLoading: Center(
-        //         child: CircularProgressIndicator(),
-        //       ),
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }

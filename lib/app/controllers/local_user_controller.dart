@@ -19,10 +19,10 @@ class LocalUserController extends GetxService {
   @override
   Future<void> onInit() async {
     FlutterNativeSplash.remove();
-    final _box = GetSecureStorage(password: 'strongpassword');
+    final secureStorage = GetSecureStorage(password: 'strongpassword');
 
-    final authBox = _box.read(PreferencesKey.AUTH_USER_KEY);
-    final commonBox = _box.read(PreferencesKey.COMMON_USER);
+    final authBox = secureStorage.read(PreferencesKey.AUTH_USER_KEY);
+    final commonBox = secureStorage.read(PreferencesKey.COMMON_USER);
     if (commonBox != null) common.value = CommonUserData.fromJson(jsonDecode(commonBox));
     if (authBox != null) authentication.value = UserAuthData.fromJson(jsonDecode(authBox));
 
@@ -54,8 +54,8 @@ class LocalUserController extends GetxService {
       canSurfaceView.value = securityLevel != 'L3';
     }
 
-    await _box.write(PreferencesKey.AUTH_USER_KEY, jsonEncode(authentication.value.toJson()));
-    await _box.write(PreferencesKey.COMMON_USER, jsonEncode(common.value.toJson()));
+    await secureStorage.write(PreferencesKey.AUTH_USER_KEY, jsonEncode(authentication.value.toJson()));
+    await secureStorage.write(PreferencesKey.COMMON_USER, jsonEncode(common.value.toJson()));
     super.onInit();
   }
 

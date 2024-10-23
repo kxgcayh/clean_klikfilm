@@ -7,7 +7,8 @@ import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 class InitialBindings extends Bindings {
   @override
   void dependencies() async {
-    Get.lazyPut<ThirdPartyProvider>(() => ThirdPartyProvider());
+    Get.put<ThemingController>(ThemingController(), permanent: true);
+    Get.put<ThirdPartyProvider>(ThirdPartyProvider());
     Get.put<LocalUserController>(LocalUserController());
     Get.lazyPut<VideoCatalogRepository>(() {
       final LocalUserController local = Get.find<LocalUserController>();
@@ -16,7 +17,6 @@ class InitialBindings extends Bindings {
         commonUserData: local.common.value,
       );
     });
-    Get.put<ThemingController>(ThemingController(), permanent: true);
 
     // await Get.putAsync(() async => await ThemingController().init());
   }

@@ -49,6 +49,7 @@ class CategoriesController extends GetxController with StateMixin<List<VideoHome
     }
     total.value = result.data.length;
     index.value = result.data.length <= 6 ? result.data.length : 6;
+
     change(
       result.data,
       status: RxStatus.success(),

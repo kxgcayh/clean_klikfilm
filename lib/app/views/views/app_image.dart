@@ -35,6 +35,7 @@ class AppImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (imageUrl.isEmpty) return SizedBox();
     return Stack(
       children: [
         ClipRRect(
