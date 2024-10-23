@@ -6,6 +6,7 @@ import 'package:fl_klikfilm/app/modules/home/controllers/banner_controller.dart'
 import 'package:fl_klikfilm/app/modules/home/controllers/categories_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/highlights_category_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/playlist_category_controller.dart';
+import 'package:fl_klikfilm/app/modules/home/controllers/trending_category_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/views/home_categories_loading_view.dart';
 import 'package:fl_klikfilm/app/modules/home/views/panel_category_header_view.dart';
 import 'package:fl_klikfilm/app/views/views/app_image.dart';
@@ -159,62 +160,38 @@ class HomeView extends GetView<CategoriesController> {
                                 tag: '$type-$title',
                                 init: Get.put(PlaylistCategoryController(), tag: '$type-$title'),
                                 builder: (controller) {
-                                  return controller.obx((playlist) {
-                                    if (playlist != null) {
+                                  return controller.obx(
+                                    (playlist) {
+                                      if (playlist != null) {
+                                        return PanelCategoryHeader(
+                                          index: parentIndex,
+                                          title: title,
+                                          onTapMore: playlist.contents.length > 3 ? () {} : null,
+                                          child: PanelCategoryContents(
+                                            parentIndex: parentIndex,
+                                            contents: playlist.contents,
+                                            onTap: (content) {
+                                              // VideoRoute(
+                                              //   videoId: content.id,
+                                              //   subcategoryId: content.subcategory?.id,
+                                              // ).push(context);
+                                            },
+                                          ),
+                                        );
+                                      }
                                       return PanelCategoryHeader(
-                                        index: parentIndex,
                                         title: title,
-                                        onTapMore: playlist.contents.length > 3 ? () {} : null,
-                                        child: PanelCategoryContents(
-                                          parentIndex: parentIndex,
-                                          contents: playlist.contents,
-                                          onTap: (content) {
-                                            // VideoRoute(
-                                            //   videoId: content.id,
-                                            //   subcategoryId: content.subcategory?.id,
-                                            // ).push(context);
-                                          },
-                                        ),
+                                        child: PanelCategoryContents(parentIndex: parentIndex),
                                       );
-                                    }
-                                    return PanelCategoryHeader(
+                                    },
+                                    onError: (error) => SizedBox.shrink(),
+                                    onLoading: PanelCategoryHeader(
                                       title: title,
                                       child: PanelCategoryContents(parentIndex: parentIndex),
-                                    );
-                                  });
+                                    ),
+                                  );
                                 },
                               );
-                              // final provider = ref.watch(playlistFutureProvider);
-                              // return provider.when(
-                              //   data: (playlist) {
-                              //     return playlist.contents.isNotEmpty
-                              //         ? PanelCategoryHeader(
-                              //             index: parentIndex,
-                              //             title: title,
-                              //             onTapMore: playlist.contents.length > 3
-                              //                 ? () {
-                              //                     klog.i('onTapMore: $type');
-                              //                   }
-                              //                 : null,
-                              //             child: PanelCategoryContents(
-                              //               parentIndex: parentIndex,
-                              //               contents: playlist.contents,
-                              //               onTap: (content) {
-                              //                 VideoRoute(
-                              //                   videoId: content.id,
-                              //                   subcategoryId: content.subcategory?.id,
-                              //                 ).push(context);
-                              //               },
-                              //             ),
-                              //           )
-                              //         : SizedBox.shrink();
-                              //   },
-                              //   error: (error, stackTrace) => SizedBox.shrink(),
-                              //   loading: () => PanelCategoryHeader(
-                              //     title: title,
-                              //     child: PanelCategoryContents(parentIndex: parentIndex),
-                              //   ),
-                              // );
                             },
                             hashtag: (type, tag, title) {
                               return PanelCategoryHeader(
@@ -248,35 +225,32 @@ class HomeView extends GetView<CategoriesController> {
                               // );
                             },
                             trending: (type, title) {
-                              return PanelCategoryHeader(
-                                title: title,
-                                index: parentIndex,
-                                child: PanelCategoryContents(parentIndex: parentIndex),
+                              return GetBuilder<TrendingCategoryController>(
+                                tag: '$type-$title',
+                                init: Get.put(TrendingCategoryController(), tag: '$type-$title'),
+                                builder: (controller) {
+                                  return PanelCategoryHeader(
+                                    index: parentIndex,
+                                    title: title,
+                                    onTapMore: () {},
+                                    child: controller.obx(
+                                      (trending) {
+                                        return PanelCategoryContents(
+                                          parentIndex: parentIndex,
+                                          contents: trending ?? [],
+                                          onTap: (content) {
+                                            // VideoRoute(
+                                            //   videoId: content.id,
+                                            //   subcategoryId: content.subcategory?.id,
+                                            // ).push(context);
+                                          },
+                                        );
+                                      },
+                                      onLoading: PanelCategoryContents(parentIndex: parentIndex),
+                                    ),
+                                  );
+                                },
                               );
-                              // final provider = ref.watch(trendingCategoryFutureProvider(
-                              //   const VideoTrendingFamily(random: true, offset: 6),
-                              // ));
-                              // return PanelCategoryHeader(
-                              //   index: parentIndex,
-                              //   title: title,
-                              //   onTapMore: () {
-                              //     klog.i('onTapMore: $type');
-                              //   },
-                              //   child: provider.when(
-                              //     data: (trending) => PanelCategoryContents(
-                              //       parentIndex: parentIndex,
-                              //       contents: trending.data,
-                              //       onTap: (content) {
-                              //         VideoRoute(
-                              //           videoId: content.id,
-                              //           subcategoryId: content.subcategory?.id,
-                              //         ).push(context);
-                              //       },
-                              //     ),
-                              //     error: (error, stackTrace) => null,
-                              //     loading: () => PanelCategoryContents(parentIndex: parentIndex),
-                              //   ),
-                              // );
                             },
                             highlight: (type, id, title, liveStream, streamingCode) {
                               return GetBuilder<HighlightsCategoryController>(
