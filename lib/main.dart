@@ -1,20 +1,32 @@
 import 'dart:async';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'package:fl_klikfilm/app/app.dart';
-import 'package:fl_klikfilm/app/pages/startup/startup_widget.dart';
-import 'package:fl_klikfilm/firebase_options.dart';
+import 'package:fl_klikfilm/app/bindings/initial_bindings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:get/get.dart';
+import 'package:get_secure_storage/get_secure_storage.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
-FutureOr<void> main() async {
+import 'app/routes/app_pages.dart';
+
+Future<void> main() async {
   final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await GetSecureStorage.init(password: 'strongpassword');
   runApp(
-    ProviderScope(
-      child: AppStartupWidget(onLoaded: (context) => const KlikFilmApp()),
+    GetMaterialApp(
+      title: 'KlikFilm',
+      initialRoute: AppPages.INITIAL,
+      getPages: AppPages.routes,
+      initialBinding: InitialBindings(),
+      builder: (context, child) => ResponsiveBreakpoints.builder(
+        child: child!,
+        breakpoints: [
+          const Breakpoint(start: 0, end: 450, name: MOBILE),
+          const Breakpoint(start: 451, end: double.infinity, name: TABLET),
+        ],
+      ),
     ),
   );
 }

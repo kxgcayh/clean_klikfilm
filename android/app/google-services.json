@@ -23,6 +23,22 @@
           }
         },
         {
+          "client_id": "1037402011718-7gfn2i9u68pbnk9kafquk99eeh9s0g1j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.klikfilm.tv",
+            "certificate_hash": "8d22cd0da85b633d93a6d43bfb51eab02b7c32b9"
+          }
+        },
+        {
+          "client_id": "1037402011718-e9q85u4j23ebakp2n6ue6nkevmtf2mn9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.klikfilm.tv",
+            "certificate_hash": "170af6069e83610fd34b39b3eb06f33bc6db7855"
+          }
+        },
+        {
           "client_id": "1037402011718-edblqocr4a8fp4mq1rjoh0u2cghnad62.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -136,6 +152,14 @@
           "android_info": {
             "package_name": "net.klikfilm.app",
             "certificate_hash": "312a5d1ad7e465464f7f6d4f7f38ca1629a6a3a5"
+          }
+        },
+        {
+          "client_id": "1037402011718-ul7kvdmlfq15rh5ue8eaukr19v4tq8q8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.klikfilm.app",
+            "certificate_hash": "58baa28fc07f5ab3773f899f01b87640efb8e8cd"
           }
         },
         {

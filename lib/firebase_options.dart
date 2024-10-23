@@ -69,5 +69,4 @@ class DefaultFirebaseOptions {
     iosClientId: '1037402011718-8b1vu8crgjkk26dl4cb4nj7cfdph521c.apps.googleusercontent.com',
     iosBundleId: 'falcon.klifkfilm',
   );
-
 }
