@@ -4,6 +4,7 @@ import 'package:fl_klikfilm/app/data/app_colors.dart';
 import 'package:fl_klikfilm/app/data/app_shimmer.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/banner_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/categories_controller.dart';
+import 'package:fl_klikfilm/app/modules/home/controllers/continue_watching_category_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/hashtag_category_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/highlights_category_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/playlist_category_controller.dart';
@@ -282,42 +283,42 @@ class HomeView extends GetView<CategoriesController> {
                               );
                             },
                             continueWatching: (type, title) {
-                              return PanelCategoryHeader(
-                                title: title,
-                                index: parentIndex,
-                                child: PanelCategoryContents(parentIndex: parentIndex),
+                              return GetBuilder<ContinueWatchingCategoryController>(
+                                tag: '$type-$title',
+                                init: Get.put(ContinueWatchingCategoryController(), tag: '$type-$title'),
+                                builder: (controller) {
+                                  return controller.obx(
+                                    (continueWatches) {
+                                      if (continueWatches != null) {
+                                        return PanelCategoryHeader(
+                                          index: parentIndex,
+                                          title: title,
+                                          onTapMore: continueWatches.length > 3 ? () {} : null,
+                                          child: PanelCategoryContents(
+                                            parentIndex: parentIndex,
+                                            contents: continueWatches,
+                                            onTap: (content) {
+                                              // VideoRoute(
+                                              //   videoId: content.id,
+                                              //   subcategoryId: content.subcategory?.id,
+                                              // ).push(context);
+                                            },
+                                          ),
+                                        );
+                                      }
+                                      return PanelCategoryHeader(
+                                        title: title,
+                                        child: PanelCategoryContents(parentIndex: parentIndex),
+                                      );
+                                    },
+                                    onError: (error) => SizedBox.shrink(),
+                                    onLoading: PanelCategoryHeader(
+                                      title: title,
+                                      child: PanelCategoryContents(parentIndex: parentIndex),
+                                    ),
+                                  );
+                                },
                               );
-                              // final provider = ref.watch(continueWatchingProvider);
-                              // return provider.when(
-                              //   data: (continueWatching) {
-                              //     return continueWatching.data.isNotEmpty
-                              //         ? PanelCategoryHeader(
-                              //             index: parentIndex,
-                              //             title: title,
-                              //             onTapMore: continueWatching.data.length > 3
-                              //                 ? () {
-                              //                     klog.i('onTapMore: $type');
-                              //                   }
-                              //                 : null,
-                              //             child: PanelCategoryContents(
-                              //               parentIndex: parentIndex,
-                              //               contents: continueWatching.data,
-                              //               onTap: (content) {
-                              //                 VideoRoute(
-                              //                   videoId: content.id,
-                              //                   subcategoryId: content.subcategory?.id,
-                              //                 ).push(context);
-                              //               },
-                              //             ),
-                              //           )
-                              //         : SizedBox.shrink();
-                              //   },
-                              //   error: (error, stackTrace) => SizedBox.shrink(),
-                              //   loading: () => PanelCategoryHeader(
-                              //     title: title,
-                              //     child: PanelCategoryContents(parentIndex: parentIndex),
-                              //   ),
-                              // );
                             },
                           );
                         },
