@@ -4,6 +4,7 @@ import 'package:fl_klikfilm/app/data/app_colors.dart';
 import 'package:fl_klikfilm/app/data/app_shimmer.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/banner_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/categories_controller.dart';
+import 'package:fl_klikfilm/app/modules/home/controllers/hashtag_category_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/highlights_category_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/playlist_category_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/trending_category_controller.dart';
@@ -194,35 +195,32 @@ class HomeView extends GetView<CategoriesController> {
                               );
                             },
                             hashtag: (type, tag, title) {
-                              return PanelCategoryHeader(
-                                title: title,
-                                index: parentIndex,
-                                child: PanelCategoryContents(parentIndex: parentIndex),
+                              return GetBuilder<HashtagCategoryController>(
+                                tag: '$type-$title',
+                                init: Get.put(HashtagCategoryController(), tag: '$type-$title'),
+                                builder: (controller) {
+                                  return PanelCategoryHeader(
+                                    index: parentIndex,
+                                    title: title,
+                                    onTapMore: () {},
+                                    child: controller.obx(
+                                      (trending) {
+                                        return PanelCategoryContents(
+                                          parentIndex: parentIndex,
+                                          contents: trending ?? [],
+                                          onTap: (content) {
+                                            // VideoRoute(
+                                            //   videoId: content.id,
+                                            //   subcategoryId: content.subcategory?.id,
+                                            // ).push(context);
+                                          },
+                                        );
+                                      },
+                                      onLoading: PanelCategoryContents(parentIndex: parentIndex),
+                                    ),
+                                  );
+                                },
                               );
-                              // final provider = ref.watch(
-                              //   videoByHashtagProvider(VideoHashtagFamily(tag: tag)),
-                              // );
-                              // return PanelCategoryHeader(
-                              //   index: parentIndex,
-                              //   title: title,
-                              //   onTapMore: () {
-                              //     klog.i('onTapMore: $type');
-                              //   },
-                              //   child: provider.when(
-                              //     data: (hashtag) => PanelCategoryContents(
-                              //       parentIndex: parentIndex,
-                              //       contents: hashtag.data?.contents ?? [],
-                              //       onTap: (content) {
-                              //         VideoRoute(
-                              //           videoId: content.id,
-                              //           subcategoryId: content.subcategory?.id,
-                              //         ).push(context);
-                              //       },
-                              //     ),
-                              //     error: (error, stackTrace) => null,
-                              //     loading: () => PanelCategoryContents(parentIndex: parentIndex),
-                              //   ),
-                              // );
                             },
                             trending: (type, title) {
                               return GetBuilder<TrendingCategoryController>(
