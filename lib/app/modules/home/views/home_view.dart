@@ -5,6 +5,7 @@ import 'package:fl_klikfilm/app/data/app_shimmer.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/banner_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/categories_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/highlights_category_controller.dart';
+import 'package:fl_klikfilm/app/modules/home/controllers/playlist_category_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/views/home_categories_loading_view.dart';
 import 'package:fl_klikfilm/app/modules/home/views/panel_category_header_view.dart';
 import 'package:fl_klikfilm/app/views/views/app_image.dart';
@@ -154,10 +155,34 @@ class HomeView extends GetView<CategoriesController> {
                           final VideoHomeCategoryModel category = categories[parentIndex];
                           return category.when(
                             myList: (type, title) {
-                              return PanelCategoryHeader(
-                                title: title,
-                                index: parentIndex,
-                                child: PanelCategoryContents(parentIndex: parentIndex),
+                              return GetBuilder<PlaylistCategoryController>(
+                                tag: '$type-$title',
+                                init: Get.put(PlaylistCategoryController(), tag: '$type-$title'),
+                                builder: (controller) {
+                                  return controller.obx((playlist) {
+                                    if (playlist != null) {
+                                      return PanelCategoryHeader(
+                                        index: parentIndex,
+                                        title: title,
+                                        onTapMore: playlist.contents.length > 3 ? () {} : null,
+                                        child: PanelCategoryContents(
+                                          parentIndex: parentIndex,
+                                          contents: playlist.contents,
+                                          onTap: (content) {
+                                            // VideoRoute(
+                                            //   videoId: content.id,
+                                            //   subcategoryId: content.subcategory?.id,
+                                            // ).push(context);
+                                          },
+                                        ),
+                                      );
+                                    }
+                                    return PanelCategoryHeader(
+                                      title: title,
+                                      child: PanelCategoryContents(parentIndex: parentIndex),
+                                    );
+                                  });
+                                },
                               );
                               // final provider = ref.watch(playlistFutureProvider);
                               // return provider.when(
