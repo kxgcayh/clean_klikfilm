@@ -19,6 +19,7 @@ class AppPages {
       name: _Paths.HOME,
       page: () => const HomeView(),
       binding: HomeBinding(),
+      transition: Transition.noTransition,
     ),
     GetPage(
       name: _Paths.DRAWER_MENU,

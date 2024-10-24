@@ -1,6 +1,15 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/widgets.dart';
-import 'package:responsive_framework/responsive_framework.dart';
+
+extension ScrollControllerHelper on ScrollController {
+  double get minOffset => position.minScrollExtent;
+  double get maxOffset => position.maxScrollExtent;
+  bool get isOutOfRange => position.outOfRange;
+
+  bool get hasReachedTheEnd => offset >= maxOffset && !isOutOfRange;
+  bool get hasReachedTheStart => offset <= minOffset && !isOutOfRange;
+  bool get isScrolling => maxOffset > offset && minOffset < offset;
+}
 
 extension DeviceInfoHelper on BaseDeviceInfo {
   String getUserAgent() {
@@ -16,7 +25,7 @@ extension DeviceInfoHelper on BaseDeviceInfo {
   }
 }
 
-extension BuildContextExt on BuildContext {
-  bool get isMobile => ResponsiveBreakpoints.of(this).isMobile;
-  bool get isTablet => ResponsiveBreakpoints.of(this).isTablet;
-}
+// extension BuildContextExt on BuildContext {
+//   bool get isMobile => ResponsiveBreakpoints.of(this).isMobile;
+//   bool get isTablet => ResponsiveBreakpoints.of(this).isTablet;
+// }

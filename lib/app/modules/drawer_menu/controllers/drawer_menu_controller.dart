@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 
 class DrawerMenuController extends GetxController {
-  //TODO: Implement DrawerMenuController
+  final supportExpanded = false.obs;
+  final scrollController = ScrollController();
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +21,8 @@ class DrawerMenuController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void toggleSupport() {
+    supportExpanded.value = !supportExpanded.value;
+    klog.f(supportExpanded.value);
+  }
 }

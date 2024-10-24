@@ -22,6 +22,7 @@ Future<void> main() async {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       initialBinding: InitialBindings(),
+      theme: ThemeData(),
       builder: (context, child) => ResponsiveBreakpoints.builder(
         child: child!,
         breakpoints: [

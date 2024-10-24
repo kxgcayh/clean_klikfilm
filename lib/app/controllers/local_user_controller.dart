@@ -1,11 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:drm_info/drm_info.dart';
 import 'package:fl_klikfilm/app/data/application_helper.dart';
 import 'package:fl_klikfilm/app/data/third_party_provider.dart';
-
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_secure_storage/get_secure_storage.dart';
@@ -14,7 +11,6 @@ import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 class LocalUserController extends GetxService {
   final Rx<CommonUserData> common = CommonUserData().obs;
   final Rx<UserAuthData> authentication = UserAuthData().obs;
-  final RxBool canSurfaceView = true.obs;
 
   @override
   Future<void> onInit() async {
@@ -28,7 +24,7 @@ class LocalUserController extends GetxService {
 
     final ThirdPartyProvider thirdParty = Get.find<ThirdPartyProvider>();
     final network = await thirdParty.networkDetail();
-    common.value = common.value.copyWith(countryCode: network?.countryCode ?? 'USA');
+    common.value = common.value.copyWith(countryCode: network?.countryCode ?? 'ID');
 
     if (authentication.value.userId.isEmpty) {
       final deviceInfoPlugin = DeviceInfoPlugin();
@@ -48,24 +44,11 @@ class LocalUserController extends GetxService {
       }
     }
 
-    if (Platform.isAndroid) {
-      final DrmInfo drmInfoPlugin = DrmInfo();
-      final securityLevel = await drmInfoPlugin.getWidevineSecurityLevel();
-      canSurfaceView.value = securityLevel != 'L3';
-    }
-
     await secureStorage.write(PreferencesKey.AUTH_USER_KEY, jsonEncode(authentication.value.toJson()));
     await secureStorage.write(PreferencesKey.COMMON_USER, jsonEncode(common.value.toJson()));
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  bool get isIndonesia => common.value.countryCode == 'ID';
+  bool get isLogin => !authentication.value.authenticationType.isGuest;
 }
