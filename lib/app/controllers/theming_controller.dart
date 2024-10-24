@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:drm_info/drm_info.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 
 class ThemingController extends GetxController {
@@ -33,13 +35,5 @@ class ThemingController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  Color get backgroundColor => HexColor(data.value.general.background.color);
 }

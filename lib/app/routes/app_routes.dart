@@ -8,6 +8,7 @@ abstract class Routes {
   static const MENU = _Paths.MENU;
   static const DRAWER_MENU = _Paths.DRAWER_MENU;
   static const SEARCH = _Paths.SEARCH;
+  static const AUTHENTICATION = _Paths.AUTHENTICATION;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const MENU = '/menu';
   static const DRAWER_MENU = '/drawer-menu';
   static const SEARCH = '/search';
+  static const AUTHENTICATION = '/authentication';
 }

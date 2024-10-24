@@ -60,20 +60,22 @@ class KfAppBar extends GetView<ThemingController> implements PreferredSizeWidget
           );
         },
       ),
-      leading: IconButton(
-        onPressed: () {
-          if (Get.routing.current != Routes.HOME) {
-            Get.back();
-          } else {
-            Get.toNamed(Routes.DRAWER_MENU);
-          }
-        },
-        icon: Icon(
-          Get.routing.current != Routes.HOME ? Icons.arrow_back_ios_new_rounded : Icons.menu_rounded,
-          color: HexColor(controller.data.value.general.icon.color),
-          size: 24,
-        ),
-      ),
+      leading: Builder(builder: (context) {
+        return IconButton(
+          onPressed: () {
+            if (Get.routing.current != Routes.HOME) {
+              Get.back();
+            } else {
+              Get.toNamed(Routes.DRAWER_MENU);
+            }
+          },
+          icon: Icon(
+            Get.routing.current != Routes.HOME ? Icons.arrow_back_ios_new_rounded : Icons.menu_rounded,
+            color: HexColor(controller.data.value.general.icon.color),
+            size: 24,
+          ),
+        );
+      }),
       actions: [
         if (Get.routing.current == Routes.HOME)
           IconButton(

@@ -7,6 +7,7 @@ import 'package:fl_klikfilm/app/data/application_helper.dart';
 import 'package:fl_klikfilm/app/modules/drawer_menu/controllers/drawer_event_menu_controller.dart';
 import 'package:fl_klikfilm/app/modules/drawer_menu/controllers/drawer_menu_controller.dart';
 import 'package:fl_klikfilm/app/modules/drawer_menu/views/drawer_tile_view.dart';
+import 'package:fl_klikfilm/app/routes/app_pages.dart';
 import 'package:fl_klikfilm/app/views/views/kf_app_bar_view.dart';
 import 'package:fl_klikfilm/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
@@ -270,7 +271,13 @@ class DrawerMenuView extends GetView<DrawerMenuController> {
               ),
             ),
             DrawerTileView(
-              onTap: () {},
+              onTap: () {
+                if (local.isLogin) {
+                  // todo: logout
+                } else {
+                  Get.toNamed(Routes.AUTHENTICATION);
+                }
+              },
               leading: Assets.icons.logout.svg(
                 colorFilter: ColorFilter.mode(HexColor(theme.data.value.general.icon.color), BlendMode.srcIn),
               ),
