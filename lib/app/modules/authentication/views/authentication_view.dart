@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fl_klikfilm/app/controllers/theming_controller.dart';
+import 'package:fl_klikfilm/app/routes/app_pages.dart';
 import 'package:fl_klikfilm/app/views/views/app_button_view.dart';
 import 'package:fl_klikfilm/app/views/views/kf_app_bar_view.dart';
 import 'package:fl_klikfilm/gen/assets.gen.dart';
@@ -94,7 +95,7 @@ class AuthenticationView extends GetView<AuthenticationController> {
                     ),
                   ),
                 ),
-                onTap: () {},
+                onTap: () => Get.toNamed(Routes.LOGIN_BY_MAIL),
               ),
             ),
             Padding(

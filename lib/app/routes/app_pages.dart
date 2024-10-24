@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 
 import '../modules/authentication/bindings/authentication_binding.dart';
+import '../modules/authentication/login_by_mail/bindings/login_by_mail_binding.dart';
+import '../modules/authentication/login_by_mail/views/login_by_mail_view.dart';
 import '../modules/authentication/views/authentication_view.dart';
 import '../modules/drawer_menu/bindings/drawer_menu_binding.dart';
 import '../modules/drawer_menu/views/drawer_menu_view.dart';
@@ -39,6 +41,13 @@ class AppPages {
       page: () => const AuthenticationView(),
       binding: AuthenticationBinding(),
       transition: Transition.fadeIn,
+      children: [
+        GetPage(
+          name: _Paths.LOGIN_BY_MAIL,
+          page: () => const LoginByMailView(),
+          binding: LoginByMailBinding(),
+        ),
+      ],
     ),
   ];
 }
