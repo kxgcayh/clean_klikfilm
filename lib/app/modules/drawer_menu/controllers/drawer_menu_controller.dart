@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:klikfilm_dart_resources/klikfilm_dart_resources.dart';
 
 class DrawerMenuController extends GetxController {
   final supportExpanded = false.obs;
@@ -23,6 +22,5 @@ class DrawerMenuController extends GetxController {
 
   void toggleSupport() {
     supportExpanded.value = !supportExpanded.value;
-    klog.f(supportExpanded.value);
   }
 }

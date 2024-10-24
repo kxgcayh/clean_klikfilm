@@ -47,6 +47,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/arcade.svg
   SvgGenImage get arcade => const SvgGenImage('assets/icons/arcade.svg');
 
+  /// File path: assets/icons/download.svg
+  SvgGenImage get download => const SvgGenImage('assets/icons/download.svg');
+
   /// File path: assets/icons/email.svg
   SvgGenImage get email => const SvgGenImage('assets/icons/email.svg');
 
@@ -61,6 +64,10 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/logout.svg
   SvgGenImage get logout => const SvgGenImage('assets/icons/logout.svg');
+
+  /// File path: assets/icons/movie-ticket.svg
+  SvgGenImage get movieTicket =>
+      const SvgGenImage('assets/icons/movie-ticket.svg');
 
   /// File path: assets/icons/phone.svg
   SvgGenImage get phone => const SvgGenImage('assets/icons/phone.svg');
@@ -85,11 +92,13 @@ class $AssetsIconsGen {
         account,
         apple,
         arcade,
+        download,
         email,
         google,
         home,
         kids,
         logout,
+        movieTicket,
         phone,
         points,
         rewards,
@@ -184,7 +193,7 @@ class AssetGenImage {
     ImageRepeat repeat = ImageRepeat.noRepeat,
     Rect? centerSlice,
     bool matchTextDirection = false,
-    bool gaplessPlayback = false,
+    bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
     FilterQuality filterQuality = FilterQuality.low,

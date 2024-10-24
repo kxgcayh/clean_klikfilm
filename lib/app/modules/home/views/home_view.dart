@@ -10,6 +10,7 @@ import 'package:fl_klikfilm/app/modules/home/controllers/highlights_category_con
 import 'package:fl_klikfilm/app/modules/home/controllers/playlist_category_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/controllers/trending_category_controller.dart';
 import 'package:fl_klikfilm/app/modules/home/views/home_categories_loading_view.dart';
+import 'package:fl_klikfilm/app/modules/home/views/panel_category_content_view.dart';
 import 'package:fl_klikfilm/app/modules/home/views/panel_category_header_view.dart';
 import 'package:fl_klikfilm/app/views/views/app_image.dart';
 import 'package:fl_klikfilm/app/views/views/kf_app_bar_view.dart';
