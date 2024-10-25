@@ -13,6 +13,9 @@ abstract class Routes {
   static const REGISTER = _Paths.AUTHENTICATION + _Paths.REGISTER;
   static const LOGIN_BY_PHONE = _Paths.AUTHENTICATION + _Paths.LOGIN_BY_PHONE;
   static const FORGOT_PASSWORD = _Paths.AUTHENTICATION + _Paths.FORGOT_PASSWORD;
+  static const PASSWORD_VERIFICATION = _Paths.AUTHENTICATION +
+      _Paths.FORGOT_PASSWORD +
+      _Paths.PASSWORD_VERIFICATION;
 }
 
 abstract class _Paths {
@@ -27,4 +30,5 @@ abstract class _Paths {
   static const REGISTER = '/register';
   static const LOGIN_BY_PHONE = '/login-by-phone';
   static const FORGOT_PASSWORD = '/forgot-password';
+  static const PASSWORD_VERIFICATION = '/password-verification';
 }

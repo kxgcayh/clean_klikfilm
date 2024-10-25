@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fl_klikfilm/app/controllers/theming_controller.dart';
+import 'package:fl_klikfilm/app/routes/app_pages.dart';
 import 'package:fl_klikfilm/app/views/views/app_button_view.dart';
 import 'package:fl_klikfilm/app/views/views/app_text_field_view.dart';
 import 'package:fl_klikfilm/app/views/views/kf_app_bar_view.dart';
@@ -19,7 +20,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
       backgroundColor: theme.backgroundColor,
       appBar: KfAppBar(),
       body: Form(
-        key: controller.formKey,
+        key: controller.formKey.value,
         child: SingleChildScrollView(
           child: Stack(
             children: [
@@ -49,8 +50,8 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                             'Forgot Password',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w500,
+                              fontSize: 28,
+                              fontWeight: FontWeight.w800,
                               color: theme.primaryText,
                             ),
                           ),
@@ -83,7 +84,8 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                           text: 'Send Verification Code',
                           width: double.infinity,
                           onTap: () {
-                            if (controller.formKey.currentState?.validate() ?? false) {
+                            Get.toNamed(Routes.PASSWORD_VERIFICATION);
+                            if (controller.formKey.value.currentState?.validate() ?? false) {
                               //
                             }
                           },

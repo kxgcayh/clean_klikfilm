@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginByPhoneController extends GetxController {
-  final formKey = GlobalKey<FormState>().obs;
-  final phoneController = TextEditingController();
+class PasswordVerificationController extends GetxController {
+  //TODO: Implement PasswordVerificationController
 
+  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,4 +18,6 @@ class LoginByPhoneController extends GetxController {
   void onClose() {
     super.onClose();
   }
+
+  void increment() => count.value++;
 }

@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/authentication/bindings/authentication_binding.dart';
 import '../modules/authentication/forgot_password/bindings/forgot_password_binding.dart';
+import '../modules/authentication/forgot_password/password_verification/bindings/password_verification_binding.dart';
+import '../modules/authentication/forgot_password/password_verification/views/password_verification_view.dart';
 import '../modules/authentication/forgot_password/views/forgot_password_view.dart';
 import '../modules/authentication/login_by_mail/bindings/login_by_mail_binding.dart';
 import '../modules/authentication/login_by_mail/views/login_by_mail_view.dart';
@@ -67,6 +69,13 @@ class AppPages {
           name: _Paths.FORGOT_PASSWORD,
           page: () => const ForgotPasswordView(),
           binding: ForgotPasswordBinding(),
+          children: [
+            GetPage(
+              name: _Paths.PASSWORD_VERIFICATION,
+              page: () => const PasswordVerificationView(),
+              binding: PasswordVerificationBinding(),
+            ),
+          ],
         ),
       ],
     ),
