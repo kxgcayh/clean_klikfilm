@@ -1,9 +1,11 @@
+import 'package:fl_klikfilm/app/controllers/theming_controller.dart';
 import 'package:fl_klikfilm/app/data/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:recase/recase.dart';
+import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 
-class AppTextField extends StatelessWidget {
+class AppTextField extends GetView {
   final String label;
   final bool showLabel;
   final String? hintText;
@@ -35,6 +37,7 @@ class AppTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Get.find<ThemingController>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -43,12 +46,15 @@ class AppTextField extends StatelessWidget {
             padding: EdgeInsets.only(left: 10, right: 10, bottom: 8),
             child: Text(
               label,
-              style: TextStyle(fontSize: 16, color: AppColors.silverSand),
+              style: TextStyle(
+                fontSize: 16,
+                color: HexColor(theme.data.value.general.text.primary),
+              ),
             ),
           ),
         FormBuilderTextField(
           key: formKey,
-          name: label.camelCase,
+          name: label.camelCase ?? '',
           controller: controller,
           keyboardType: keyboardType,
           textAlign: alignCenter ? TextAlign.center : TextAlign.start,
@@ -62,15 +68,34 @@ class AppTextField extends StatelessWidget {
             contentPadding: EdgeInsets.fromLTRB(16, prefixIcon != null ? 12 : 14, 16, 14),
             hintStyle: hintStyle ?? TextStyle(fontSize: 16, color: AppColors.silverSand),
             alignLabelWithHint: true,
-            fillColor: Colors.white,
+            fillColor: HexColor(theme.data.value.textbox.general.background.color),
             floatingLabelBehavior: FloatingLabelBehavior.never,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.white, width: 0.5),
+              borderSide: BorderSide(
+                color: theme.data.value.textbox.general.outline.isNotEmpty
+                    ? HexColor(theme.data.value.textbox.general.outline)
+                    : Colors.transparent,
+                width: 0.5,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                color: theme.data.value.textbox.general.outline.isNotEmpty
+                    ? HexColor(theme.data.value.textbox.general.outline)
+                    : Colors.transparent,
+                width: 0.5,
+              ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.white, width: 0.5),
+              borderSide: BorderSide(
+                color: theme.data.value.textbox.general.outline.isNotEmpty
+                    ? HexColor(theme.data.value.textbox.general.outline)
+                    : Colors.transparent,
+                width: 0.5,
+              ),
             ),
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,

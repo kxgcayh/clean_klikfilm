@@ -63,7 +63,10 @@ class AppImage extends StatelessWidget {
           Positioned.fill(
             child: Material(
               color: Colors.transparent,
-              child: InkWell(splashColor: AppColors.red.withOpacity(0.15), onTap: onTap),
+              child: InkWell(
+                splashColor: AppColors.red.withOpacity(0.15),
+                onTap: onTap,
+              ),
             ),
           ),
       ],

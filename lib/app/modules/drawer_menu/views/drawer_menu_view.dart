@@ -22,20 +22,21 @@ class DrawerMenuView extends GetView<DrawerMenuController> {
     final local = Get.find<LocalUserController>();
     final theme = Get.find<ThemingController>();
 
-    return Scaffold(
-      appBar: KfAppBar(fillBackground: false),
-      backgroundColor: HexColor(theme.data.value.general.background.color),
-      body: Container(
-        width: double.infinity,
-        height: context.height,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: CachedNetworkImageProvider(theme.data.value.pattern.bottom),
-            repeat: context.isTablet ? ImageRepeat.repeatX : ImageRepeat.noRepeat,
-            fit: context.isTablet ? BoxFit.fitHeight : BoxFit.fill,
-          ),
+    return Container(
+      width: double.infinity,
+      height: context.height,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: CachedNetworkImageProvider(theme.data.value.pattern.full),
+          repeat: context.isTablet ? ImageRepeat.repeatX : ImageRepeat.noRepeat,
+          fit: context.isTablet ? BoxFit.fitHeight : BoxFit.fill,
         ),
-        child: Column(
+      ),
+      child: Scaffold(
+        appBar: KfAppBar(fillBackground: false),
+        backgroundColor: Colors.transparent,
+        resizeToAvoidBottomInset: false,
+        body: Column(
           children: [
             Expanded(
               child: SingleChildScrollView(

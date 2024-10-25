@@ -23,8 +23,7 @@ class KfAppBar extends GetView<ThemingController> implements PreferredSizeWidget
 
     return AppBar(
       elevation: elevation,
-      backgroundColor:
-          fillBackground ? HexColor('${controller.data.value.general.background.color}') : Colors.transparent,
+      backgroundColor: fillBackground ? controller.backgroundColor : Colors.transparent,
       surfaceTintColor: Colors.transparent,
       title: Builder(builder: (context) {
         if (title != null) {

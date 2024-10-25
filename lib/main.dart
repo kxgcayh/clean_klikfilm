@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:fl_klikfilm/app/bindings/initial_bindings.dart';
+import 'package:fl_klikfilm/app/data/app_colors.dart';
+import 'package:fl_klikfilm/gen/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
@@ -22,7 +24,10 @@ Future<void> main() async {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       initialBinding: InitialBindings(),
-      theme: ThemeData(),
+      theme: ThemeData(
+        fontFamily: FontFamily.nunito,
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
+      ),
       builder: (context, child) => ResponsiveBreakpoints.builder(
         child: child!,
         breakpoints: [
