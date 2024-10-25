@@ -36,4 +36,5 @@ class ThemingController extends GetxController {
   }
 
   Color get backgroundColor => HexColor(data.value.general.background.color);
+  Color get primaryText => HexColor(data.value.general.text.primary);
 }

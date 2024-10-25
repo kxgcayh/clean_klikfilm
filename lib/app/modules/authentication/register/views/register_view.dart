@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fl_klikfilm/app/controllers/theming_controller.dart';
 import 'package:fl_klikfilm/app/data/app_colors.dart';
-import 'package:fl_klikfilm/app/routes/app_pages.dart';
+import 'package:fl_klikfilm/app/modules/authentication/register/controllers/register_controller.dart';
 import 'package:fl_klikfilm/app/views/views/app_button_type.dart';
 import 'package:fl_klikfilm/app/views/views/app_button_view.dart';
 import 'package:fl_klikfilm/app/views/views/app_text_field_view.dart';
@@ -10,10 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 
-import '../controllers/login_by_mail_controller.dart';
-
-class LoginByMailView extends GetView<LoginByMailController> {
-  const LoginByMailView({super.key});
+class RegisterView extends GetView<RegisterController> {
+  const RegisterView({super.key});
   @override
   Widget build(BuildContext context) {
     final theme = Get.find<ThemingController>();
@@ -47,7 +45,7 @@ class LoginByMailView extends GetView<LoginByMailController> {
                     SizedBox(height: MediaQuery.of(context).size.height / 7),
                     Center(
                       child: Text(
-                        'Login with Email',
+                        'Register KlikFilm Account',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 22,
@@ -112,52 +110,28 @@ class LoginByMailView extends GetView<LoginByMailController> {
                         ),
                         SizedBox(height: 28),
                         AppButton(
-                          text: 'Login',
+                          text: 'Register',
                           width: double.infinity,
                           onTap: () {
                             if (controller.formKey.value.currentState?.validate() ?? false) {
-                              // final authentication = ref.read(authenticationProvider);
-                              // await authentication.loginByEmail(
-                              //   ManualAuthFamily(
-                              //     email: emailController.text,
-                              //     password: passwordController.text,
-                              //   ),
-                              //   onValue: (result) async {
-                              //     if (result.success) {
-                              //       await ref.read(categoriesAsyncNotifier.notifier).forceRefresh().then((_) {
-                              //         return HomeRoute().go(context);
-                              //       });
-                              //     } else {
-                              //       await showDialog(
-                              //         context: context,
-                              //         barrierDismissible: true,
-                              //         useRootNavigator: false,
-                              //         builder: (BuildContext context) {
-                              //           return KfAnimationDialog(
-                              //             title: 'Login Failed',
-                              //             message: result.desc ?? 'Something went wrong',
-                              //             lottieAsset: Assets.animations.failBouncy,
-                              //           );
-                              //         },
-                              //       );
-                              //     }
-                              //   },
-                              // );
+                              //
                             }
                           },
                         ),
                       ],
                     ),
                     SizedBox(height: 32),
-                    AppButton(
-                      text: 'Register',
-                      onTap: () => Get.toNamed(Routes.REGISTER),
-                      buttonType: AppButtonType.link,
+                    Text(
+                      'Sudah punya akun?',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: theme.primaryText,
+                      ),
                     ),
                     SizedBox(height: 8),
                     AppButton(
-                      text: 'Forgot Password',
-                      onTap: () => Get.toNamed(Routes.FORGOT_PASSWORD),
+                      text: 'Login di sini',
+                      onTap: () => Get.back(),
                       buttonType: AppButtonType.link,
                     ),
                   ],

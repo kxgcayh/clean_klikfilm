@@ -1,8 +1,14 @@
 import 'package:get/get.dart';
 
 import '../modules/authentication/bindings/authentication_binding.dart';
+import '../modules/authentication/forgot_password/bindings/forgot_password_binding.dart';
+import '../modules/authentication/forgot_password/views/forgot_password_view.dart';
 import '../modules/authentication/login_by_mail/bindings/login_by_mail_binding.dart';
 import '../modules/authentication/login_by_mail/views/login_by_mail_view.dart';
+import '../modules/authentication/login_by_phone/bindings/login_by_phone_binding.dart';
+import '../modules/authentication/login_by_phone/views/login_by_phone_view.dart';
+import '../modules/authentication/register/bindings/register_binding.dart';
+import '../modules/authentication/register/views/register_view.dart';
 import '../modules/authentication/views/authentication_view.dart';
 import '../modules/drawer_menu/bindings/drawer_menu_binding.dart';
 import '../modules/drawer_menu/views/drawer_menu_view.dart';
@@ -46,6 +52,21 @@ class AppPages {
           name: _Paths.LOGIN_BY_MAIL,
           page: () => const LoginByMailView(),
           binding: LoginByMailBinding(),
+        ),
+        GetPage(
+          name: _Paths.REGISTER,
+          page: () => const RegisterView(),
+          binding: RegisterBinding(),
+        ),
+        GetPage(
+          name: _Paths.LOGIN_BY_PHONE,
+          page: () => const LoginByPhoneView(),
+          binding: LoginByPhoneBinding(),
+        ),
+        GetPage(
+          name: _Paths.FORGOT_PASSWORD,
+          page: () => const ForgotPasswordView(),
+          binding: ForgotPasswordBinding(),
         ),
       ],
     ),

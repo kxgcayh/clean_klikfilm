@@ -75,6 +75,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/points.svg
   SvgGenImage get points => const SvgGenImage('assets/icons/points.svg');
 
+  /// File path: assets/icons/prefix_indo.svg
+  SvgGenImage get prefixIndo =>
+      const SvgGenImage('assets/icons/prefix_indo.svg');
+
   /// File path: assets/icons/rewards.svg
   SvgGenImage get rewards => const SvgGenImage('assets/icons/rewards.svg');
 
@@ -101,6 +105,7 @@ class $AssetsIconsGen {
         movieTicket,
         phone,
         points,
+        prefixIndo,
         rewards,
         search,
         support,

@@ -17,6 +17,7 @@ class AppButton extends GetView {
   final AppButtonType buttonType;
   final EdgeInsets? contentPadding;
   final bool enabled;
+  final Color? color;
 
   const AppButton({
     super.key,
@@ -31,6 +32,7 @@ class AppButton extends GetView {
     this.buttonType = AppButtonType.regular,
     this.contentPadding,
     this.enabled = true,
+    this.color,
   });
 
   @override
@@ -92,13 +94,14 @@ class AppButton extends GetView {
                   fontWeight: buttonType.isRegular ? FontWeight.w500 : FontWeight.w700,
                   fontSize: fontSize ?? 18,
                   fontFamily: fontFamily ?? FontFamily.nunito,
-                  color: HexColor(
-                    buttonType.isRegular
-                        ? theme.data.value.buttons.login.text
-                        : buttonType.isDetail
-                            ? theme.data.value.buttons.detail.text
-                            : theme.data.value.login.email.link,
-                  ),
+                  color: color ??
+                      HexColor(
+                        buttonType.isRegular
+                            ? theme.data.value.buttons.login.text
+                            : buttonType.isDetail
+                                ? theme.data.value.buttons.detail.text
+                                : theme.data.value.login.email.link,
+                      ),
                 ),
               ),
             ],

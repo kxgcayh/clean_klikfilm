@@ -116,7 +116,7 @@ class AuthenticationView extends GetView<AuthenticationController> {
                     ),
                   ),
                 ),
-                onTap: () {},
+                onTap: () => Get.toNamed(Routes.LOGIN_BY_PHONE),
               ),
             ),
           ],
